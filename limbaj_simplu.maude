@@ -15,8 +15,8 @@ mod LIMBAJ-SIMPLU is
 	op lookup : Store Id -> Int .
 	op update : Store Id Int -> Store .
 
-	op _~>_ : AExp Code -> Code [ctor prec 50].
-	op _~>_ : BExp Code -> Code	[ctor prec 50].
+	op _~>_ : AExp Code -> Code [ctor].
+	op _~>_ : BExp Code -> Code	[ctor].
 
 	op _plus_ : AExp AExp -> AExp [ctor prec 20] .
 	op _times_ : AExp AExp -> AExp [ctor prec 10] .
@@ -24,8 +24,8 @@ mod LIMBAJ-SIMPLU is
 
 	ops x y z : -> Id [ctor] .
 
-	op <_,_> : Code Store -> Cfg [ctor prec 51] .
-	op <_,_> : BExp Store -> Cfg [ctor prec 51] .
+	op <_,_> : Code Store -> Cfg [ctor] .
+	op <_,_> : BExp Store -> Cfg [ctor] .
 
 	--- Now begin the boolean expressions
 	op _ge_ : AExp AExp -> BExp [prec 29].
@@ -38,13 +38,21 @@ mod LIMBAJ-SIMPLU is
 	op _||_ : BExp BExp -> BExp [gather (E e)] .
 	op !_ : BExp -> BExp [prec 30].
 
+	--- Statement related operators
+
+	op _<-_ : Id AExp -> Id .
+	op _~>_ : Code Code -> Code [ctor] .
+	op {_} : Code -> Code [ctor] .
+	op if_then_else_ : BExp Code Code -> Code .
+	op while__ : BExp Code -> Code [ctor] .
+	op halt_ :  AExp -> Code [ctor] .
 
 
 	var STORE STORE1 STORE2 : Store .
 	var I J : Int .
 	var b1 b2 : Bool .
 	var X : Id .  
-	var C : Code .
+	var C C1 C2 : Code .
 	var E E1 E2 : AExp .
 	var B1 B2 : BExp .
 
@@ -105,5 +113,18 @@ mod LIMBAJ-SIMPLU is
 
 	crl [logicalNot] : < !(B1) ~> C, STORE > => < (not b1) ~> C, STORE1 > if
 							< B1 ~> C, STORE > => < b1 ~> C , STORE1 > .
-			
-endm    
+
+	crl [ifThen] : < (if B1 then C1 else C2) ~> C, STORE > => < C1 ~> C, STORE1 > if 
+							< B1 ~> C, STORE > => < true ~> C, STORE1 > .
+	crl [ifElse] : < (if B1 then C1 else C2) ~> C, STORE > => < C2 ~> C , STORE1 > if
+							< B1 ~> C, STORE > => < false ~> C, STORE1 > .
+
+	--- Conditie de oprire
+	crl [whileDo] : < (while B1 C1) ~> C , STORE > => < C, STORE1 > if
+						< B1 ~> C, STORE > => < false ~> C, STORE1>  
+
+	crl [assignement] :  < (X <- E) ~> C, STORE > => < C, STORE2 > if 
+							< E ~> C, STORE > => < I ~> C, STORE1> /\
+							STORE1 = update(STORE1,X,I) 
+
+endm 

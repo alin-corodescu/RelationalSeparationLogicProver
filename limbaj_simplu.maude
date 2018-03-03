@@ -15,8 +15,8 @@ mod LIMBAJ-SIMPLU is
 	op lookup : Store Id -> Int .
 	op update : Store Id Int -> Store .
 
-	op _~>_ : AExp Code -> Code .
-	op _~>_ : BExp Code -> Code	.
+	op _~>_ : AExp Code -> Code [ctor prec 50].
+	op _~>_ : BExp Code -> Code	[ctor prec 50].
 
 	op _plus_ : AExp AExp -> AExp [ctor prec 20] .
 	op _times_ : AExp AExp -> AExp [ctor prec 10] .
@@ -24,18 +24,19 @@ mod LIMBAJ-SIMPLU is
 
 	ops x y z : -> Id [ctor] .
 
-	op <_,_> : Code Store -> Cfg [ctor] .
-	op <_,_> : BExp Store -> Cfg [ctor] .
+	op <_,_> : Code Store -> Cfg [ctor prec 51] .
+	op <_,_> : BExp Store -> Cfg [ctor prec 51] .
 
 	--- Now begin the boolean expressions
-	op _ge_ : AExp AExp -> BExp .
-	op _le_ : AExp AExp -> BExp .
-	op _eq_ : AExp AExp -> BExp .
+	op _ge_ : AExp AExp -> BExp [prec 29].
+	op _le_ : AExp AExp -> BExp [prec 29].
+	op _eq_ : AExp AExp -> BExp [prec 29].
 
 
-	op _&&_ : BExp BExp -> BExp .
-	op _||_ : BExp BExp -> BExp .
-	op !_ : BExp -> BExp .
+	--- Come up with better precedence values 
+	op _&&_ : BExp BExp -> BExp [gather (E e)] .
+	op _||_ : BExp BExp -> BExp [gather (E e)] .
+	op !_ : BExp -> BExp [prec 30].
 
 
 
@@ -60,21 +61,24 @@ mod LIMBAJ-SIMPLU is
 	eq lookup(update(STORE, z, I), z) = I .
 	eq lookup(update(STORE, z, I), y) = lookup(STORE,y) .
 	eq lookup(update(STORE, z, I), x) = lookup(STORE,x) .
- 
 
+---	eq !(true) = false .
+----	eq !(false) = true .
+	--- Do we really need to include this heating / cooling of the variable?
 	rl [rule1] : < X plus E ~> C, STORE > => < X ~> hole plus E ~> C, STORE > .
 
 	rl [rule2] : < (E1 plus E2) plus E ~> C, STORE > => < (E1 plus E2) ~> hole plus E ~> C, STORE > .
 	rl [rule3] : < (E1 times E2) plus E ~> C, STORE > => < (E1 times E2) ~> hole plus E ~> C, STORE > .
 
 	rl [rule4] : < I ~> hole plus E ~> C, STORE > => < I plus E ~> C, STORE > .
-	rl [rule5] : < I ~> J plus hole ~> C, STORE > => < I + J ~> C, STORE > .
 	rl [rule6] : < X ~> C, STORE > => < lookup(STORE, X) ~> C, STORE > .
 
 	rl [rule7] : < J plus X ~> C, STORE > => < X ~> J plus hole ~> C, STORE > .
 	rl [rule7] : < J plus (E1 plus E2) ~> C, STORE > => < (E1 plus E2) ~> J plus hole ~> C, STORE > .
 
 	rl [rule8] : < J plus (E1 times E2) ~> C, STORE > => <(E1 times E2) ~> J plus hole ~> C, STORE > .
+
+	rl [rule5] : < I ~> J plus hole ~> C, STORE > => < I + J ~> C, STORE > .
 	rl [rule9] : < J plus I ~> C, STORE > => < J + I ~> C, STORE > .
 
 
@@ -90,8 +94,16 @@ mod LIMBAJ-SIMPLU is
 							< E1 ~> C, STORE > => < I ~> C , STORE1 > /\ 
 							< E2 ~> C, STORE1 > => < J ~> C , STORE2 > .
 	
-	crl [logicalAnd] : < B1 && B2 ~> C, STORE > => < b1 and b2 ~> C, STORE2 > if
+	crl [logicalAnd] : < B1 && B2 ~> C, STORE > => < (b1 and b2) ~> C, STORE2 > if
 							< B1 ~> C, STORE > => < b1 ~> C, STORE1 > /\
-							< B2 ~> C, STORE1 > => < b2 ~> C, STORE2 > .				
+							< B2 ~> C, STORE1 > => < b2 ~> C, STORE2 > .
 
+
+	crl [logicalOr] : < B1 || B2 ~> C, STORE > => < (b1 or b2) ~> C, STORE2 > if
+							< B1 ~> C, STORE > => < b1 ~> C, STORE1 > /\
+							< B2 ~> C, STORE1 > => < b2 ~> C, STORE2 > .
+
+	crl [logicalNot] : < !(B1) ~> C, STORE > => < (not b1) ~> C, STORE1 > if
+							< B1 ~> C, STORE > => < b1 ~> C , STORE1 > .
+			
 endm    

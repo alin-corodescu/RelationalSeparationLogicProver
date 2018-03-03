@@ -1,0 +1,97 @@
+mod LIMBAJ-SIMPLU is
+	including INT .
+	including BOOL .
+	sorts AExp BExp Stmt Pgm .
+	sorts Id .
+	sort Store .
+	sort Cfg .
+	sort Code .
+
+	subsorts Id Int < AExp .
+	subsorts Bool < BExp .
+	op empty : -> Store [ctor] .
+	op skip : -> Code [ctor] .
+
+	op lookup : Store Id -> Int .
+	op update : Store Id Int -> Store .
+
+	op _~>_ : AExp Code -> Code .
+	op _~>_ : BExp Code -> Code	.
+
+	op _plus_ : AExp AExp -> AExp [ctor prec 20] .
+	op _times_ : AExp AExp -> AExp [ctor prec 10] .
+	op hole : -> AExp [ctor] .
+
+	ops x y z : -> Id [ctor] .
+
+	op <_,_> : Code Store -> Cfg [ctor] .
+	op <_,_> : BExp Store -> Cfg [ctor] .
+
+	--- Now begin the boolean expressions
+	op _ge_ : AExp AExp -> BExp .
+	op _le_ : AExp AExp -> BExp .
+	op _eq_ : AExp AExp -> BExp .
+
+
+	op _&&_ : BExp BExp -> BExp .
+	op _||_ : BExp BExp -> BExp .
+	op !_ : BExp -> BExp .
+
+
+
+	var STORE STORE1 STORE2 : Store .
+	var I J : Int .
+	var b1 b2 : Bool .
+	var X : Id .  
+	var C : Code .
+	var E E1 E2 : AExp .
+	var B1 B2 : BExp .
+
+	--- Maybe switch from something else besides 0
+	eq lookup(empty,X) = 0 .
+	eq lookup(update(STORE, x, I), x) = I .
+	eq lookup(update(STORE, x, I), y) = lookup(STORE,y) .
+	eq lookup(update(STORE, x, I), z) = lookup(STORE,z) .  
+
+	eq lookup(update(STORE, y, I), y) = I .
+	eq lookup(update(STORE, y, I), x) = lookup(STORE,x) .
+	eq lookup(update(STORE, y, I), z) = lookup(STORE,z) .
+
+	eq lookup(update(STORE, z, I), z) = I .
+	eq lookup(update(STORE, z, I), y) = lookup(STORE,y) .
+	eq lookup(update(STORE, z, I), x) = lookup(STORE,x) .
+ 
+
+	rl [rule1] : < X plus E ~> C, STORE > => < X ~> hole plus E ~> C, STORE > .
+
+	rl [rule2] : < (E1 plus E2) plus E ~> C, STORE > => < (E1 plus E2) ~> hole plus E ~> C, STORE > .
+	rl [rule3] : < (E1 times E2) plus E ~> C, STORE > => < (E1 times E2) ~> hole plus E ~> C, STORE > .
+
+	rl [rule4] : < I ~> hole plus E ~> C, STORE > => < I plus E ~> C, STORE > .
+	rl [rule5] : < I ~> J plus hole ~> C, STORE > => < I + J ~> C, STORE > .
+	rl [rule6] : < X ~> C, STORE > => < lookup(STORE, X) ~> C, STORE > .
+
+	rl [rule7] : < J plus X ~> C, STORE > => < X ~> J plus hole ~> C, STORE > .
+	rl [rule7] : < J plus (E1 plus E2) ~> C, STORE > => < (E1 plus E2) ~> J plus hole ~> C, STORE > .
+
+	rl [rule8] : < J plus (E1 times E2) ~> C, STORE > => <(E1 times E2) ~> J plus hole ~> C, STORE > .
+	rl [rule9] : < J plus I ~> C, STORE > => < J + I ~> C, STORE > .
+
+
+	crl [greaterThan] : < E1 ge E2 ~> C , STORE > => < I >= J ~> C , STORE2 > if
+						< E1 ~> C , STORE > => < I ~> C, STORE1 > /\ 
+						< E2 ~> C, STORE1 > => < J ~> C, STORE2 > .
+
+	crl [lowerThan] : < E1 le E2 ~> C, STORE > => < I <= J ~> C, STORE2 > if
+						< E1 ~> C, STORE > => < I ~> C, STORE1 > /\ 
+						< E2 ~> C, STORE1 > => < J ~> C, STORE2 > .	
+
+	crl [equals] : < E1 eq E2 ~> C , STORE > => < I >= J ~> C , STORE2 > if
+							< E1 ~> C, STORE > => < I ~> C , STORE1 > /\ 
+							< E2 ~> C, STORE1 > => < J ~> C , STORE2 > .
+	
+	crl [logicalAnd] : < B1 && B2 ~> C, STORE > => < b1 and b2 ~> C, STORE2 > if
+							< B1 ~> C, STORE > => < b1 ~> C, STORE1 > /\
+							< B2 ~> C, STORE1 > => < b2 ~> C, STORE2 > .				
+
+endm    

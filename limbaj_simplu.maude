@@ -126,13 +126,11 @@ mod LIMBAJ-SIMPLU is
 	--- Continua atat timp cat B1 este adevarata
 	crl [whileDo] : < (while B1 C1) ~> C, STORE > => < (while B1 C1) ~> C, STORE2 > if 
 						< B1 ~> C, STORE > => < true ~> C, STORE1 > /\
-						< C1 ~> C, STORE1 > => < skip ~> C, STORE2 > .
+						< C1 ~> C, STORE1 > => < C, STORE2 > .
 
 	crl [assignement] :  < (X <- E) ~> C, STORE > => < C, update(STORE1, X, I) > if 
 							< E ~> C, STORE > => < I ~> C, STORE1 > .
-
-	crl [codeChaining] : < C1 ~> C2, STORE > => < C2, STORE1 > if 
-							< C1, STORE > => < skip, STORE1 > . 
+ 
 
 
 endm 

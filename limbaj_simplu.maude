@@ -15,8 +15,8 @@ mod LIMBAJ-SIMPLU is
 	op lookup : Store Id -> Int .
 	op update : Store Id Int -> Store .
 
-	op _~>_ : AExp Code -> Code [ctor].
-	op _~>_ : BExp Code -> Code	[ctor].
+	op _~>_ : AExp Code -> Code [ctor] .
+	op _~>_ : BExp Code -> Code	[ctor] .
 
 	op _plus_ : AExp AExp -> AExp [ctor prec 20] .
 	op _times_ : AExp AExp -> AExp [ctor prec 10] .
@@ -28,19 +28,19 @@ mod LIMBAJ-SIMPLU is
 	op <_,_> : BExp Store -> Cfg [ctor] .
 
 	--- Now begin the boolean expressions
-	op _ge_ : AExp AExp -> BExp [prec 29].
-	op _le_ : AExp AExp -> BExp [prec 29].
-	op _eq_ : AExp AExp -> BExp [prec 29].
+	op _ge_ : AExp AExp -> BExp [prec 29 gather (E e)] .
+	op _le_ : AExp AExp -> BExp [prec 29 gather (E e)] .
+	op _eq_ : AExp AExp -> BExp [prec 29 gather (E e)] .
 
 
 	--- Come up with better precedence values 
 	op _&&_ : BExp BExp -> BExp [gather (E e)] .
-	op _||_ : BExp BExp -> BExp [gather (E e)] .
-	op !_ : BExp -> BExp [prec 30].
+	op _||_ : BExp BExp -> BExp [prec 31 gather (E e)] .
+	op !_ : BExp -> BExp [prec 30] .
 
 	--- Statement related operators
 
-	op _<-_ : Id AExp -> AExp .
+	op _<-_ : Id AExp -> Code .
 	op _~>_ : Code Code -> Code [ctor] .
 	op {_} : Code -> Code [ctor] .
 	op if_then_else_ : BExp Code Code -> Code .
@@ -98,7 +98,7 @@ mod LIMBAJ-SIMPLU is
 						< E1 ~> C, STORE > => < I ~> C, STORE1 > /\ 
 						< E2 ~> C, STORE1 > => < J ~> C, STORE2 > .	
 
-	crl [equals] : < E1 eq E2 ~> C , STORE > => < I >= J ~> C , STORE2 > if
+	crl [equals] : < E1 eq E2 ~> C , STORE > => < (I == J) ~> C , STORE2 > if
 							< E1 ~> C, STORE > => < I ~> C , STORE1 > /\ 
 							< E2 ~> C, STORE1 > => < J ~> C , STORE2 > .
 	
@@ -125,5 +125,7 @@ mod LIMBAJ-SIMPLU is
 
 	crl [assignement] :  < (X <- E) ~> C, STORE > => < C, update(STORE1, X, I) > if 
 							< E ~> C, STORE > => < I ~> C, STORE1 > .
+
+
 
 endm 

@@ -40,7 +40,7 @@ mod LIMBAJ-SIMPLU is
 
 	--- Statement related operators
 
-	op _<-_ : Id AExp -> Id .
+	op _<-_ : Id AExp -> AExp .
 	op _~>_ : Code Code -> Code [ctor] .
 	op {_} : Code -> Code [ctor] .
 	op if_then_else_ : BExp Code Code -> Code .
@@ -121,10 +121,9 @@ mod LIMBAJ-SIMPLU is
 
 	--- Conditie de oprire
 	crl [whileDo] : < (while B1 C1) ~> C , STORE > => < C, STORE1 > if
-						< B1 ~> C, STORE > => < false ~> C, STORE1>  
+						< B1 ~> C, STORE > => < false ~> C, STORE1 > .   
 
-	crl [assignement] :  < (X <- E) ~> C, STORE > => < C, STORE2 > if 
-							< E ~> C, STORE > => < I ~> C, STORE1> /\
-							STORE1 = update(STORE1,X,I) 
+	crl [assignement] :  < (X <- E) ~> C, STORE > => < C, update(STORE1, X, I) > if 
+							< E ~> C, STORE > => < I ~> C, STORE1 > .
 
 endm 

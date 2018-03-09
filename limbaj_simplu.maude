@@ -15,11 +15,15 @@ mod LIMBAJ-SIMPLU is
 	op lookup : Store Id -> Int .
 	op update : Store Id Int -> Store .
 
+	--- It should have a gather (E e)
 	op _~>_ : AExp Code -> Code [ctor] .
 	op _~>_ : BExp Code -> Code	[ctor] .
+	op _~>_ : Code Code -> Code [ctor] .
 
 	op _plus_ : AExp AExp -> AExp [ctor prec 20] .
 	op _times_ : AExp AExp -> AExp [ctor prec 10] .
+	--- Works when returns an Int. 
+	op inc_ : Id -> Int .
 	op hole : -> AExp [ctor] .
 
 	ops x y z : -> Id [ctor] .
@@ -41,10 +45,10 @@ mod LIMBAJ-SIMPLU is
 	--- Statement related operators
 
 	op _<-_ : Id AExp -> Code .
-	op _~>_ : Code Code -> Code [ctor] .
+
 	op {_} : Code -> Code [ctor] .
 	op if_then_else_ : BExp Code Code -> Code .
-	op while__ : BExp Code -> Code [ctor] .
+	op while_do_od : BExp Code -> Code [ctor] .
 	op halt_ :  AExp -> Code [ctor] .
 
 
@@ -90,6 +94,9 @@ mod LIMBAJ-SIMPLU is
 	rl [rule9] : < J plus I ~> C, STORE > => < J + I ~> C, STORE > .
 
 
+	crl [increment] : < inc X ~> C, STORE > => < C , update(STORE, X, I) > if 
+							< lookup(STORE, X) plus 1 ~> C, STORE > => < I ~> C, STORE > .
+
 	crl [greaterThan] : < E1 ge E2 ~> C , STORE > => < I >= J ~> C , STORE2 > if
 						< E1 ~> C , STORE > => < I ~> C, STORE1 > /\ 
 						< E2 ~> C, STORE1 > => < J ~> C, STORE2 > .
@@ -120,11 +127,11 @@ mod LIMBAJ-SIMPLU is
 							< B1 ~> C, STORE > => < false ~> C, STORE1 > .
 
 	--- Conditie de oprire
-	crl [whileDoStop] : < (while B1 C1) ~> C , STORE > => < C, STORE1 > if
+	crl [whileDoStop] : < (while B1 do C1 od) ~> C , STORE > => < C, STORE1 > if
 						< B1 ~> C, STORE > => < false ~> C, STORE1 > .
 
 	--- Continua atat timp cat B1 este adevarata
-	crl [whileDo] : < (while B1 C1) ~> C, STORE > => < (while B1 C1) ~> C, STORE2 > if 
+	crl [whileDo] : < (while B1 do C1 od) ~> C, STORE > => < (while B1 do C1 od) ~> C, STORE2 > if 
 						< B1 ~> C, STORE > => < true ~> C, STORE1 > /\
 						< C1 ~> C, STORE1 > => < C, STORE2 > .
 

@@ -50,25 +50,22 @@ mod LIMBAJ-SIMPLU is
 	op _le_ : AExp AExp -> BExp [prec 29 gather (E e)] .
 	op _eq_ : AExp AExp -> BExp [prec 29 gather (E e)] .
 
-
 	--- Come up with better precedence values 
 	op _&&_ : BExp BExp -> BExp [gather (E e)] .
 	op _||_ : BExp BExp -> BExp [prec 31 gather (E e)] .
 	op !_ : BExp -> BExp [prec 30] .
 
-
-
-
 	var STORE STORE1 STORE2 : Store .
 	var I J : Int .
-	var b1 b2 : Bool .
+	var b1 b2 b : Bool .
 	var X : Id .  
 	var C C1 C2 : Code .
 	var E E1 E2 : AExp .
-	var B1 B2 : BExp .
+	var B1 B2 B : BExp .
 	var St St1 St2 : Stmt .
 
 	--- Maybe switch from something else besides 0
+	eq exec St = < St ~> noop, empty > .
 	eq lookup(empty,X) = 0 .
 	eq lookup(update(STORE, x, I), x) = I .
 	eq lookup(update(STORE, x, I), y) = lookup(STORE,y) .
@@ -82,73 +79,61 @@ mod LIMBAJ-SIMPLU is
 	eq lookup(update(STORE, z, I), y) = lookup(STORE,y) .
 	eq lookup(update(STORE, z, I), x) = lookup(STORE,x) .
 
+	eq skip ; St = St .
 
-	rl [ifThenNou] : < if BExp then St1 else St2 ~> C, STORE > => < BExp ~> if hole then St1 else St2 ~> C, STORE > .
+	rl [chainiing] : < St1 ; St2 ~> C, STORE > => < St1 ~> hole ; St2 ~> C, STORE > .
+	rl [substitution] : < skip ~> hole ; St2 ~> C, STORE > => < skip ; St2 ~> C, STORE > . 
+
+	rl [ifThenNou] : < if B then St1 else St2 ~> C, STORE > => < B ~> if hole then St1 else St2 ~> C, STORE > .
+	rl [replaceHoleIf] : < b ~> if hole then St1 else St2 ~> C, STORE > => < if b then St1 else St2 ~> C, STORE > . 
 	rl [ifTrue] : < if true then St1 else St2 ~> C, STORE >  => < St1 ~> C, STORE > .
-	rl [ifFalse] : if false then St1 else St2 => St2 .  
----	eq !(true) = false .
-----	eq !(false) = true .
-	--- Do we really need to include this heating / cooling of the variable?
-	rl [rule1] : < X plus E ~> C, STORE > => < X ~> hole plus E ~> C, STORE > .
+	rl [ifFalse] : < if false then St1 else St2 ~> C, STORE > => < St2 ~> C, STORE > .
 
-	rl [rule2] : < (E1 plus E2) plus E ~> C, STORE > => < (E1 plus E2) ~> hole plus E ~> C, STORE > .
-	rl [rule3] : < (E1 times E2) plus E ~> C, STORE > => < (E1 times E2) ~> hole plus E ~> C, STORE > .
-
-	rl [rule4] : < I ~> hole plus E ~> C, STORE > => < I plus E ~> C, STORE > .
-	rl [rule6] : < X ~> C, STORE > => < lookup(STORE, X) ~> C, STORE > .
-
-	rl [rule7] : < J plus X ~> C, STORE > => < X ~> J plus hole ~> C, STORE > .
-	rl [rule7] : < J plus (E1 plus E2) ~> C, STORE > => < (E1 plus E2) ~> J plus hole ~> C, STORE > .
-
-	rl [rule8] : < J plus (E1 times E2) ~> C, STORE > => <(E1 times E2) ~> J plus hole ~> C, STORE > .
-
-	rl [rule5] : < I ~> J plus hole ~> C, STORE > => < I + J ~> C, STORE > .
-	rl [rule9] : < J plus I ~> C, STORE > => < J + I ~> C, STORE > .
+	rl [whileDo] : < while B do St1 od ~> C, STORE > => < if B then (St1 ; while B do St1 od) else skip ~> C, STORE > .
 
 
-	crl [increment] : < inc X ~> C, STORE > => < C , update(STORE, X, I) > if 
-							< lookup(STORE, X) plus 1 ~> C, STORE > => < I ~> C, STORE > .
-
-	crl [greaterThan] : < E1 ge E2 ~> C , STORE > => < I >= J ~> C , STORE2 > if
-						< E1 ~> C , STORE > => < I ~> C, STORE1 > /\ 
-						< E2 ~> C, STORE1 > => < J ~> C, STORE2 > .
-
-	crl [lowerThan] : < E1 le E2 ~> C, STORE > => < I <= J ~> C, STORE2 > if
-						< E1 ~> C, STORE > => < I ~> C, STORE1 > /\ 
-						< E2 ~> C, STORE1 > => < J ~> C, STORE2 > .	
-
-	crl [equals] : < E1 eq E2 ~> C , STORE > => < (I == J) ~> C , STORE2 > if
-							< E1 ~> C, STORE > => < I ~> C , STORE1 > /\ 
-							< E2 ~> C, STORE1 > => < J ~> C , STORE2 > .
-	
-	crl [logicalAnd] : < B1 && B2 ~> C, STORE > => < (b1 and b2) ~> C, STORE2 > if
-							< B1 ~> C, STORE > => < b1 ~> C, STORE1 > /\
-							< B2 ~> C, STORE1 > => < b2 ~> C, STORE2 > .
+	rl [greaterThan] : < E1 ge E2 ~> C, STORE > => < E1 ~> hole ge E2 ~> C, STORE > .
+	rl [ge1] : < I ~> hole ge E ~> C , STORE > => < I ge E ~> C, STORE > .
+	rl [ge2] : < I ge E ~> C, STORE > => < E ~> I ge hole ~> C, STORE > .
+	rl [ge3] : < I ~> J ge hole ~> C, STORE > => <  J ge I ~> C, STORE > .
+	rl [evalGE] : < I ge J ~> C, STORE > => < I >= J ~> C, STORE > . 
 
 
-	crl [logicalOr] : < B1 || B2 ~> C, STORE > => < (b1 or b2) ~> C, STORE2 > if
-							< B1 ~> C, STORE > => < b1 ~> C, STORE1 > /\
-							< B2 ~> C, STORE1 > => < b2 ~> C, STORE2 > .
 
-	crl [logicalNot] : < !(B1) ~> C, STORE > => < (not b1) ~> C, STORE1 > if
-							< B1 ~> C, STORE > => < b1 ~> C , STORE1 > .
+	rl [andComposedAnd] : < (B1 && B2) && B ~> C, STORE > => < (B1 && B2) ~> hole && B ~> C, STORE > . 
+	rl [andComposedOr] : < (B1 || B2) && B ~> C, STORE > => < (B1 || B2) ~> hole && B ~> C, STORE > . 
+	rl [andComposedNot] : < (! B1) && B ~> C, STORE > => < (! B1) ~> hole && B ~> C, STORE > . 
 
-	crl [ifThen] : < (if B1 then C1 else C2) ~> C, STORE > => < C1 ~> C, STORE1 > if 
-							< B1 ~> C, STORE > => < true ~> C, STORE1 > .
-	crl [ifElse] : < (if B1 then C1 else C2) ~> C, STORE > => < C2 ~> C , STORE1 > if
-							< B1 ~> C, STORE > => < false ~> C, STORE1 > .
+	rl [andReduceRightAnd] : < b && (B1 && B2) ~> C, STORE > => < (B1 && B2) ~> b && hole ~> C, STORE > .
+	rl [andReduceRightOr] : < b && (B1 || B2) ~> C, STORE > => < (B1 || B2) ~> b && hole ~> C, STORE > .
+	rl [andReduceRightNot] : < b && (! B1) ~> C, STORE > => < (! B1) ~> b && hole ~> C, STORE > .
 
-	--- Conditie de oprire
-	crl [whileDoStop] : < (while B1 do C1 od) ~> C , STORE > => < C, STORE1 > if
-						< B1 ~> C, STORE > => < false ~> C, STORE1 > .
+	rl [andReplaceLeftValue] : < b ~> hole && B ~> C, STORE > => < b && B ~> C, STORE > .
+	rl [andReplaceRightValue] : < b ~> b1 && hole ~> C, STORE > => < b1 && b ~> C, STORE > .
+	rl [evalAnd] : < b1 && b2 ~> C, STORE > => < (b1 and b2) ~> C, STORE > .
 
-	--- Continua atat timp cat B1 este adevarata
-	crl [whileDo] : < (while B1 do C1 od) ~> C, STORE > => < (while B1 do C1 od) ~> C, STORE2 > if 
-						< B1 ~> C, STORE > => < true ~> C, STORE1 > /\
-						< C1 ~> C, STORE1 > => < C, STORE2 > .
 
-	crl [assignement] :  < (X <- E) ~> C, STORE > => < C, update(STORE1, X, I) > if 
-							< E ~> C, STORE > => < I ~> C, STORE1 > .
+	rl [plusComposedPlus] : < (E1 plus E2) plus E ~> C, STORE > => < (E1 plus E2) ~> hole plus E ~> C, STORE > .
+	rl [plusComposedTimes] : < (E1 times E2) plus E ~> C, STORE > => < (E1 times E2) ~> hole plus E ~> C, STORE > .
+
+	rl [plusReduceRightPlus] : < J plus (E1 plus E2) ~> C, STORE > => < (E1 plus E2) ~> J plus hole ~> C, STORE > .
+	rl [plusReduceRightTimes] : < J plus (E1 times E2) ~> C, STORE > => < (E1 times E2) ~> J plus hole ~> C, STORE > .
+
+	rl [plusReplaceLeftValue] : < I ~> hole plus E ~> C, STORE > => < I plus E ~> C, STORE > .
+
+	rl [plusVariableLeft] : < X plus E ~> C, STORE > => < X ~> hole plus E ~> C, STORE > .
+	rl [plusReplaceVar] : < X ~> C, STORE > => < lookup(STORE, X) ~> C, STORE > .
+	rl [plusVariableRight] : < J plus X ~> C, STORE > => < X ~> J plus hole ~> C, STORE > .
+
+
+	rl [plusReplaceRightValue] : < I ~> J plus hole ~> C, STORE > => < I + J ~> C, STORE > .
+	rl [evalPlus] : < J plus I ~> C, STORE > => < J + I ~> C, STORE > .
+
+
+
+	rl [assignement] : < (X <- E) ~> C, STORE > => < E ~> X <- hole ~> C, STORE > .
+	rl [assignementReplaceHole] : < I ~> X <- hole ~> C, STORE > => < X <- I ~> C, STORE > .
+	rl [assignementModifyStore] : < X <- I ~> C, STORE > => < skip ~> C, update(STORE, X, I) > .
  
 
 

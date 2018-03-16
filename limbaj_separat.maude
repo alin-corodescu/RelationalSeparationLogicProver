@@ -3,18 +3,25 @@ mod LIMBAJ-SIMPLU is
 	including BOOL .
 	sorts AExp BExp Stmt Pgm Comparison .
 	sorts Id .
-	sort Store .
+	sorts Store Heap .
 	sort Cfg .
 	sort Code .
 	subsorts Id Int < AExp .
 	subsorts Bool Comparison < BExp .
 
 	op empty : -> Store [ctor] .
+	op empty : -> Heap [ctor] .
 	op skip : -> Stmt [ctor] .
 	op noop : -> Code [ctor] .
 
+	op lookup : Store Heap Id -> Int .
 	op lookup : Store Id -> Int .
+	op lookup : Heap Int -> Int .
+
+	--- Do I need this operator? I don't think so.
+	---op update : Store Heap Id Int -> Store .
 	op update : Store Id Int -> Store .
+	op update : Heap Int Int -> Heap .
 
 	--- It should have a gather (E e)
 	op _~>_ : AExp Code -> Code [ctor] .
@@ -46,7 +53,7 @@ mod LIMBAJ-SIMPLU is
 
 	ops x y z : -> Id [ctor] .
 
-	op <_,_> : Code Store -> Cfg [ctor] .
+	op <_,_,_> : Code Store Heap -> Cfg [ctor] .
 
 	--- Now begin the boolean expressions
 	op _ge_ : AExp AExp -> Comparison .
@@ -69,7 +76,10 @@ mod LIMBAJ-SIMPLU is
 	var St St1 St2 : Stmt .
 
 	--- Maybe switch from something else besides 0
-	eq exec St = < St ~> noop, empty > .
+
+	eq lookup(STORE, HEAP, X) = lookup(HEAP, lookup(STORE, X)) .
+
+	--- Address lookup
 	eq lookup(empty,X) = 0 .
 	eq lookup(update(STORE, x, I), x) = I .
 	eq lookup(update(STORE, x, I), y) = lookup(STORE,y) .
@@ -82,6 +92,12 @@ mod LIMBAJ-SIMPLU is
 	eq lookup(update(STORE, z, I), z) = I .
 	eq lookup(update(STORE, z, I), y) = lookup(STORE,y) .
 	eq lookup(update(STORE, z, I), x) = lookup(STORE,x) .
+
+	--- Heap lookup
+	ceq lookup(update(HEAP, I, J), K) = lookup(HEAP, K) if (K =/= I) .
+	eq lookup(update(HEAP, I, J), I) = J .
+	--- Heap defaults to 0
+	eq lookup(empty,I) = 0 .
 
 	eq skip ; St = St .
 

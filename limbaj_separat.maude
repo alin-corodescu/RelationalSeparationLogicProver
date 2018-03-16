@@ -9,8 +9,8 @@ mod LIMBAJ-SIMPLU is
 	subsorts Id Int < AExp .
 	subsorts Bool Comparison < BExp .
 
-	op empty : -> Store [ctor] .
-	op empty : -> Heap [ctor] .
+	op emptyS : -> Store [ctor] .
+	op emptyH : -> Heap [ctor] .
 	op skip : -> Stmt [ctor] .
 	op noop : -> Code [ctor] .
 
@@ -36,6 +36,7 @@ mod LIMBAJ-SIMPLU is
  	
  	op _;_ : Stmt Stmt -> Stmt .
 	op _<-_ : Id AExp -> Stmt .
+	op decl__ : Id Int -> Stmt .
 
 	op if_then_else_ : BExp Stmt Stmt -> Stmt [ctor] .
 	op while_do_od : BExp Stmt -> Stmt [ctor] .
@@ -66,7 +67,8 @@ mod LIMBAJ-SIMPLU is
 	op !_ : BExp -> BExp .
 
 	var STORE STORE1 STORE2 : Store .
-	var I J : Int .
+	var HEAP : Heap .
+	var I J K : Int .
 	var b1 b2 b : Bool .
 	var X : Id .  
 	var C C1 C2 : Code .
@@ -75,12 +77,13 @@ mod LIMBAJ-SIMPLU is
 	var COMP COMP1 COMP2 : Comparison .
 	var St St1 St2 : Stmt .
 
+	eq skip ; St = St .
+	eq exec St = < St ~> noop, emptyS, emptyH > .
 	--- Maybe switch from something else besides 0
-
 	eq lookup(STORE, HEAP, X) = lookup(HEAP, lookup(STORE, X)) .
 
 	--- Address lookup
-	eq lookup(empty,X) = 0 .
+	eq lookup(emptyS, X) = 0 .
 	eq lookup(update(STORE, x, I), x) = I .
 	eq lookup(update(STORE, x, I), y) = lookup(STORE,y) .
 	eq lookup(update(STORE, x, I), z) = lookup(STORE,z) .  
@@ -97,94 +100,94 @@ mod LIMBAJ-SIMPLU is
 	ceq lookup(update(HEAP, I, J), K) = lookup(HEAP, K) if (K =/= I) .
 	eq lookup(update(HEAP, I, J), I) = J .
 	--- Heap defaults to 0
-	eq lookup(empty,I) = 0 .
+	eq lookup(emptyH, I) = 0 .
 
-	eq skip ; St = St .
 
-	rl [chainiing] : < St1 ; St2 ~> C, STORE > => < St1 ~> hole ; St2 ~> C, STORE > .
-	rl [substitution] : < skip ~> hole ; St2 ~> C, STORE > => < skip ; St2 ~> C, STORE > . 
 
-	rl [ifThenNou] : < if B then St1 else St2 ~> C, STORE > => < B ~> if hole then St1 else St2 ~> C, STORE > .
-	rl [replaceHoleIf] : < b ~> if hole then St1 else St2 ~> C, STORE > => < if b then St1 else St2 ~> C, STORE > . 
-	rl [ifTrue] : < if true then St1 else St2 ~> C, STORE >  => < St1 ~> C, STORE > .
-	rl [ifFalse] : < if false then St1 else St2 ~> C, STORE > => < St2 ~> C, STORE > .
+	rl [chainiing] : < St1 ; St2 ~> C, STORE, HEAP > => < St1 ~> hole ; St2 ~> C, STORE, HEAP > .
+	rl [substitution] : < skip ~> hole ; St2 ~> C, STORE, HEAP > => < skip ; St2 ~> C, STORE, HEAP > . 
 
-	rl [whileDo] : < while B do St1 od ~> C, STORE > => < if B then (St1 ; while B do St1 od) else skip ~> C, STORE > .
+	rl [ifThenNou] : < if B then St1 else St2 ~> C, STORE, HEAP > => < B ~> if hole then St1 else St2 ~> C, STORE, HEAP > .
+	rl [replaceHoleIf] : < b ~> if hole then St1 else St2 ~> C, STORE, HEAP > => < if b then St1 else St2 ~> C, STORE, HEAP > . 
+	rl [ifTrue] : < if true then St1 else St2 ~> C, STORE, HEAP >  => < St1 ~> C, STORE, HEAP > .
+	rl [ifFalse] : < if false then St1 else St2 ~> C, STORE, HEAP > => < St2 ~> C, STORE, HEAP > .
+
+	rl [whileDo] : < while B do St1 od ~> C, STORE, HEAP > => < if B then (St1 ; while B do St1 od) else skip ~> C, STORE, HEAP > .
 
 --- BEGIN COMPARATION OPERATORS
-	rl [greaterThan] : < E1 ge E2 ~> C, STORE > => < E1 ~> hole ge E2 ~> C, STORE > .
-	rl [geReplaceLeft] : < I ~> hole ge E ~> C , STORE > => < I ge E ~> C, STORE > .
-	rl [geReduceRight] : < I ge E ~> C, STORE > => < E ~> I ge hole ~> C, STORE > .
-	rl [geReplaceLeft] : < I ~> J ge hole ~> C, STORE > => <  J ge I ~> C, STORE > .
-	rl [evalGE] : < I ge J ~> C, STORE > => < (I >= J) ~> C, STORE > . 
+	rl [greaterThan] : < E1 ge E2 ~> C, STORE, HEAP > => < E1 ~> hole ge E2 ~> C, STORE, HEAP > .
+	rl [geReplaceLeft] : < I ~> hole ge E ~> C , STORE, HEAP > => < I ge E ~> C, STORE, HEAP > .
+	rl [geReduceRight] : < I ge E ~> C, STORE, HEAP > => < E ~> I ge hole ~> C, STORE, HEAP > .
+	rl [geReplaceLeft] : < I ~> J ge hole ~> C, STORE, HEAP > => <  J ge I ~> C, STORE, HEAP > .
+	rl [evalGE] : < I ge J ~> C, STORE, HEAP > => < (I >= J) ~> C, STORE, HEAP > . 
 
-	rl [lowerThan] : < E1 le E2 ~> C, STORE > => < E1 ~> hole le E2 ~> C, STORE > .
-	rl [leReplaceLeft] : < I ~> hole le E ~> C , STORE > => < I le E ~> C, STORE > .
-	rl [leReduceRight] : < I le E ~> C, STORE > => < E ~> I le hole ~> C, STORE > .
-	rl [leReplaceLeft] : < I ~> J le hole ~> C, STORE > => <  J le I ~> C, STORE > .
-	rl [evalLE] : < I le J ~> C, STORE > => < (I <= J) ~> C, STORE > .
+	rl [lowerThan] : < E1 le E2 ~> C, STORE, HEAP > => < E1 ~> hole le E2 ~> C, STORE, HEAP > .
+	rl [leReplaceLeft] : < I ~> hole le E ~> C , STORE, HEAP > => < I le E ~> C, STORE, HEAP > .
+	rl [leReduceRight] : < I le E ~> C, STORE, HEAP > => < E ~> I le hole ~> C, STORE, HEAP > .
+	rl [leReplaceLeft] : < I ~> J le hole ~> C, STORE, HEAP > => <  J le I ~> C, STORE, HEAP > .
+	rl [evalLE] : < I le J ~> C, STORE, HEAP > => < (I <= J) ~> C, STORE, HEAP > .
 
-	rl [equals] : < E1 eqs E2 ~> C, STORE > => < E1 ~> hole eqs E2 ~> C, STORE > .
-	rl [eqReplaceLeft] : < I ~> hole eqs E ~> C , STORE > => < I eqs E ~> C, STORE > .
-	rl [eqReduceRight] : < I eqs E ~> C, STORE > => < E ~> I eqs hole ~> C, STORE > .
-	rl [eqReplaceLeft] : < I ~> J eqs hole ~> C, STORE > => <  J eqs I ~> C, STORE > .
-	rl [evalEQ] : < I eqs J ~> C, STORE > => < (I == J) ~> C, STORE > . 
+	rl [equals] : < E1 eqs E2 ~> C, STORE, HEAP > => < E1 ~> hole eqs E2 ~> C, STORE, HEAP > .
+	rl [eqReplaceLeft] : < I ~> hole eqs E ~> C , STORE, HEAP > => < I eqs E ~> C, STORE, HEAP > .
+	rl [eqReduceRight] : < I eqs E ~> C, STORE, HEAP > => < E ~> I eqs hole ~> C, STORE, HEAP > .
+	rl [eqReplaceLeft] : < I ~> J eqs hole ~> C, STORE, HEAP > => <  J eqs I ~> C, STORE, HEAP > .
+	rl [evalEQ] : < I eqs J ~> C, STORE, HEAP > => < (I == J) ~> C, STORE, HEAP > . 
 --- END COMPARATION OPERATORS
 
 
 --- BEGIN BOOLEAN OPERATORS -- base unit is a comparison or a truth value
 	--- Vreau treaba asta sa se intample daca B1 e o chestie compusa
-	rl [andComposedAnd] : < (B1 && B2) && B ~> C, STORE > => < (B1 && B2) ~> hole && B ~> C, STORE > . 
-	rl [andComposedOr] : < (B1 || B2) && B ~> C, STORE > => < (B1 || B2) ~> hole && B ~> C, STORE > . 
-	rl [andComposedNot] : < (! B1) && B ~> C, STORE > => < (! B1) ~> hole && B ~> C, STORE > .
+	rl [andComposedAnd] : < (B1 && B2) && B ~> C, STORE, HEAP > => < (B1 && B2) ~> hole && B ~> C, STORE , HEAP > . 
+	rl [andComposedOr] : < (B1 || B2) && B ~> C, STORE, HEAP > => < (B1 || B2) ~> hole && B ~> C, STORE, HEAP > . 
+	rl [andComposedNot] : < (! B1) && B ~> C, STORE, HEAP > => < (! B1) ~> hole && B ~> C, STORE, HEAP > .
 
-	rl [andReduceRightAnd] : < b && (B1 && B2) ~> C, STORE > => < (B1 && B2) ~> b && hole ~> C, STORE > .
-	rl [andReduceRightOr] : < b && (B1 || B2) ~> C, STORE > => < (B1 || B2) ~> b && hole ~> C, STORE > .
-	rl [andReduceRightNot] : < b && (! B1) ~> C, STORE > => < (! B1) ~> b && hole ~> C, STORE > .
+	rl [andReduceRightAnd] : < b && (B1 && B2) ~> C, STORE, HEAP > => < (B1 && B2) ~> b && hole ~> C, STORE, HEAP > .
+	rl [andReduceRightOr] : < b && (B1 || B2) ~> C, STORE, HEAP > => < (B1 || B2) ~> b && hole ~> C, STORE, HEAP > .
+	rl [andReduceRightNot] : < b && (! B1) ~> C, STORE, HEAP > => < (! B1) ~> b && hole ~> C, STORE, HEAP > .
 
-	rl [comparisonExpansionAnd] : < COMP && B ~> C, STORE > =>  < COMP ~> hole && B ~> C, STORE > .
+	rl [comparisonExpansionAnd] : < COMP && B ~> C, STORE, HEAP > =>  < COMP ~> hole && B ~> C, STORE, HEAP > .
 
-	rl [andReplaceRightValue] : < b ~> b1 && hole ~> C, STORE > => < b1 && b ~> C, STORE > .
-	rl [andReplaceLeftValue] : < b ~> hole && B ~> C, STORE > => < b && B ~> C, STORE > .
+	rl [andReplaceRightValue] : < b ~> b1 && hole ~> C, STORE, HEAP > => < b1 && b ~> C, STORE, HEAP > .
+	rl [andReplaceLeftValue] : < b ~> hole && B ~> C, STORE, HEAP > => < b && B ~> C, STORE, HEAP > .
 
-	rl [logicalAndTrue] : < true && B ~> C, STORE > => < B ~> C, STORE > .
-	rl [logicalAndFalse] : < false && B ~> C, STORE > => < false ~> C, STORE > .
+	rl [logicalAndTrue] : < true && B ~> C, STORE, HEAP > => < B ~> C, STORE, HEAP > .
+	rl [logicalAndFalse] : < false && B ~> C, STORE, HEAP > => < false ~> C, STORE, HEAP > .
 
 --- END BOOLEAN OPERATORS
 
 
 --- BEGIN ARITHMETIC OPERATORS
 	--- Evaluate the left side first
-	rl [plusComposedPlus] : < (E1 plus E2) plus E ~> C, STORE > => < (E1 plus E2) ~> hole plus E ~> C, STORE > .
-	rl [plusComposedTimes] : < (E1 times E2) plus E ~> C, STORE > => < (E1 times E2) ~> hole plus E ~> C, STORE > .
+	rl [plusComposedPlus] : < (E1 plus E2) plus E ~> C, STORE, HEAP > => < (E1 plus E2) ~> hole plus E ~> C, STORE, HEAP > .
+	rl [plusComposedTimes] : < (E1 times E2) plus E ~> C, STORE, HEAP > => < (E1 times E2) ~> hole plus E ~> C, STORE, HEAP > .
 
 
 	--- Only eval the right hand side when they are in parantheses and all the previous sub-expressions have been evaluated
-	rl [plusReduceRightPlus] : < J plus (E1 plus E2) ~> C, STORE > => < (E1 plus E2) ~> J plus hole ~> C, STORE > .
-	rl [plusReduceRightTimes] : < J plus (E1 times E2) ~> C, STORE > => < (E1 times E2) ~> J plus hole ~> C, STORE > .
+	rl [plusReduceRightPlus] : < J plus (E1 plus E2) ~> C, STORE, HEAP > => < (E1 plus E2) ~> J plus hole ~> C, STORE, HEAP > .
+	rl [plusReduceRightTimes] : < J plus (E1 times E2) ~> C, STORE, HEAP > => < (E1 times E2) ~> J plus hole ~> C, STORE, HEAP > .
 
 	--- Replace the hole when done evaluating left hand side
-	rl [plusReplaceLeftValue] : < I ~> hole plus E ~> C, STORE > => < I plus E ~> C, STORE > .
+	rl [plusReplaceLeftValue] : < I ~> hole plus E ~> C, STORE, HEAP > => < I plus E ~> C, STORE, HEAP > .
 
 	--- Variable substitution
-	rl [plusVariableLeft] : < X plus E ~> C, STORE > => < X ~> hole plus E ~> C, STORE > .
-	rl [plusReplaceVar] : < X ~> C, STORE > => < lookup(STORE, X) ~> C, STORE > .
+	rl [plusVariableLeft] : < X plus E ~> C, STORE, HEAP > => < X ~> hole plus E ~> C, STORE, HEAP > .
+	rl [plusReplaceVar] : < X ~> C, STORE, HEAP > => < lookup(STORE, X) ~> C, STORE, HEAP > .
 	--- Only evaluate the variable when the left side is an integer
-	rl [plusVariableRight] : < J plus X ~> C, STORE > => < X ~> J plus hole ~> C, STORE > .
+	rl [plusVariableRight] : < J plus X ~> C, STORE, HEAP > => < X ~> J plus hole ~> C, STORE, HEAP > .
 
 	--- Prepare to finish the evaluation, as there will be a I + J left
-	rl [plusReplaceRightValue] : < I ~> J plus hole ~> C, STORE > => < I + J ~> C, STORE > .
+	rl [plusReplaceRightValue] : < I ~> J plus hole ~> C, STORE, HEAP > => < I + J ~> C, STORE, HEAP > .
 	--- Provide the result
-	rl [evalPlus] : < J plus I ~> C, STORE > => < J + I ~> C, STORE > .
+	rl [evalPlus] : < J plus I ~> C, STORE, HEAP > => < J + I ~> C, STORE, HEAP > .
 
 
 --- END ARITHMETIC OPERATORS
 
 
-	rl [assignement] : < (X <- E) ~> C, STORE > => < E ~> X <- hole ~> C, STORE > .
-	rl [assignementReplaceHole] : < I ~> X <- hole ~> C, STORE > => < X <- I ~> C, STORE > .
-	rl [assignementModifyStore] : < X <- I ~> C, STORE > => < skip ~> C, update(STORE, X, I) > .
+	rl [assignement] : < (X <- E) ~> C, STORE, HEAP > => < E ~> X <- hole ~> C, STORE, HEAP > .
+	rl [assignementReplaceHole] : < I ~> X <- hole ~> C, STORE, HEAP > => < X <- I ~> C, STORE, HEAP > .
+	rl [assignementModifyStore] : < X <- I ~> C, STORE, HEAP > => < skip ~> C, STORE, update(HEAP, lookup(STORE, X), I) > .
  
 
-
+	rl [declaration] : < decl X I ~> C, STORE, HEAP > => < skip ~> C, update(STORE, X, I), HEAP > .
 endm 

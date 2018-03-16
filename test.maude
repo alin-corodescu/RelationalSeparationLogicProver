@@ -24,10 +24,8 @@ mod VENDING-MACHINE is
     including VENDING-MACHINE-SIGNATURE . 
     var X : Marking . 
     rl [buy-c] : $ => c .  
-    rl [buy-a] : $ => a q .  
-    rl [change]: q q q q => $ .
-    crl [test] : q X => X if $ X => X   
+    rl [buy-a] : $ => a q .
+    ---ceq X q q q = $ if (X == q) .  
+    rl [change] : q q q q => $ .
+    --- crl [test] : q X => null if $ X => X .
   endm
-
- search in SIMPLE-VENDING-MACHINE :  
-           $ q q q =>! M:Marking .

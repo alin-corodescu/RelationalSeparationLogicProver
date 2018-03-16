@@ -1,0 +1,2 @@
+rewrite exec ( (x <- 1) ; while ( x le 2 ) do  (x <- (x plus 1)) od )  .
+

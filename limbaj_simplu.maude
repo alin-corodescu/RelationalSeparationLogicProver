@@ -14,7 +14,7 @@ mod LIMBAJ-SIMPLU is
 
 	op lookup : Store Id -> Int .
 	op update : Store Id Int -> Store .
-
+	
 	--- It should have a gather (E e)
 	op _~>_ : AExp Code -> Code [ctor] .
 	op _~>_ : BExp Code -> Code	[ctor] .

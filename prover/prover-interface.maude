@@ -1,0 +1,76 @@
+
+load prover-grammar.maude
+
+mod PROVER-INTERFACE is
+	including LOOP-MODE .
+	including PROVER-GRAMMAR .
+	including HOARE-QUADRUPLE . 
+	protecting META-LEVEL .  
+
+	--- A state in the REPL is represented as follows :
+	--- 	Action = rule to be applied
+	---		Goal = Root goal which we are trying to prove
+	---		Goal = Current goal which is being proven - 
+	---			needs to be linked to a node in the graph below
+	--- 	GoalGraph = A graph of goals needed to be proven
+	---		GoalList = A list of goals which we know are true  
+	---		QidList = the output of the last action
+	op <_;_;_;_;_;_> : Action Goal Goal GoalGraph GoalList QidList -> State .
+
+	op init : -> System .
+
+	eq init = [nil, < noRule ; { 1 |-> 2 ; 1 |-> 2 } C D { 1 |-> 2 ; 1 |-> 2 } ; { 1 |-> 2 ; 1 |-> 2 } C D { 1 |-> 2 ; 1 |-> 2 } ; noGoal ; noGoal ; nil >, nil] .
+
+
+	var A : Action . 
+	var QIL QIL' QIL'' : QidList .
+	--- Root goal
+	var RG : Goal . 
+	var G : Goal .
+	--- Temporarily is just a list, will be turned into a graph
+	var GG : GoalList . 
+	var GL : GoalList . 
+
+	--- Rule handling the input to the program
+	crl [in] : 
+		[QIL, < noRule ; RG ; G ; GG ; GL ; nil > , QIL']
+		=> 
+			if T:ResultPair? :: ResultPair  
+	          then [nil,  
+	                < downTerm(getTerm(T:ResultPair?), noRule) ; RG ; G ; GG ; GL ; nil >,  
+	                QIL']  
+	          else [nil, < noRule ; RG ; G ; GG ; GL ; nil >, 'ERROR QIL]  
+	          fi  
+		if QIL =/= nil
+		 /\ T:ResultPair? := metaParse(upModule('PROVER-GRAMMAR, false), QIL, 'Action) .
+
+
+    crl [out] :
+       [QIL, < A ; RG ; G ; GG ; GL ;  QIL' >, QIL'']
+       => [QIL, < A ; RG ; G ; GG ; GL ; nil >, QIL''  QIL']
+       if QIL' =/= nil .
+
+	vars R S : RSLAssertion . 
+	var P Q V W : SLAssertion .
+	var X Y : PgmState .
+	var SubGoals? : [Result4Tuple] .
+	var SubGoals : GoalList .
+	--- general format for action rules:
+	---		Goal => GoalList . 
+	rl [applyR] : {P ; V} X Y {Q ; W} => {P} X {Q} {V} Y {W} [nonexec] .
+
+
+	crl [applyRule] : < applyR ; RG ; G ; GG ; GL ; nil > 
+		=>
+		< noRule ; RG ; G ; GG downTerm(getTerm(SubGoals?), emptyGL) ; GL ; 'applied  > 
+		if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),
+						upTerm(G), 'applyR, none, 0, unbounded, 0) .
+endm
+
+--- red getTerm(metaXapply(upModule('PROVER-INTERFACE, false), upTerm( { 1 |-> 2 ; 1 |-> 2 } C D { 1 |-> 2 ; 1 |-> 2 } ), 'applyR, none, 0 , unbounded, 0 )) .
+--- Maude> red getType(metaXapply(upModule('PROVER-INTERFACE, false), upTerm( { 1 |-> 2 ; 1 |-> 2 } C D { 1 |-> 2 ; 1 |-> 2 } ), 'applyR, none, 0 , unbounded, 0 )) .
+---reduce in PROVER-INTERFACE : getType(metaXapply(upModule('PROVER-INTERFACE, false), upTerm({1 |-> 2 ; 1
+   --- |-> 2}C D{1 |-> 2 ; 1 |-> 2}), 'applyR, none, 0, unbounded, 0)) .
+--- rewrites: 5 in 0ms cpu (0ms real) (~ rewrites/second)
+--- result Sort: 'GoalList
+--- red downTerm(getTerm(metaXapply(upModule('PROVER-INTERFACE, false), upTerm( { 1 |-> 2 ; 1 |-> 2 } C D { 1 |-> 2 ; 1 |-> 2 } ), 'applyR, none, 0 , unbounded, 0 )), emptyGL) .

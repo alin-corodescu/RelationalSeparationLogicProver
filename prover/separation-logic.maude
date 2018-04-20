@@ -1,0 +1,21 @@
+fmod HOARE-TRIPLE is 
+	protecting INT .
+
+	sort HoareTriple .
+
+	--- Program state, to be modified 
+	sort PgmState .
+
+	sort SLAssertion .
+
+	op {_}_{_} : SLAssertion PgmState SLAssertion -> HoareTriple . 
+
+	op _ |-> _ : Int Int -> SLAssertion .
+
+
+	--- Constructors used for testing purposes only
+	ops a b : -> SLAssertion .
+	ops C D : -> PgmState [ctor].
+
+
+endfm

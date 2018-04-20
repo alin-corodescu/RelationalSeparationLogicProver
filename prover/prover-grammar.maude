@@ -1,0 +1,24 @@
+load relational-sep-logic.maude
+load goal-graph.maude
+
+mod PROVER-GRAMMAR is
+	protecting NAT .
+	protecting HOARE-QUADRUPLE .
+	protecting HOARE-TRIPLE .
+	including GOAL-GRAPH . 
+
+	--- Sort representing actions on the goals.
+	sort Action . 
+
+	op noRule : -> Action .
+	op noGoal : -> Goal .
+
+
+	--- Hoare triples and quadruples can be seen as goals
+	subsorts HoareQuadruple HoareTriple < Goal . 
+
+
+	op applyR : -> Action .
+
+endm
+

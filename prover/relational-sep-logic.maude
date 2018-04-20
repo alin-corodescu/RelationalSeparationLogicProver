@@ -1,0 +1,14 @@
+load separation-logic.maude
+
+fmod HOARE-QUADRUPLE is
+	including HOARE-TRIPLE .
+
+	sort HoareQuadruple . 
+	--- Relational separation logic condition / predicate - R S
+	sort RSLAssertion .
+
+	op _;_ : SLAssertion SLAssertion -> RSLAssertion .
+
+	op {_}__{_} : RSLAssertion PgmState PgmState RSLAssertion -> HoareQuadruple .
+
+endfm 

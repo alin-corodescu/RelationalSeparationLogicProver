@@ -1,0 +1,16 @@
+mod GOAL-GRAPH is 
+	protecting META-LEVEL .
+
+	--- Sorts representing the goals we work with
+	sorts Goal GoalGraph GoalList .
+
+	subsort Goal < GoalGraph .
+	subsort Goal < GoalList . 
+
+	--- Building the Goal list 
+	op __ : GoalList GoalList -> GoalList .
+
+	op emptyGL : -> GoalList .
+
+
+endm

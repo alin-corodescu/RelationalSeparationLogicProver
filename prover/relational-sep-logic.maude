@@ -11,4 +11,10 @@ fmod HOARE-QUADRUPLE is
 
 	op {_}__{_} : RSLAssertion PgmState PgmState RSLAssertion -> HoareQuadruple .
 
+	sort SLHeap .
+
+	op t : -> SLHeap .
+
+	op _*_ : RSLAssertion SLHeap -> RSLAssertion .
+
 endfm 

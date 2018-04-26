@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"Goal",
+				"GoalGraph"
+			],
+			[
+				"PROVER-",
+				"PROVER-INTERFACE"
+			],
+			[
 				"idea",
 				"ideaIU-2018"
 			]
@@ -12,27 +20,10 @@
 	"buffers":
 	[
 		{
-			"file": "limbaj_simplu.maude",
+			"file": "prover/prover-interface.maude",
 			"settings":
 			{
-				"buffer_size": 5012,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "limbaj_separat.maude",
-			"settings":
-			{
-				"buffer_size": 7065,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "hoare_quadruple.maude",
-			"settings":
-			{
-				"buffer_size": 746,
+				"buffer_size": 2987,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -47,21 +38,38 @@
 			}
 		},
 		{
-			"file": "/home/alin/bin/maude/maude_itp/itp-tool.maude",
+			"file": "prover/goal-graph.maude",
 			"settings":
 			{
-				"buffer_size": 137256,
+				"buffer_size": 288,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "#!/bin/bash\n\nsudo mkdir /etc/jetbrains\n\nsudo chown --recursive $USER:$USER /etc/jetbrains\n\nmkdir -p /etc/jetbrains/clion/config\nmkdir -p /etc/jetbrains/clion/system\n\nmkdir -p /etc/jetbrains/idea/config\nmkdir -p /etc/jetbrains/idea/system\n\nmkdir -p /etc/jetbrains/pycharm/config\nmkdir -p /etc/jetbrains/pycharm/system\n\nmkdir -p /etc/jetbrains/webstorm/config\nmkdir -p /etc/jetbrains/webstorm/system",
-			"file": "setup_jetbrains_config_and_system_paths.sh",
-			"file_size": 397,
-			"file_write_time": 131682091611949555,
+			"file": "prover/relational-sep-logic.maude",
 			"settings":
 			{
-				"buffer_size": 397,
+				"buffer_size": 327,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "prover/separation-logic.maude",
+			"settings":
+			{
+				"buffer_size": 359,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "prover/prover-grammar.maude",
+			"settings":
+			{
+				"buffer_size": 426,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		}
@@ -106,16 +114,21 @@
 	},
 	"expanded_folders":
 	[
-		"/home/alin/projects/Licenta/MaudePlayground"
+		"/home/alin/projects/Licenta/MaudePlayground",
+		"/home/alin/projects/Licenta/MaudePlayground/prover"
 	],
 	"file_history":
 	[
+		"/home/alin/.config/i3/config",
+		"/home/alin/bin/maude/maude_itp/itp-tool.maude",
+		"/home/alin/projects/Licenta/MaudePlayground/setup_jetbrains_config_and_system_paths.sh",
+		"/home/alin/projects/Licenta/MaudePlayground/limbaj_simplu.maude",
 		"/home/alin/projects/Licenta/MaudePlayground/hoare_quadruple.maude",
+		"/home/alin/projects/Licenta/MaudePlayground/prover-interface.maude",
 		"/home/alin/Documents/list.fm",
 		"/home/alin/.zshrc",
 		"/home/alin/.config/i3blocks/config",
 		"/home/alin/bin/cyclist/myocamlbuild.ml",
-		"/home/alin/.config/i3/config",
 		"/home/alin/ProvisioningScripts/install_i3.sh",
 		"/home/alin/.config/rofi/config",
 		"/home/alin/ProvisioningScripts/install_monaco_font.sh",
@@ -140,7 +153,7 @@
 	],
 	"find":
 	{
-		"height": 40.0
+		"height": 26.0
 	},
 	"find_in_files":
 	{
@@ -154,6 +167,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"fmod"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -171,82 +185,24 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "limbaj_simplu.maude",
+					"file": "prover/prover-interface.maude",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5012,
+						"buffer_size": 2987,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								314,
-								314
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Maude Syntax Highlighting/maude.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1747.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "limbaj_separat.maude",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 7065,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6442,
-								6442
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Maude Syntax Highlighting/maude.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1350.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "hoare_quadruple.maude",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 746,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								744,
-								744
+								668,
+								668
 							]
 						],
 						"settings":
@@ -258,11 +214,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 1,
 					"file": "/home/alin/.config/i3/config",
 					"semi_transient": false,
 					"settings":
@@ -274,77 +230,135 @@
 						"selection":
 						[
 							[
-								0,
-								0
+								492,
+								492
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 8,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 3074.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "/home/alin/bin/maude/maude_itp/itp-tool.maude",
+					"buffer": 2,
+					"file": "prover/goal-graph.maude",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 137256,
+						"buffer_size": 288,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								11929,
-								11929
+								281,
+								281
 							]
 						],
 						"settings":
 						{
+							"auto_name": "",
 							"syntax": "Packages/Maude Syntax Highlighting/maude.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 4897.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "setup_jetbrains_config_and_system_paths.sh",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 397,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								237,
-								237
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/ShellScript/Shell-Unix-Generic.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "prover/relational-sep-logic.maude",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 327,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								27,
+								27
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Maude Syntax Highlighting/maude.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "prover/separation-logic.maude",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 359,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								235,
+								235
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Maude Syntax Highlighting/maude.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "prover/prover-grammar.maude",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 426,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								418,
+								418
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Maude Syntax Highlighting/maude.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -356,7 +370,7 @@
 	},
 	"input":
 	{
-		"height": 0.0
+		"height": 46.0
 	},
 	"layout":
 	{

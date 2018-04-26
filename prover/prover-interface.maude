@@ -17,9 +17,9 @@ mod PROVER-INTERFACE is
 	---		QidList = the output of the last action
 	op <_;_;_;_;_;_> : Action Goal Goal GoalGraph GoalList QidList -> State .
 
-	op init : -> System .
+	op init : -> System [ctor].
 
-	eq init = [nil, < noRule ; { 1 |-> 2 ; 1 |-> 2 } C D { 1 |-> 2 ; 1 |-> 2 } ; { 1 |-> 2 ; 1 |-> 2 } C D { 1 |-> 2 ; 1 |-> 2 } ; noGoal ; noGoal ; nil >, nil] .
+	eq init = [nil, < noRule ; { 1 |-> 2 ; 1 |-> 2 * t } C D { 1 |-> 2 ; 1 |-> 2 * t} ; { 1 |-> 2 ; 1 |-> 2 * t } C D { 1 |-> 2 ; 1 |-> 2 * t} ; noGoal ; noGoal ; nil >, nil] .
 
 
 	var A : Action . 
@@ -50,21 +50,31 @@ mod PROVER-INTERFACE is
        => [QIL, < A ; RG ; G ; GG ; GL ; nil >, QIL''  QIL']
        if QIL' =/= nil .
 
-	vars R S : RSLAssertion . 
+	vars R S : RSLAssertion .
+	var T : SLHeap .
 	var P Q V W : SLAssertion .
 	var X Y : PgmState .
 	var SubGoals? : [Result4Tuple] .
 	var SubGoals : GoalList .
+
 	--- general format for action rules:
 	---		Goal => GoalList . 
-	rl [applyR] : {P ; V} X Y {Q ; W} => {P} X {Q} {V} Y {W} [nonexec] .
+	rl [applySequencing] : {P ; V} X Y {Q ; W} => {P} X {Q} {V} Y {W} [nonexec] .
 
 
-	crl [applyRule] : < applyR ; RG ; G ; GG ; GL ; nil > 
+	rl [applyFrameRule] : { R * T } X Y { S * T } => {R} X Y {S} [nonexec] .
+
+	crl [applySequencing] : < applySequencing ; RG ; G ; GG ; GL ; nil > 
 		=>
 		< noRule ; RG ; G ; GG downTerm(getTerm(SubGoals?), emptyGL) ; GL ; 'applied  > 
 		if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),
-						upTerm(G), 'applyR, none, 0, unbounded, 0) .
+						upTerm(G), 'applySequencing, none, 0, unbounded, 0) .
+
+	crl [applyFrameRule] : < applyFrameRule T ; RG ; G ; GG ; GL ; nil >
+		=>
+		< noRule ; RG ; G ; GG downTerm(getTerm(SubGoals?), emptyGL) ; GL ; 'applied  > 
+		if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),
+						upTerm(G), 'applyFrameRule, 'T:SLHeap <- upTerm(T), 0, unbounded, 0) .
 endm
 
 --- red getTerm(metaXapply(upModule('PROVER-INTERFACE, false), upTerm( { 1 |-> 2 ; 1 |-> 2 } C D { 1 |-> 2 ; 1 |-> 2 } ), 'applyR, none, 0 , unbounded, 0 )) .

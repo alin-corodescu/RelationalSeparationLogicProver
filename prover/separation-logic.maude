@@ -4,18 +4,22 @@ fmod HOARE-TRIPLE is
 	sort HoareTriple .
 
 	--- Program state, to be modified 
-	sort PgmState .
+	sort Code .
 
 	sort SLAssertion .
 
-	op {_}_{_} : SLAssertion PgmState SLAssertion -> HoareTriple . 
+	op {_}_{_} : SLAssertion Code SLAssertion -> HoareTriple . 
 
 	op _ |-> _ : Int Int -> SLAssertion .
 
 
 	--- Constructors used for testing purposes only
 	ops a b : -> SLAssertion .
-	ops C D : -> PgmState [ctor].
+	ops C D : -> Code [ctor].
+
+
+	--- @TODO move it out of here
+	op _;_ : Code Code -> Code .
 
 
 endfm

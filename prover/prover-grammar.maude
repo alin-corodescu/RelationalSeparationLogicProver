@@ -17,13 +17,41 @@ mod PROVER-GRAMMAR is
 	--- Hoare triples and quadruples can be seen as goals
 	subsorts HoareQuadruple HoareTriple < Goal . 
 
+	--- BEGIN sort and operation declaration for passing the terms which appear on the right hand side of the
+	--- rule for the first time (example : S RSLAssertion for the sequencing rule)
+	sort AdditionalRuleParameters . 
+	subsort RSLAssertion < AdditionalRuleParameters .
 
-	op applySequencing : -> Action .
+	op __ : AdditionalRuleParameters AdditionalRuleParameters -> AdditionalRuleParameters.
+	--- END
 
+	--- Enables appending the additional parameters to the goals stored in the database
+	op __ : Goal AdditionalRuleParameters -> Goal .
 
-	--- Temporarily define the SLHeap sort here
+	--- Implication between two RSLAssertion is a goal
+	op _=>_ : RSLAssertion RSLAssertion -> Goal . 
 
+	op applyEmbeddingRule : -> Action .
+
+	--- The T parameter of the Frame rule -- a separable heap
 	op applyFrameRule_ : SLHeap -> Action . 
 
+
+	--- TODO left to implement
+	--- The {S} parameter for the sequencing rule
+	op applySequncing_ : RSLAssertion -> Action . 
+
+	--- The 2 parameters are R1 and S1 from the paper
+	op applyConsequence__ : RSLAssertion RSLAssertion -> Action .
+
+	--- Pass R1,R2,S1,S2 as parameters to the action
+	op applyConjunction____ : RSLAssertion RSLAssertion RSLAssertion RSLAssertion -> Action .
+
+	sort LogicalVariable .
+	op applyAuxVariableElimination_ : LogicalVariable -> Action .
+ 
+	op applyLoop : -> Action .
+
+	op applyConditionalStatement : -> Action .
 endm
 

@@ -1,0 +1,17 @@
+
+
+mod EXPERIMENT is 
+	protecting INT . 
+
+	sort A . 
+
+	var X Y : A .
+
+	op a : -> A .
+	rl [exp] : X => Y [nonexec] .
+
+	op _=>_ : A A -> A .
+
+	rl [exp1] : a => (a => a) .
+
+endm

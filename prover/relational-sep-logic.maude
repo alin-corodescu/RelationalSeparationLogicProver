@@ -9,7 +9,7 @@ fmod HOARE-QUADRUPLE is
 
 	op _;_ : SLAssertion SLAssertion -> RSLAssertion .
 
-	op {_}__{_} : RSLAssertion PgmState PgmState RSLAssertion -> HoareQuadruple .
+	op {_}_--_{_} : RSLAssertion Code Code RSLAssertion -> HoareQuadruple .
 
 	sort SLHeap .
 

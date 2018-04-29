@@ -23,7 +23,7 @@
 			"file": "prover/prover-interface.maude",
 			"settings":
 			{
-				"buffer_size": 3427,
+				"buffer_size": 5059,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -41,7 +41,7 @@
 			"file": "prover/relational-sep-logic.maude",
 			"settings":
 			{
-				"buffer_size": 413,
+				"buffer_size": 407,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -50,7 +50,7 @@
 			"file": "prover/separation-logic.maude",
 			"settings":
 			{
-				"buffer_size": 359,
+				"buffer_size": 410,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -59,7 +59,7 @@
 			"file": "prover/prover-grammar.maude",
 			"settings":
 			{
-				"buffer_size": 525,
+				"buffer_size": 1690,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -105,8 +105,7 @@
 	},
 	"expanded_folders":
 	[
-		"/home/alin/projects/Licenta/MaudePlayground",
-		"/home/alin/projects/Licenta/MaudePlayground/prover"
+		"/usr/projects/MaudePlayground"
 	],
 	"file_history":
 	[
@@ -144,7 +143,7 @@
 	],
 	"find":
 	{
-		"height": 26.0
+		"height": 28.0
 	},
 	"find_in_files":
 	{
@@ -185,15 +184,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3427,
+						"buffer_size": 5059,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1912,
-								1912
+								4189,
+								4189
 							]
 						],
 						"settings":
@@ -202,7 +201,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 702.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -243,15 +242,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 413,
+						"buffer_size": 407,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								321,
-								321
+								0,
+								0
 							]
 						],
 						"settings":
@@ -272,15 +271,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 359,
+						"buffer_size": 410,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								235,
-								235
+								0,
+								0
 							]
 						],
 						"settings":
@@ -301,15 +300,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 525,
+						"buffer_size": 1690,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								429,
-								429
+								0,
+								0
 							]
 						],
 						"settings":
@@ -329,7 +328,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 26.0
+		"height": 28.0
 	},
 	"input":
 	{
@@ -366,7 +365,7 @@
 	"project": "maude.sublime-project",
 	"replace":
 	{
-		"height": 48.0
+		"height": 52.0
 	},
 	"save_all_on_build": true,
 	"select_file":

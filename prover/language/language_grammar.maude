@@ -1,0 +1,28 @@
+mod LANGUAGE-GRAMMAR is
+	including INT .
+
+	sorts AExp BExp Stmt Pgm Comparison . 
+	sort Id . 
+
+	sort Code . 
+
+	op _;_ : Stmt Stmt -> Stmt .
+	op _<-_ : Id AExp -> Stmt .
+
+	op if_then_else_ : BExp Stmt Stmt -> Stmt [ctor] .
+	op while_do_od : BExp Stmt -> Stmt [ctor] .
+
+	op _plus_ : AExp AExp -> AExp [ctor] .
+	op _times_ : AExp AExp -> AExp [ctor] .
+
+	--- Now begin the boolean expressions
+	op _ge_ : AExp AExp -> Comparison .
+	op _le_ : AExp AExp -> Comparison .
+	op _eqs_ : AExp AExp -> Comparison .
+
+	--- Come up with better precedence values 
+	op _&&_ : BExp BExp -> BExp .
+	op _||_ : BExp BExp -> BExp .
+	op !_ : BExp -> BExp .
+	
+endm

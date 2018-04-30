@@ -19,14 +19,14 @@ mod PROVER-GRAMMAR is
 
 	--- BEGIN sort and operation declaration for passing the terms which appear on the right hand side of the
 	--- rule for the first time (example : S RSLAssertion for the sequencing rule)
-	sort AdditionalRuleParameters . 
-	subsort RSLAssertion < AdditionalRuleParameters .
+	---sort AdditionalRuleParameters . 
+	---subsort RSLAssertion < AdditionalRuleParameters .
 
-	op __ : AdditionalRuleParameters AdditionalRuleParameters -> AdditionalRuleParameters.
+	---op __ : AdditionalRuleParameters AdditionalRuleParameters -> AdditionalRuleParameters.
 	--- END
 
 	--- Enables appending the additional parameters to the goals stored in the database
-	op __ : Goal AdditionalRuleParameters -> Goal .
+	---op __ : Goal AdditionalRuleParameters -> Goal .
 
 	--- Implication between two RSLAssertion is a goal
 	op _=>_ : RSLAssertion RSLAssertion -> Goal . 
@@ -39,7 +39,7 @@ mod PROVER-GRAMMAR is
 
 	--- TODO left to implement
 	--- The {S} parameter for the sequencing rule
-	op applySequncing_ : RSLAssertion -> Action . 
+	op applySequencing_ : RSLAssertion -> Action . 
 
 	--- The 2 parameters are R1 and S1 from the paper
 	op applyConsequence__ : RSLAssertion RSLAssertion -> Action .
@@ -47,8 +47,7 @@ mod PROVER-GRAMMAR is
 	--- Pass R1,R2,S1,S2 as parameters to the action
 	op applyConjunction____ : RSLAssertion RSLAssertion RSLAssertion RSLAssertion -> Action .
 
-	sort LogicalVariable .
-	op applyAuxVariableElimination_ : LogicalVariable -> Action .
+	op applyAuxVarElimination_ : LogicalVariable -> Action .
  
 	op applyLoop : -> Action .
 

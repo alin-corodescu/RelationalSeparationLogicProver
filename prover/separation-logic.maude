@@ -1,25 +1,20 @@
-fmod HOARE-TRIPLE is 
+load language/language_grammar.maude
+
+mod HOARE-TRIPLE is 
 	protecting INT .
+	including LANGUAGE-GRAMMAR .
 
 	sort HoareTriple .
 
-	--- Program state, to be modified 
-	sort Code .
 
 	sort SLAssertion .
 
-	op {_}_{_} : SLAssertion Code SLAssertion -> HoareTriple . 
+	op {_}_{_} : SLAssertion Stmt SLAssertion -> HoareTriple . 
 
 	op _ |-> _ : Int Int -> SLAssertion .
 
 
 	--- Constructors used for testing purposes only
 	ops a b : -> SLAssertion .
-	ops C D : -> Code [ctor].
 
-
-	--- @TODO move it out of here
-	op _;_ : Code Code -> Code .
-
-
-endfm
+endm

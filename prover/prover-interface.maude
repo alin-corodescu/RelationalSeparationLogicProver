@@ -1,10 +1,13 @@
 
 load prover-grammar.maude
 
+load language/language_grammar.maude
+
 mod PROVER-INTERFACE is
 	including LOOP-MODE .
 	including PROVER-GRAMMAR .
-	including HOARE-QUADRUPLE . 
+	including HOARE-QUADRUPLE .
+	including LANGUAGE-GRAMMAR .
 	protecting META-LEVEL .  
 
 	--- A state in the REPL is represented as follows :
@@ -19,8 +22,7 @@ mod PROVER-INTERFACE is
 
 	op init : -> System [ctor].
 
-	eq init = [nil, < noRule ; { 1 |-> 2 ; 1 |-> 2 * t } C -- D { 1 |-> 2 ; 1 |-> 2 * t} ; { 1 |-> 2 ; 1 |-> 2 * t } C -- D { 1 |-> 2 ; 1 |-> 2 * t} ; noGoal ; noGoal ; nil >, nil] .
-
+	eq init = [nil, < noRule ; noGoal ; noGoal ; emptyGL ; emptyGL ; nil >, nil ] .
 
 	var A : Action . 
 	var QIL QIL' QIL'' : QidList .
@@ -54,8 +56,11 @@ mod PROVER-INTERFACE is
 	vars R1 R2 S1 S2 : RSLAssertion .
 	var T : SLHeap .
 	var P Q V W : SLAssertion .
-	var X Y : Code .
-	var C1 C2 C1' C2' : Code .
+	var X Y : Stmt .
+	var C1 C2 C1' C2' : Stmt .
+	var B B' : BExp . 
+	var C C' : Stmt .
+	var LV : LogicalVariable .
 	var SubGoals? : [Result4Tuple] .
 	var SubGoals : GoalList .
 
@@ -69,10 +74,17 @@ mod PROVER-INTERFACE is
 	rl [Sequencing] : { R }  C1 ; C2 -- C1' ; C2' { T1 } => { R } C1 -- C1' {S} {S} C2 -- C2' {T1} [nonexec] . 
 
 	--- Same case as above for R1 and S1
-	rl [Consequence] : { R } X -- Y { S } => R => S {R1} X -- Y {S1} S1 => S [nonexec] .
+	rl [Consequence] : { R } X -- Y { S } => ((R => R1) ({R1} X -- Y {S1})) (S1 => S) [nonexec] .
 
-	rl [Conjunction] { R1 /\ R2 } X -- Y { S1 /\ S2 } => {R1} X -- Y {S1} {R2} X -- Y {S2} [nonexec] .
+	rl [Conjunction] : { R1 /\ R2 } X -- Y { S1 /\ S2 } => {R1} X -- Y {S1} {R2} X -- Y {S2} [nonexec] .
 
+	rl [AuxVarElimination] : {exists LV . R} C -- C' {exists LV . S} => {R} C -- C' {S} [nonexec] .
+
+	rl [Loop] : {R} while B do C od -- while B' do C' od {R /\ ! B} => (R => (B <=> B')) {R /\ B} C -- C' {R} [nonexec] .
+
+	rl [ConditionalStatement] : {R} if B then C1 else C2 -- if B' then C1' else C2' {S} 
+		=>
+		((R => (B <=> B')) ({R /\ B} C1 -- C1' {S})) ({R /\ ! B} C2 -- C2' {S}) [nonexec] .
 
 
 	crl [applyEmbeddingRule] : < applyEmbeddingRule ; RG ; G ; GG ; GL ; nil > 
@@ -105,6 +117,27 @@ mod PROVER-INTERFACE is
 		< noRule ; RG ; G ; GG downTerm(getTerm(SubGoals?), emptyGL) ; GL ; 'applied  > 
 		if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),
 						upTerm(G), 'Conjunction, 'R1:RSLAssertion <- upTerm(R1) ; 'R2:RSLAssertion <- upTerm(R2) ; 'S1:RSLAssertion <- upTerm(S1) ; 'S2:RSLAssertion <- upTerm(S2) , 0, unbounded, 0) .
+
+	--- todo the logical variable sort is  probably of sort qid or something, need to think this well
+	crl [applyAuxVarElimination] : < applyAuxVarElimination LV ; RG ; G ; GG ; GL ; nil > 
+		=>
+		< noRule ; RG ; G ; GG downTerm(getTerm(SubGoals?), emptyGL) ; GL ; 'applied  > 
+		if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),
+						upTerm(G), 'AuxVarElimination, 'LV:LogicalVariable <- upTerm(LV), 0, unbounded, 0) .
+
+	crl [applyLoop] : < applyLoop ; RG ; G ; GG ; GL ; nil > 
+		=>
+		< noRule ; RG ; G ; GG downTerm(getTerm(SubGoals?), emptyGL) ; GL ; 'applied  > 
+		if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),
+						upTerm(G), 'Loop, none, 0, unbounded, 0) .
+
+	crl [applyConditionalStatement] : < applyConditionalStatement ; RG ; G ; GG ; GL ; nil > 
+		=>
+		< noRule ; RG ; G ; GG downTerm(getTerm(SubGoals?), emptyGL) ; GL ; 'applied  > 
+		if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),
+						upTerm(G), 'ConditionalStatement, none, 0, unbounded, 0) .
+
+
 
 endm
 

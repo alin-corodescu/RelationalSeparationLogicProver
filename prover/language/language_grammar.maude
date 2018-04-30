@@ -4,8 +4,6 @@ mod LANGUAGE-GRAMMAR is
 	sorts AExp BExp Stmt Pgm Comparison . 
 	sort Id . 
 
-	sort Code . 
-
 	op _;_ : Stmt Stmt -> Stmt .
 	op _<-_ : Id AExp -> Stmt .
 
@@ -20,9 +18,9 @@ mod LANGUAGE-GRAMMAR is
 	op _le_ : AExp AExp -> Comparison .
 	op _eqs_ : AExp AExp -> Comparison .
 
-	--- Come up with better precedence values 
 	op _&&_ : BExp BExp -> BExp .
 	op _||_ : BExp BExp -> BExp .
 	op !_ : BExp -> BExp .
-	
+
+	op b : -> BExp .
 endm

@@ -1,15 +1,27 @@
 load separation-logic.maude
+load language/language_grammar.maude
 
-fmod HOARE-QUADRUPLE is
+mod HOARE-QUADRUPLE is
 	including HOARE-TRIPLE .
+	including LANGUAGE-GRAMMAR . 
 
 	sort HoareQuadruple . 
 	--- Relational separation logic condition / predicate - R S
 	sort RSLAssertion .
 
+	sort LogicTerm . 
+
+	sort LogicalVariable .
+
+	subsort BExp < LogicTerm .
+
+	subsort LogicTerm < RSLAssertion .
+
+	op _<=>_ : LogicTerm LogicTerm -> LogicTerm .
+
 	op _;_ : SLAssertion SLAssertion -> RSLAssertion .
 
-	op {_}_--_{_} : RSLAssertion Code Code RSLAssertion -> HoareQuadruple .
+	op {_}_--_{_} : RSLAssertion Stmt Stmt RSLAssertion -> HoareQuadruple .
 
 	sort SLHeap .
 
@@ -17,4 +29,9 @@ fmod HOARE-QUADRUPLE is
 
 	op _*_ : RSLAssertion SLHeap -> RSLAssertion .
 
-endfm 
+	--- and logical connector between assertions
+	op _/\_ : RSLAssertion RSLAssertion -> RSLAssertion .
+
+	op exists_._ : LogicalVariable RSLAssertion -> RSLAssertion .
+
+endm 

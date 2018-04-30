@@ -52,6 +52,17 @@ mod PROVER-INTERFACE is
        => [QIL, < A ; RG ; G ; GG ; GL ; nil >, QIL''  QIL']
        if QIL' =/= nil .
 
+
+
+    --- begin interface rules 
+    var HQ : HoareQuadruple .
+    rl [proveGoal] : < prove(HQ) ; RG ; G ; GG ; GL ; nil > 
+		=>
+		< noRule ; HQ ; HQ ; HQ ; HQ ; 'begin > .
+	
+	--- end interface rules
+
+
 	vars R S T1 : RSLAssertion .
 	vars R1 R2 S1 S2 : RSLAssertion .
 	var T : SLHeap .

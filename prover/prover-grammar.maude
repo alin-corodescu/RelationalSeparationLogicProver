@@ -31,6 +31,8 @@ mod PROVER-GRAMMAR is
 	--- Implication between two RSLAssertion is a goal
 	op _=>_ : RSLAssertion RSLAssertion -> Goal . 
 
+	op prove : HoareQuadruple -> Action .
+
 	op applyEmbeddingRule : -> Action .
 
 	--- The T parameter of the Frame rule -- a separable heap

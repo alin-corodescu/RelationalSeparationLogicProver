@@ -22,5 +22,5 @@ mod LANGUAGE-GRAMMAR is
 	op _||_ : BExp BExp -> BExp .
 	op !_ : BExp -> BExp .
 
-	op b : -> BExp .
+	op pass : -> Stmt .
 endm

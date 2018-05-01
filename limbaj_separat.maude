@@ -1,7 +1,7 @@
 mod LIMBAJ-SIMPLU is
 	including INT .
 	including BOOL .
-	sorts AExp BExp Stmt Pgm Comparison .
+	sorts AExp BExp Command Pgm Comparison .
 	sorts Id .
 	sort Store .
 	sort Cfg .
@@ -10,7 +10,7 @@ mod LIMBAJ-SIMPLU is
 	subsorts Bool Comparison < BExp .
 
 	op empty : -> Store [ctor] .
-	op skip : -> Stmt [ctor] .
+	op skip : -> Command [ctor] .
 	op noop : -> Code [ctor] .
 
 	op lookup : Store Id -> Int .
@@ -20,18 +20,18 @@ mod LIMBAJ-SIMPLU is
 	op _~>_ : AExp Code -> Code [ctor] .
 	op _~>_ : BExp Code -> Code	[ctor] .
 	---op _~>_ : Comparsion Code -> Code [ctor] .
-	op _~>_ : Stmt Code -> Code [ctor] .
+	op _~>_ : Command Code -> Code [ctor] .
  	
 
 
 	--- Next statement to evaluate
- 	op exec_ : Stmt -> Cfg .
+ 	op exec_ : Command -> Cfg .
  	
- 	op _;_ : Stmt Stmt -> Stmt .
-	op _<-_ : Id AExp -> Stmt .
+ 	op _;_ : Command Command -> Command .
+	op _<-_ : Id AExp -> Command .
 
-	op if_then_else_ : BExp Stmt Stmt -> Stmt [ctor] .
-	op while_do_od : BExp Stmt -> Stmt [ctor] .
+	op if_then_else_ : BExp Command Command -> Command [ctor] .
+	op while_do_od : BExp Command -> Command [ctor] .
 
 
 	op _plus_ : AExp AExp -> AExp [ctor prec 20] .
@@ -40,7 +40,7 @@ mod LIMBAJ-SIMPLU is
 
 	op hole : -> AExp [ctor] .
 	op hole : -> BExp [ctor] .
-	op hole : -> Stmt [ctor] .
+	op hole : -> Command [ctor] .
 	--- Check if it's truly needed
 	---op hole : -> Comparison [ctor] .
 
@@ -66,7 +66,7 @@ mod LIMBAJ-SIMPLU is
 	var E E1 E2 : AExp .
 	var B1 B2 B : BExp .
 	var COMP COMP1 COMP2 : Comparison .
-	var St St1 St2 : Stmt .
+	var St St1 St2 : Command .
 
 	--- Maybe switch from something else besides 0
 	eq exec St = < St ~> noop, empty > .

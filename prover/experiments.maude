@@ -1,17 +1,27 @@
 
 
 mod EXPERIMENT is 
-	protecting INT . 
+	including INT . 
 
-	sort A . 
+	sort AExp .
 
-	var X Y : A .
+	---subsort Int < AExp .
 
-	op a : -> A .
-	rl [exp] : X => Y [nonexec] .
+	--- the plus sign cannot be used 
+	op _+_ : AExp AExp -> AExp .
 
-	op _=>_ : A A -> A .
+endm
 
-	rl [exp1] : a => (a => a) .
+mod EXPERIMENT1 is 
+	including INT . 
+
+	sort AExp .
+
+	sort AllocationList .
+
+	subsort AExp < AllocationList .
+	subsort Int < AExp .
+
+	op _,_ : AllocationList AExp -> AllocationList . 
 
 endm

@@ -18,9 +18,9 @@ mod PROVER-GRAMMAR is
 	subsorts HoareQuadruple HoareTriple < Goal . 
 
 	--- BEGIN sort and operation declaration for passing the terms which appear on the right hand side of the
-	--- rule for the first time (example : S RSLAssertion for the sequencing rule)
+	--- rule for the first time (example : S Relation for the sequencing rule)
 	---sort AdditionalRuleParameters . 
-	---subsort RSLAssertion < AdditionalRuleParameters .
+	---subsort Relation < AdditionalRuleParameters .
 
 	---op __ : AdditionalRuleParameters AdditionalRuleParameters -> AdditionalRuleParameters.
 	--- END
@@ -28,8 +28,8 @@ mod PROVER-GRAMMAR is
 	--- Enables appending the additional parameters to the goals stored in the database
 	---op __ : Goal AdditionalRuleParameters -> Goal .
 
-	--- Implication between two RSLAssertion is a goal
-	op _=>_ : RSLAssertion RSLAssertion -> Goal . 
+	--- Implication between two Relation is a goal
+	op _=>_ : Relation Relation -> Goal . 
 
 	op prove : HoareQuadruple -> Action .
 
@@ -41,15 +41,15 @@ mod PROVER-GRAMMAR is
 
 	--- TODO left to implement
 	--- The {S} parameter for the sequencing rule
-	op applySequencing_ : RSLAssertion -> Action . 
+	op applySequencing_ : Relation -> Action . 
 
 	--- The 2 parameters are R1 and S1 from the paper
-	op applyConsequence__ : RSLAssertion RSLAssertion -> Action .
+	op applyConsequence__ : Relation Relation -> Action .
 
 	--- Pass R1,R2,S1,S2 as parameters to the action
-	op applyConjunction____ : RSLAssertion RSLAssertion RSLAssertion RSLAssertion -> Action .
+	op applyConjunction____ : Relation Relation Relation Relation -> Action .
 
-	op applyAuxVarElimination_ : LogicalVariable -> Action .
+	op applyAuxVarElimination_ : Id -> Action .
  
 	op applyLoop : -> Action .
 

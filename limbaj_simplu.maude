@@ -1,7 +1,7 @@
 mod LIMBAJ-SIMPLU is
 	including INT .
 	including BOOL .
-	sorts AExp BExp Stmt Pgm .
+	sorts AExp BExp Command Pgm .
 	sorts Id .
 	sort Store .
 	sort Cfg .

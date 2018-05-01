@@ -7,31 +7,17 @@ mod HOARE-QUADRUPLE is
 
 	sort HoareQuadruple . 
 	--- Relational separation logic condition / predicate - R S
-	sort RSLAssertion .
+	sort Relation .
 
-	sort LogicTerm . 
 
-	sort LogicalVariable .
+	op {_}_--_{_} : Relation Command Command Relation -> HoareQuadruple .
 
-	subsort BExp < LogicTerm .
-
-	subsort LogicTerm < RSLAssertion .
-
-	op _<=>_ : LogicTerm LogicTerm -> LogicTerm .
-
-	op _;_ : SLAssertion SLAssertion -> RSLAssertion .
-
-	op {_}_--_{_} : RSLAssertion Stmt Stmt RSLAssertion -> HoareQuadruple .
-
-	sort SLHeap .
-
-	op t : -> SLHeap .
-
-	op _*_ : RSLAssertion SLHeap -> RSLAssertion .
-
-	--- and logical connector between assertions
-	op _/\_ : RSLAssertion RSLAssertion -> RSLAssertion .
-
-	op exists_._ : LogicalVariable RSLAssertion -> RSLAssertion .
+	op Emp : -> Relation .
+	op Same : -> Relation .
+	op (_;_) : Assertion Assertion -> Relation .
+	--- Operators between the RSL assertions
+	op _*_ _/\_ _\/_ _=>_ : Relation Relation -> Relation .
+	op not : Relation -> Relation .
+	op exists_._ any_._ : Id Relation -> Relation .
 
 endm 

@@ -7,14 +7,23 @@ mod HOARE-TRIPLE is
 	sort HoareTriple .
 
 
-	sort SLAssertion .
+	sort Assertion .
 
-	op {_}_{_} : SLAssertion Stmt SLAssertion -> HoareTriple . 
+	op {_}_{_} : Assertion Command Assertion -> HoareTriple .
 
-	op _ |-> _ : Int Int -> SLAssertion .
+	subsort BExp < Assertion .
 
+	op _=>_ _*_ _\/_ _/\_ : Assertion Assertion -> Assertion .
+
+	op not : Assertion -> Assertion .
+
+	op emp : -> Assertion .
+
+	op _ |-> _ : AExp AExp -> Assertion .
+
+	op exists_._ any_._ : Id Relation -> Relation .
 
 	--- Constructors used for testing purposes only
-	ops a b : -> SLAssertion .
+	---ops a b : -> Assertion .
 
 endm

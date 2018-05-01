@@ -1,26 +1,46 @@
 mod LANGUAGE-GRAMMAR is
 	including INT .
-
-	sorts AExp BExp Stmt Pgm Comparison . 
+	including BOOL .
+	sorts AExp BExp Command Comparison . 
 	sort Id . 
 
-	op _;_ : Stmt Stmt -> Stmt .
-	op _<-_ : Id AExp -> Stmt .
+	subsorts Bool Comparison < BExp .
+	subsorts Id Int < AExp .
 
-	op if_then_else_ : BExp Stmt Stmt -> Stmt [ctor] .
-	op while_do_od : BExp Stmt -> Stmt [ctor] .
+	--- Sort for defining the list in the cons(E1,E2 .. En) operator
+	sort AllocationList . 
+	subsort AExp < AllocationList . 
+	op _,_ : AllocationList AExp -> AllocationList .
+	--- TODO create different ways to define AllocationLists
+	--- please refer to the Fig 1. of the Relational Separation logic for reference on the syntax of this language
 
+	op _;_ : Command Command -> Command .
+	op _:=cons(_) : Id AllocationList -> Command .  
+	op _:=[_] : Id AExp -> Command . 
+	op [_]:=_ : AExp AExp -> Command . 
+	op free : AExp -> Command .
+	op _:=_ : Id AExp -> Command . 
+
+	op if_then_else_ : BExp Command Command -> Command [ctor] .
+	op while_do_od : BExp Command -> Command [ctor] .
+
+	--- todo look for a workaround to allow us to use proper operators
 	op _plus_ : AExp AExp -> AExp [ctor] .
 	op _times_ : AExp AExp -> AExp [ctor] .
+	op _minus_ : AExp AExp -> AExp [ctor] .
 
 	--- Now begin the boolean expressions
 	op _ge_ : AExp AExp -> Comparison .
 	op _le_ : AExp AExp -> Comparison .
 	op _eqs_ : AExp AExp -> Comparison .
 
+	--- Are they truly different from their assertions counterparts?
 	op _&&_ : BExp BExp -> BExp .
 	op _||_ : BExp BExp -> BExp .
 	op !_ : BExp -> BExp .
+	--- Implication ?
+	op _->_ : BExp -> BExp .
+	op _<=>_ : BExp BExp -> BExp .
 
-	op pass : -> Stmt .
+	op pass : -> Command .
 endm

@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"R",
+				"RSLAssertion"
+			],
+			[
+				"Hoare",
+				"HoareQuadruple"
+			],
+			[
+				"Con",
+				"ConditionalStatement"
+			],
+			[
+				"apply",
+				"applyAuxVarElimination"
+			],
+			[
+				"Logi",
+				"LogicalVariable"
+			],
+			[
 				"Goal",
 				"GoalGraph"
 			],
@@ -23,16 +43,17 @@
 			"file": "prover/prover-interface.maude",
 			"settings":
 			{
-				"buffer_size": 5059,
+				"buffer_size": 6707,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "limbaj_separat.maude",
+			"file": "prover/language/language_grammar.maude",
 			"settings":
 			{
-				"buffer_size": 7065,
+				"buffer_size": 600,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
@@ -49,7 +70,7 @@
 			"file": "prover/relational-sep-logic.maude",
 			"settings":
 			{
-				"buffer_size": 407,
+				"buffer_size": 783,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -58,7 +79,7 @@
 			"file": "prover/separation-logic.maude",
 			"settings":
 			{
-				"buffer_size": 410,
+				"buffer_size": 338,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -67,7 +88,7 @@
 			"file": "prover/prover-grammar.maude",
 			"settings":
 			{
-				"buffer_size": 1690,
+				"buffer_size": 1714,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -126,7 +147,8 @@
 	"expanded_folders":
 	[
 		"/usr/projects/MaudePlayground",
-		"/usr/projects/MaudePlayground/prover"
+		"/usr/projects/MaudePlayground/prover",
+		"/usr/projects/MaudePlayground/prover/language"
 	],
 	"file_history":
 	[
@@ -164,7 +186,7 @@
 	],
 	"find":
 	{
-		"height": 30.0
+		"height": 54.0
 	},
 	"find_in_files":
 	{
@@ -178,6 +200,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"code",
 			"fmod"
 		],
 		"highlight": true,
@@ -196,7 +219,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 4,
 			"sheets":
 			[
 				{
@@ -205,44 +228,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5059,
+						"buffer_size": 6707,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3865,
-								3865
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Maude Syntax Highlighting/maude.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "limbaj_separat.maude",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 7065,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2004,
-								2004
+								1865,
+								1865
 							]
 						],
 						"settings":
@@ -254,7 +248,36 @@
 						"translation.y": 960.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "prover/language/language_grammar.maude",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 600,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								271,
+								271
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Maude Syntax Highlighting/maude.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -270,8 +293,8 @@
 						"selection":
 						[
 							[
-								288,
-								288
+								125,
+								125
 							]
 						],
 						"settings":
@@ -283,7 +306,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -292,15 +315,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 407,
+						"buffer_size": 783,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								597,
+								597
 							]
 						],
 						"settings":
@@ -312,7 +335,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -321,15 +344,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 410,
+						"buffer_size": 338,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								236,
+								236
 							]
 						],
 						"settings":
@@ -341,7 +364,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -350,15 +373,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1690,
+						"buffer_size": 1714,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								1050,
+								1050
 							]
 						],
 						"settings":
@@ -367,7 +390,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 240.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,

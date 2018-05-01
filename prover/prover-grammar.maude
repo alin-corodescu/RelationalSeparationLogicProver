@@ -3,7 +3,7 @@ load goal-graph.maude
 
 mod PROVER-GRAMMAR is
 	protecting NAT .
-	protecting HOARE-QUADRUPLE .
+	including HOARE-QUADRUPLE .
 	protecting HOARE-TRIPLE .
 	including GOAL-GRAPH . 
 
@@ -29,14 +29,19 @@ mod PROVER-GRAMMAR is
 	---op __ : Goal AdditionalRuleParameters -> Goal .
 
 	--- Implication between two Relation is a goal
-	op _=>_ : Relation Relation -> Goal . 
+	--- op _=>_ : Relation Relation -> Goal . 
+	--- use cmb here, a relation is a Goal if it can be written as a Relation => Relation
+	subsort Relation < Goal . 
+	var R R1 R2 : Relation .
+	var G : Goal .
+	cmb R : Goal if (R1 => R2) := R .
 
 	op prove : HoareQuadruple -> Action .
 
 	op applyEmbeddingRule : -> Action .
 
 	--- The T parameter of the Frame rule -- a separable heap
-	op applyFrameRule_ : SLHeap -> Action . 
+	op applyFrameRule_ : Relation -> Action . 
 
 
 	--- TODO left to implement

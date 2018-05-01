@@ -63,15 +63,14 @@ mod PROVER-INTERFACE is
 	--- end interface rules
 
 
-	vars R S T1 : Relation .
+	vars R S T : Relation .
 	vars R1 R2 S1 S2 : Relation .
-	var T : SLHeap .
 	var P Q V W : Assertion .
 	var X Y : Command .
 	var C1 C2 C1' C2' : Command .
 	var B B' : BExp . 
 	var C C' : Command .
-	var LV : LogicalVariable .
+	var Var : Id .
 	var SubGoals? : [Result4Tuple] .
 	var SubGoals : GoalList .
 
@@ -82,14 +81,14 @@ mod PROVER-INTERFACE is
 	rl [FrameRule] : { R * T } X -- Y { S * T } => {R} X -- Y {S} [nonexec] .
 
 	--- This rule will trigger a warning regarding using the S variable before being bound, but in the META-LEVEL it should be ok if we bind it manually
-	rl [Sequencing] : { R }  C1 ; C2 -- C1' ; C2' { T1 } => { R } C1 -- C1' {S} {S} C2 -- C2' {T1} [nonexec] . 
+	rl [Sequencing] : { R }  C1 ; C2 -- C1' ; C2' { T } => { R } C1 -- C1' {S} {S} C2 -- C2' {T} [nonexec] . 
 
 	--- Same case as above for R1 and S1
 	rl [Consequence] : { R } X -- Y { S } => ((R => R1) ({R1} X -- Y {S1})) (S1 => S) [nonexec] .
 
 	rl [Conjunction] : { R1 /\ R2 } X -- Y { S1 /\ S2 } => {R1} X -- Y {S1} {R2} X -- Y {S2} [nonexec] .
 
-	rl [AuxVarElimination] : {exists LV . R} C -- C' {exists LV . S} => {R} C -- C' {S} [nonexec] .
+	rl [AuxVarElimination] : {exists Var . R} C -- C' {exists Var . S} => {R} C -- C' {S} [nonexec] .
 
 	rl [Loop] : {R} while B do C od -- while B' do C' od {R /\ ! B} => (R => (B <=> B')) {R /\ B} C -- C' {R} [nonexec] .
 
@@ -108,7 +107,7 @@ mod PROVER-INTERFACE is
 		=>
 		< noRule ; RG ; G ; GG downTerm(getTerm(SubGoals?), emptyGL) ; GL ; 'applied  > 
 		if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),
-						upTerm(G), 'FrameRule, 'T:SLHeap <- upTerm(T), 0, unbounded, 0) .
+						upTerm(G), 'FrameRule, 'T:Relation <- upTerm(T), 0, unbounded, 0) .
 
 	crl [applySequencing] : < applySequencing S ; RG ; G ; GG ; GL ; nil > 
 		=>
@@ -130,11 +129,11 @@ mod PROVER-INTERFACE is
 						upTerm(G), 'Conjunction, 'R1:Relation <- upTerm(R1) ; 'R2:Relation <- upTerm(R2) ; 'S1:Relation <- upTerm(S1) ; 'S2:Relation <- upTerm(S2) , 0, unbounded, 0) .
 
 	--- todo the logical variable sort is  probably of sort qid or something, need to think this well
-	crl [applyAuxVarElimination] : < applyAuxVarElimination LV ; RG ; G ; GG ; GL ; nil > 
+	crl [applyAuxVarElimination] : < applyAuxVarElimination Var ; RG ; G ; GG ; GL ; nil > 
 		=>
 		< noRule ; RG ; G ; GG downTerm(getTerm(SubGoals?), emptyGL) ; GL ; 'applied  > 
 		if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),
-						upTerm(G), 'AuxVarElimination, 'LV:LogicalVariable <- upTerm(LV), 0, unbounded, 0) .
+						upTerm(G), 'AuxVarElimination, 'Var:Id <- upTerm(Var), 0, unbounded, 0) .
 
 	crl [applyLoop] : < applyLoop ; RG ; G ; GG ; GL ; nil > 
 		=>

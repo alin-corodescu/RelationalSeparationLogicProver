@@ -39,7 +39,7 @@ mod LANGUAGE-GRAMMAR is
 	op _||_ : BExp BExp -> BExp .
 	op !_ : BExp -> BExp .
 	--- Implication ?
-	op _->_ : BExp -> BExp .
+	op _->_ : BExp BExp -> BExp .
 	op _<=>_ : BExp BExp -> BExp .
 
 	op pass : -> Command .

@@ -9,15 +9,20 @@ mod HOARE-QUADRUPLE is
 	--- Relational separation logic condition / predicate - R S
 	sort Relation .
 
+	--- Not sure if it should be another BExp, or the same - True vs true in the paper
+	subsort BExp < Relation .
 
 	op {_}_--_{_} : Relation Command Command Relation -> HoareQuadruple .
+
 
 	op Emp : -> Relation .
 	op Same : -> Relation .
 	op (_;_) : Assertion Assertion -> Relation .
 	--- Operators between the RSL assertions
-	op _*_ _/\_ _\/_ _=>_ : Relation Relation -> Relation .
+	ops _*_ _/\_ _\/_ _=>_ : Relation Relation -> Relation .
 	op not : Relation -> Relation .
-	op exists_._ any_._ : Id Relation -> Relation .
+	ops exists_._ any_._ : Id Relation -> Relation .
+
+	op r : -> Relation .
 
 endm 

@@ -13,7 +13,7 @@ mod HOARE-TRIPLE is
 
 	subsort BExp < Assertion .
 
-	op _=>_ _*_ _\/_ _/\_ : Assertion Assertion -> Assertion .
+	ops _=>_ _*_ _\/_ _/\_ : Assertion Assertion -> Assertion .
 
 	op not : Assertion -> Assertion .
 
@@ -21,7 +21,7 @@ mod HOARE-TRIPLE is
 
 	op _ |-> _ : AExp AExp -> Assertion .
 
-	op exists_._ any_._ : Id Relation -> Relation .
+	ops exists_._ any_._ : Id Assertion -> Assertion .
 
 	--- Constructors used for testing purposes only
 	---ops a b : -> Assertion .

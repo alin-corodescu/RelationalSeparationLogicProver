@@ -80,21 +80,36 @@ mod PROVER-INTERFACE is
 
 	rl [FrameRule] : { R * T } X -- Y { S * T } => {R} X -- Y {S} [nonexec] .
 
+	rl [SeparationLogic-FrameRule] :  {P} C {Q} => {P * V} C {P * V} [nonexec] .
+
 	--- This rule will trigger a warning regarding using the S variable before being bound, but in the META-LEVEL it should be ok if we bind it manually
 	rl [Sequencing] : { R }  C1 ; C2 -- C1' ; C2' { T } => { R } C1 -- C1' {S} {S} C2 -- C2' {T} [nonexec] . 
 
+	rl [SeparationLogic-Sequencing] :  {P} C1 ; C2 {Q} => {P} C1 {V} {V} C2 {Q} [nonexec] .
+
 	--- Same case as above for R1 and S1
 	rl [Consequence] : { R } X -- Y { S } => ((R => R1) ({R1} X -- Y {S1})) (S1 => S) [nonexec] .
+
+	rl [SeparationLogic-Consequence] : {P} C {Q} => ((P => P1) ({P1} C {Q1})) (Q1 => Q) [nonexec] .
 
 	rl [Conjunction] : { R1 /\ R2 } X -- Y { S1 /\ S2 } => {R1} X -- Y {S1} {R2} X -- Y {S2} [nonexec] .
 
 	rl [AuxVarElimination] : {exists Var . R} C -- C' {exists Var . S} => {R} C -- C' {S} [nonexec] .
 
+	--- We need to add the condition under which this is true
+	rl [SeparationLogic-AuxVarElimination] : {exists Var . P } C { exists Var .  Q} => {P} C {Q} [nonexec] .
+
 	rl [Loop] : {R} while B do C od -- while B' do C' od {R /\ ! B} => (R => (B <=> B')) {R /\ B} C -- C' {R} [nonexec] .
+
+	--- Here P is the loop invariant
+	rl [SeparationLogic-Loop] : {P} while B do C od { ! B /\ P } => {P /\ B} C {P} [nonexec] .
+
 
 	rl [ConditionalStatement] : {R} if B then C1 else C2 -- if B' then C1' else C2' {S} 
 		=>
 		((R => (B <=> B')) ({R /\ B} C1 -- C1' {S})) ({R /\ ! B} C2 -- C2' {S}) [nonexec] .
+
+	rl [SeparationLogic-ConditionalStatement] : {P} if B then C1 else C2 {Q} => {B /\ P} S {Q} { ! B /\ P } C2 {Q} [nonexec] .
 
 
 	crl [applyEmbeddingRule] : < applyEmbeddingRule ; RG ; G ; GG ; GL ; nil > 

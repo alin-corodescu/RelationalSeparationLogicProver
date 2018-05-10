@@ -38,7 +38,7 @@ mod PROVER-GRAMMAR is
 
 	subsort Assertion < Goal .
 	var P P1 P2 : Assertion .
-	cmb P : Goal if (P1 => P2) : P .
+	cmb P : Goal if (P1 => P2) := P .
 
 	op prove : HoareQuadruple -> Action .
 

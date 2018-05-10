@@ -65,7 +65,7 @@ mod PROVER-INTERFACE is
 
 	vars R S T : Relation .
 	vars R1 R2 S1 S2 : Relation .
-	var P Q V W : Assertion .
+	var P Q V W P1 Q1 : Assertion .
 	var X Y : Command .
 	var C1 C2 C1' C2' : Command .
 	var B B' : BExp . 
@@ -109,7 +109,7 @@ mod PROVER-INTERFACE is
 		=>
 		((R => (B <=> B')) ({R /\ B} C1 -- C1' {S})) ({R /\ ! B} C2 -- C2' {S}) [nonexec] .
 
-	rl [SeparationLogic-ConditionalStatement] : {P} if B then C1 else C2 {Q} => {B /\ P} S {Q} { ! B /\ P } C2 {Q} [nonexec] .
+	rl [SeparationLogic-ConditionalStatement] : {P} if B then C1 else C2 {Q} => {B /\ P} C1 {Q} { ! B /\ P } C2 {Q} [nonexec] .
 
 
 	crl [applyEmbeddingRule] : < applyEmbeddingRule ; RG ; G ; GG ; GL ; nil > 

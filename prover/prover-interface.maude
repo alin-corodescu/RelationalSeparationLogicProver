@@ -124,11 +124,23 @@ mod PROVER-INTERFACE is
 		if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),
 						upTerm(G), 'FrameRule, 'T:Relation <- upTerm(T), 0, unbounded, 0) .
 
+	crl [SLapplyFrameRule] : < SLapplyFrameRule V ; RG ; G ; GG ; GL ; nil >
+		=>
+		< noRule ; RG ; G ; GG downTerm(getTerm(SubGoals?), emptyGL) ; GL ; 'applied  > 
+		if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),
+						upTerm(G), 'SeparationLogic-FrameRule, 'V:Assertion <- upTerm(V), 0, unbounded, 0) .
+
 	crl [applySequencing] : < applySequencing S ; RG ; G ; GG ; GL ; nil > 
 		=>
 		< noRule ; RG ; G ; GG downTerm(getTerm(SubGoals?), emptyGL) ; GL ; 'applied  > 
 		if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),
 						upTerm(G), 'Sequencing, 'S:Relation <- upTerm(S), 0, unbounded, 0) .
+
+	crl [SLapplySequencing] : < SLapplySequencing V ; RG ; G ; GG ; GL ; nil > 
+		=>
+		< noRule ; RG ; G ; GG downTerm(getTerm(SubGoals?), emptyGL) ; GL ; 'applied  > 
+		if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),
+						upTerm(G), 'SeparationLogic-Sequencing, 'V:Assertion <- upTerm(V), 0, unbounded, 0) .
 
 	crl [applyConsequence] : < applyConsequence R1 S1 ; RG ; G ; GG ; GL ; nil >
 		=>
@@ -136,6 +148,12 @@ mod PROVER-INTERFACE is
 		if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),
 						upTerm(G), 'Consequence, 'R1:Relation <- upTerm(R1) ; 'S1:Relation <- upTerm(S1) , 0, unbounded, 0) .
 
+
+	crl [SLapplyConsequence] : < SLapplyConsequence P1 Q1 ; RG ; G ; GG ; GL ; nil >
+		=>
+		< noRule ; RG ; G ; GG downTerm(getTerm(SubGoals?), emptyGL) ; GL ; 'applied  > 
+		if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),
+						upTerm(G), 'SeparationLogic-Consequence, 'P1:Assertion <- upTerm(P1) ; 'Q1:Assertion <- upTerm(Q1) , 0, unbounded, 0) .
 
 	crl [applyConjunction] : < applyConjunction R1 R2 S1 S2 ; RG ; G ; GG ; GL ; nil >
 		=>
@@ -150,17 +168,35 @@ mod PROVER-INTERFACE is
 		if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),
 						upTerm(G), 'AuxVarElimination, 'Var:Id <- upTerm(Var), 0, unbounded, 0) .
 
+	crl [SLapplyAuxVarElimination] : < SLapplyAuxVarElimination Var ; RG ; G ; GG ; GL ; nil > 
+		=>
+		< noRule ; RG ; G ; GG downTerm(getTerm(SubGoals?), emptyGL) ; GL ; 'applied  > 
+		if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),
+						upTerm(G), 'SeparationLogic-AuxVarElimination, 'Var:Id <- upTerm(Var), 0, unbounded, 0) .
+
 	crl [applyLoop] : < applyLoop ; RG ; G ; GG ; GL ; nil > 
 		=>
 		< noRule ; RG ; G ; GG downTerm(getTerm(SubGoals?), emptyGL) ; GL ; 'applied  > 
 		if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),
 						upTerm(G), 'Loop, none, 0, unbounded, 0) .
 
+	crl [SLapplyLoop] : < SLapplyLoop ; RG ; G ; GG ; GL ; nil > 
+		=>
+		< noRule ; RG ; G ; GG downTerm(getTerm(SubGoals?), emptyGL) ; GL ; 'applied  > 
+		if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),
+						upTerm(G), 'SeparationLogic-Loop, none, 0, unbounded, 0) .
+
 	crl [applyConditionalStatement] : < applyConditionalStatement ; RG ; G ; GG ; GL ; nil > 
 		=>
 		< noRule ; RG ; G ; GG downTerm(getTerm(SubGoals?), emptyGL) ; GL ; 'applied  > 
 		if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),
 						upTerm(G), 'ConditionalStatement, none, 0, unbounded, 0) .
+
+	crl [SLapplyConditionalStatement] : < SLapplyConditionalStatement ; RG ; G ; GG ; GL ; nil > 
+		=>
+		< noRule ; RG ; G ; GG downTerm(getTerm(SubGoals?), emptyGL) ; GL ; 'applied  > 
+		if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),
+						upTerm(G), 'SeparationLogic-ConditionalStatement, none, 0, unbounded, 0) .
 
 
 

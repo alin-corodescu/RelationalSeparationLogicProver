@@ -63,5 +63,17 @@ mod PROVER-GRAMMAR is
 	op applyLoop : -> Action .
 
 	op applyConditionalStatement : -> Action .
-endm
+
+	op SLapplyFrameRule_ : Assertion -> Action .
+
+	op SLapplySequencing_ : Assertion -> Action .
+
+	op SLapplyConsequence__ : Assertion Assertion -> Action .
+
+	op SLapplyAuxVarElimination_ : Id -> Action .
+
+	op SLapplyLoop : -> Action .
+
+	op SLapplyConditionalStatement : -> Action .
+ endm
 

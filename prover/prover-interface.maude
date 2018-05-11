@@ -59,6 +59,14 @@ mod PROVER-INTERFACE is
     rl [proveGoal] : < prove(HQ) ; RG ; G ; GG ; GL ; nil > 
 		=>
 		< noRule ; HQ ; HQ ; HQ ; HQ ; 'begin > .
+
+	rl [takeFirstGoalFromList] : < noRule ; RG ; noGoal ; G GG ; GL ; nil > 
+		=> 
+		< noRule ; RG ; G ; GG ; GL ; nil .
+
+	rl [markGoalProven] : < ok ; RG ; G ; GG ; GL ; nil >
+		=>
+		< noRule ; RG ; noGoal ; GG ; GL G ; nil > .
 	
 	--- end interface rules
 

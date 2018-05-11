@@ -42,6 +42,9 @@ mod PROVER-GRAMMAR is
 
 	op prove : HoareQuadruple -> Action .
 
+	--- Action used to mark a goal as proven
+	op ok : -> Action .
+
 	op applyEmbeddingRule : -> Action .
 
 	--- The T parameter of the Frame rule -- a separable heap
@@ -75,5 +78,7 @@ mod PROVER-GRAMMAR is
 	op SLapplyLoop : -> Action .
 
 	op SLapplyConditionalStatement : -> Action .
+
+
  endm
 

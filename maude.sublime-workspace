@@ -43,25 +43,33 @@
 			"file": "prover/prover-interface.maude",
 			"settings":
 			{
-				"buffer_size": 9291,
+				"buffer_size": 9712,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "Prezentul Contract intră în vigoare la data semnării lui de către ambele părți și își încetează efectele la data îndeplinirii tuturor obligațiilor contractuale de către ambele părți dar nu mai târziu de data de [x].\nFiecare parte își asumă obligația de a păstra, de a trata drept confidențiale și de a nu divulga unei terțe persoane, pe toată durata Contractului și ulterior încetării acestuia, informațiile referitoare la secrete comerciale, de afaceri precum și orice altă informație marcată ca informație confidențială. De asemenea, fiecare parte se obligă să nu facă uz de aceste informații pentru alte scopuri decât realizarea obiectului prezentului contract.\nPentru echipamente și/sau consumabile, proprietatea acestora se va transfera de la COMPANY la Beneficiar numai după plata integrală a prețului contractului. În cazul în care, înainte de plata integrală a prețului prezentului contract, Beneficiarul a intrat în posesia unor echipamente sau/și consumabile, COMPANY rămâne proprietarul acestora, până la plata integrală a valorii contractului, cu mențiunea că Beneficiarul suportă riscul pierderii acestora și răspunde de aceste bunuri cu diligența unui bun proprietar.\nCompania nu va fi răspunzătoare pentru pagube directe care nu se datorează culpei sale exclusive și nici pentru pagube indirecte, pentru pagube provenite din pierderea profiturilor, încasărilor, datelor sau utilizării datelor, sau orice alte asemenea pagube suferite de către Beneficiar cu privire la operațiunile menționate în obiectul prezentului contract.\n\n\nThe hereby agreement shall come into force on the date of its signature by both parties and it shall be deemed ineffective at the moment when both parties fulfil their obligation but no later than (date).\nEach party will be under the obligation to treat as confidential and not to disclose to any third parties, on the whole duration of this contract, and after its expiration, any information regarding commercial or business secrets as well as any other information marked as confidential. Also, each party must not use these information for other purposes than those of this contract.\nRegarding equipment and/or consumables, their ownership will be transferred from the company to the beneficiary only after the full payment of the price stipulated in the contract. In case that the beneficiary gains possession of some equipment and/or consumables, the company will keep ownership of those until the full payment of the price stipulated in the contract supports the risk of loss and is liable of these goods with the diligence of a good owner.\nThe company will not be held liable for direct damages which are not caused by its exclusive fault nor for indirect damages, for damages caused by loss of profit, earnings, data or use of data, or any other similar damages suffered by the beneficiary regarding operations mentioned in this contract.",
+			"file": "prover/goal-graph.maude",
 			"settings":
 			{
-				"buffer_size": 2890,
-				"line_ending": "Unix",
-				"name": "Prezentul Contract intră în vigoare la data semnăr"
+				"buffer_size": 288,
+				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "prover/prover-grammar.maude",
 			"settings":
 			{
-				"buffer_size": 2223,
+				"buffer_size": 2289,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "prover/language/language_grammar.maude",
+			"settings":
+			{
+				"buffer_size": 1484,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -119,9 +127,9 @@
 	},
 	"expanded_folders":
 	[
-		"/usr/projects/MaudePlayground",
-		"/usr/projects/MaudePlayground/prover",
-		"/usr/projects/MaudePlayground/prover/language"
+		"/home/ANT.AMAZON.COM/corodesc/personal/MaudePlayground",
+		"/home/ANT.AMAZON.COM/corodesc/personal/MaudePlayground/prover",
+		"/home/ANT.AMAZON.COM/corodesc/personal/MaudePlayground/prover/language"
 	],
 	"file_history":
 	[
@@ -167,7 +175,7 @@
 	],
 	"find":
 	{
-		"height": 29.0
+		"height": 54.0
 	},
 	"find_in_files":
 	{
@@ -183,6 +191,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"and",
 			"LV",
 			"SLHeap",
 			"LogicalVariable",
@@ -220,15 +229,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 9291,
+						"buffer_size": 9712,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7287,
-								7287
+								2150,
+								2150
 							]
 						],
 						"settings":
@@ -237,44 +246,44 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 3078.0,
+						"translation.y": 2598.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"semi_transient": false,
+					"file": "prover/goal-graph.maude",
+					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 2890,
+						"buffer_size": 288,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2890,
-								2890
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"auto_name": "Prezentul Contract intră în vigoare la data semnăr",
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/Maude Syntax Highlighting/maude.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -283,15 +292,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2223,
+						"buffer_size": 2289,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1758,
-								1758
+								0,
+								0
 							]
 						],
 						"settings":
@@ -300,10 +309,39 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 646.0,
+						"translation.y": 226.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "prover/language/language_grammar.maude",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1484,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								517,
+								517
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Maude Syntax Highlighting/maude.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -311,7 +349,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 29.0
+		"height": 31.0
 	},
 	"input":
 	{
@@ -337,7 +375,7 @@
 		"cols":
 		[
 			0.0,
-			0.780814576635,
+			0.334325142416,
 			1.0
 		],
 		"rows":
@@ -355,7 +393,7 @@
 	"project": "maude.sublime-project",
 	"replace":
 	{
-		"height": 54.0
+		"height": 58.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -385,7 +423,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 1,
 	"settings":
 	{
 	},
@@ -393,7 +431,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 50.0,
+	"side_bar_width": 388.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

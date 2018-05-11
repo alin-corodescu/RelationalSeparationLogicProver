@@ -43,4 +43,6 @@ mod LANGUAGE-GRAMMAR is
 	op _<=>_ : BExp BExp -> BExp .
 
 	op pass : -> Command .
+
+	ops x y z : -> Id .
 endm

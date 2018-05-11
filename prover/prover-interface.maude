@@ -60,10 +60,13 @@ mod PROVER-INTERFACE is
 		=>
 		< noRule ; HQ ; HQ ; HQ ; HQ ; 'begin > .
 
+	--- after processing a goal, take the first element from that list to prove it
 	rl [takeFirstGoalFromList] : < noRule ; RG ; noGoal ; G GG ; GL ; nil > 
 		=> 
-		< noRule ; RG ; G ; GG ; GL ; nil .
+		< noRule ; RG ; G ; GG ; GL ; nil > .
 
+	--- mark the current goal as done, by adding it to the proven goals list
+	--- add a metaPrettyPrint call here 
 	rl [markGoalProven] : < ok ; RG ; G ; GG ; GL ; nil >
 		=>
 		< noRule ; RG ; noGoal ; GG ; GL G ; nil > .

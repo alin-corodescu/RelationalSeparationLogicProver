@@ -58,7 +58,7 @@ mod PROVER-INTERFACE is
     var HQ : HoareQuadruple .
     rl [proveGoal] : < prove(HQ) ; RG ; G ; GG ; GL ; nil > 
 		=>
-		< noRule ; HQ ; HQ ; HQ ; HQ ; 'begin > .
+		< noRule ; HQ ; noGoal ; HQ emptyGL ; emptyGL ; 'begin > .
 
 	--- after processing a goal, take the first element from that list to prove it
 	rl [takeFirstGoalFromList] : < noRule ; RG ; noGoal ; G GG ; GL ; nil > 
@@ -70,6 +70,11 @@ mod PROVER-INTERFACE is
 	rl [markGoalProven] : < ok ; RG ; G ; GG ; GL ; nil >
 		=>
 		< noRule ; RG ; noGoal ; GG ; GL G ; nil > .
+
+	crl [stopProcessing] : < noRule ; RG ; noGoal ; emptyGL ; GL ; nil >
+		=>
+		< stop ; RG ; noGoal ; emptyGL ; GL ; 'goal ' 'has '  'been ' 'proven >
+		if RG =/= noGoal .
 	
 	--- end interface rules
 
@@ -125,7 +130,7 @@ mod PROVER-INTERFACE is
 
 	crl [applyEmbeddingRule] : < applyEmbeddingRule ; RG ; G ; GG ; GL ; nil > 
 		=>
-		< noRule ; RG ; G ; GG downTerm(getTerm(SubGoals?), emptyGL) ; GL ; 'applied  > 
+		< noRule ; RG ; noGoal ; downTerm(getTerm(SubGoals?), emptyGL) GG ; GL ; 'applied  > 
 		if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),
 						upTerm(G), 'EmbeddingRule, none, 0, unbounded, 0) .
 

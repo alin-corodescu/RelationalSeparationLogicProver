@@ -8,7 +8,7 @@ mod GOAL-GRAPH is
 	subsort Goal < GoalList . 
 
 	--- Building the Goal list 
-	op __ : GoalList GoalList -> GoalList .
+	op __ : Goal GoalList -> GoalList [id: emptyGL].
 
 	op emptyGL : -> GoalList .
 

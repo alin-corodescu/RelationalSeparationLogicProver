@@ -45,6 +45,8 @@ mod PROVER-GRAMMAR is
 	--- Action used to mark a goal as proven
 	op ok : -> Action .
 
+	op stop : -> Action .
+
 	op applyEmbeddingRule : -> Action .
 
 	--- The T parameter of the Frame rule -- a separable heap

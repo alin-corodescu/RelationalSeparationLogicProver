@@ -1,0 +1,6 @@
+--- Exemplul 1
+load prover-interface.maude
+loop init .
+(prove({x |-> 1 ; x |-> 1} x := 1 -- x := 1 {x |-> 1 ; x |-> 1}))
+(applyEmbeddingRule)
+(ok)

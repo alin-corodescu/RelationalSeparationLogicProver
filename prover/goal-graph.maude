@@ -1,5 +1,6 @@
 mod GOAL-GRAPH is 
 	protecting META-LEVEL .
+	protecting BOOL .
 
 	--- Sorts representing the goals we work with
 	sorts Goal GoalGraph GoalList .
@@ -11,6 +12,17 @@ mod GOAL-GRAPH is
 	op __ : Goal GoalList -> GoalList [id: emptyGL].
 
 	op emptyGL : -> GoalList .
+
+	op anyMatches : Goal GoalList -> Bool .
+
+	vars G G1 : Goal .
+	var GL : GoalList .
+
+	eq anyMatches(G, emptyGL) = false .
+	
+	ceq anyMatches(G, G1 GL) = true
+		if G := G1 .
+	eq anyMatches(G, G1 GL) = anyMatches(G, GL) . 
 
 
 endm

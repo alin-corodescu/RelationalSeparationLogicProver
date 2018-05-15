@@ -1,0 +1,45 @@
+load prover-grammar.maude
+
+mod AXIOM-MATCHING is 
+	protecting META-LEVEL .
+	protecting PROVER-GRAMMAR .
+
+	op anyMatches : Goal GoalList -> Bool .
+
+	vars G G1 : Goal .
+	var GL : GoalList .
+
+	eq anyMatches(G, emptyGL) = false .
+	
+	ceq anyMatches(G, G1 GL) = true
+		---if G := G1 .
+		if P:MatchPair? := metaXmatch(upModule('AXIOM-MATCHING, false), 
+							upTerm(G1),
+							upTerm(G),
+							nil, 0, unbounded, 0)
+			/\
+			P:MatchPair? :: MatchPair .
+	eq anyMatches(G, G1 GL) = anyMatches(G, GL) [owise]. 
+
+	***(
+	sort Axiom .
+	sort AxiomList .
+
+	subsort Axiom < AxiomList .
+
+	op emptyAL : -> AxiomList .
+
+	op assignementAxiom : -> Axiom .
+	eq assignementAxiom = { E:AExp |-> 1 } E:AExp := F:AExp { E:AExp |-> F:AExp } .
+	op _;_ : Axiom AxiomList -> AxiomList [id: emptyAL] .
+
+
+	crl [test] : 
+		=>
+		< noRule ; RG ; noGoal ; downTerm(getTerm(SubGoals?), emptyGL) GG ; GL ; 'applied  > 
+		if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),
+						upTerm(G), 'Sequencing, 'S:Relation <- upTerm(S), 0, unbounded, 0) .
+	***)
+
+
+endm

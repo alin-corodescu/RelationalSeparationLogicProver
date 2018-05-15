@@ -24,5 +24,6 @@ mod GOAL-GRAPH is
 		if G := G1 .
 	eq anyMatches(G, G1 GL) = anyMatches(G, GL) . 
 
+	
 
 endm

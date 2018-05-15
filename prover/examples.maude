@@ -4,3 +4,22 @@ loop init .
 (prove({x |-> 1 ; x |-> 1} x := 1 -- x := 1 {x |-> 1 ; x |-> 1}))
 (applyEmbeddingRule)
 (ok)
+
+
+***(
+This is how we will implement axioms
+Maude> parse { E:AExp |-> 1 } E:AExp := F:AExp { E:AExp |-> F:AExp } .
+[GoalGraph,GoalList]: {E:AExp |-> 1}E:AExp := F:AExp{E:AExp |-> F:AExp}
+
+xmatch { E:AExp |-> 1 } [E:AExp] := F:AExp { E:AExp |-> F:AExp } <=? { x plus 1 |-> 1 } [ x plus 1 ] := 10 { x plus 1 |-> 10 } .
+xmatch in PROVER-INTERFACE : {E:AExp |-> 1}[E:AExp]:= F:AExp{E:AExp |-> F:AExp} <=? {(x plus 1) |-> 1}[x
+    plus 1]:= 10{(x plus 1) |-> 10} .
+Decision time: 0ms cpu (0ms real)
+***(
+red anyMatches({ x plus 1 |-> 1 } [ x plus 1 ] := 10 { x plus 1 |-> 10 }, { E:AExp |-> 1 } [E:AExp] := F:AExp { E:AExp |-> F:AExp }).
+)***
+***(
+Solution 1
+E:AExp --> x plus 1
+F:AExp --> 10
+)

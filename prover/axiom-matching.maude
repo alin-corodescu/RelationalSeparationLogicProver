@@ -17,7 +17,7 @@ mod AXIOM-MATCHING is
 							upTerm(G1),
 							upTerm(G),
 							nil, 0, unbounded, 0)
-			/\
+			/\ 
 			P:MatchPair? :: MatchPair .
 	eq anyMatches(G, G1 GL) = anyMatches(G, GL) [owise]. 
 

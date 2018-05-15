@@ -52,7 +52,13 @@ mod PROVER-INTERFACE is
        => [QIL, < A ; RG ; G ; GG ; GL ; nil >, QIL''  QIL']
        if QIL' =/= nil .
 
-
+    --- load axioms as proven goals
+    rl [loadAxioms] : < noRule ; noGoal ; noGoal ; emptyGL ; emptyGL ; nil >
+    	=>
+    	< noRule ; noGoal ; noGoal ; emptyGL ; 
+    	{ E:AExp |-> 1 } [E:AExp] := F:AExp { E:AExp |-> F:AExp }
+    	emptyGL
+    	 ; 'axioms '  'loaded > .
 
     --- begin interface rules 
     var HQ : HoareQuadruple .
@@ -79,7 +85,7 @@ mod PROVER-INTERFACE is
 	crl [alreadyProvenGoal] : < noRule ; RG ; G ; GG ; GL ; nil >
 		=>
 		< noRule ; RG ; noGoal ; GG ; GL ; nil > 
-		if anyMatches(G, GL) = true .
+		if G =/= noGoal /\ anyMatches(G, GL) = true .
 	--- end interface rules
 
 

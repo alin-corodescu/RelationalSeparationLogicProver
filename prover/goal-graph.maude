@@ -22,12 +22,11 @@ mod GOAL-GRAPH is
 	
 	ceq anyMatches(G, G1 GL) = true
 		---if G := G1 .
-		if P:MatchPair? := metaXmatch(upModule('AXIOM-MATCHING, false), 
+		if metaXmatch(upModule('PROVER-INTERFACE, false), 
 							upTerm(G1),
 							upTerm(G),
-							nil, 0, unbounded, 0)
-			/\ 
-			P:MatchPair? :: MatchPair .
+							nil, 0, unbounded, 0) :: MatchPair .
+
 	eq anyMatches(G, G1 GL) = anyMatches(G, GL) [owise].
 
 	

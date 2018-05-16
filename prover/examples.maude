@@ -1,15 +1,23 @@
 --- Exemplul 1
 load prover-interface.maude
 loop init .
-(prove({x |-> 1 ; x |-> 1} x := 1 -- x := 1 {x |-> 1 ; x |-> 1}))
+(prove({x |-> 1 ; x |-> 1} [x] := 1 -- [x] := 1 {x |-> 1 ; x |-> 1}))
 (applyEmbeddingRule)
 (ok)
 
 
+ ***(   --- load axioms as proven goals
+    rl [loadAxioms] : < noRule ; noGoal ; noGoal ; emptyGL ; emptyGL ; nil >
+    	=>
+    	< noRule ; noGoal ; noGoal ; emptyGL ; 
+		downTerm('`{_`}_`{_`}['_|->_['E:AExp,'s_['0.Zero]],'`[_`]:=_['E:AExp,'F:AExp],'_|->_['E:AExp,'F:AExp]] , emptyGL)
+***(
+    	 ; 'axioms '  'loaded > .)
+
 ***(
 This is how we will implement axioms
 Maude> parse { E:AExp |-> 1 } E:AExp := F:AExp { E:AExp |-> F:AExp } .
-[GoalGraph,GoalList]: {E:AExp |-> 1}E:AExp := F:AExp{E:AExp |-> F:AExp}
+[GoalGraph,GoalList]: {E:AExp |q-> 1}E:AExp := F:AExp{E:AExp |-> F:AExp}
 
 xmatch { E:AExp |-> 1 } [E:AExp] := F:AExp { E:AExp |-> F:AExp } <=? { x plus 1 |-> 1 } [ x plus 1 ] := 10 { x plus 1 |-> 10 } .
 xmatch in PROVER-INTERFACE : {E:AExp |-> 1}[E:AExp]:= F:AExp{E:AExp |-> F:AExp} <=? {(x plus 1) |-> 1}[x

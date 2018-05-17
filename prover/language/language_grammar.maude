@@ -44,5 +44,5 @@ mod LANGUAGE-GRAMMAR is
 
 	op pass : -> Command .
 
-	ops x y z : -> Id .
+	ops x y z t : -> Id .
 endm

@@ -1,0 +1,59 @@
+load prover-interface.maude
+loop init .
+(prove(
+	{ 
+		(
+			((x |-> 1) * (y |-> 1)) ;
+			((z |-> 1) * (t |-> 1))
+		)
+		*
+		(x eqs z /\ Emp)
+		*
+		(y eqs t /\ Emp)
+	}
+	[x] := 2 ; [y] := 3
+	--
+	[t] := 3 ; [z] := 2
+	{
+		Same
+		*
+		(x eqs z /\ Emp) 
+		*
+		(y eqs t /\ Emp)
+	}
+	)
+)
+(applyConsequence 		
+		((
+			((x |-> 1) * (y |-> 1)) ;
+			((z |-> 1) * (t |-> 1))
+		)
+		*
+		(x eqs z /\ Emp)
+		*
+		(y eqs t /\ Emp))
+
+		((
+			((x |-> 2) * (y |-> 3)) ;
+			((z |-> 2) * (t |-> 3))
+		)
+		*
+		(x eqs z /\ Emp)
+		*
+		(y eqs t /\ Emp))
+)
+(ok) --- temporarily approve the implication between Relations
+(
+	applyFrameRule 
+		( (x eqs z /\ Emp) * (y eqs t /\ Emp)) 
+)
+
+(
+	applySequencing 
+		( ( ((x |-> 2) * (y |-> 1)) ; ((t |-> 3) * (z |-> 1)) ) )
+)
+
+(
+	applyConsequence (x |-> 1 ; t |-> 1) * (y |-> 1 ; z |-> 1)	(x |-> 2 ; t |-> 3) * (y |-> 1 ; z |-> 1)
+)
+---(ok) --- Implication between relations

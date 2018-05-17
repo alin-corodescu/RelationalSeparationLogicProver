@@ -47,6 +47,8 @@ mod PROVER-GRAMMAR is
 
 	op stop : -> Action .
 
+	op showGoal : -> Action .
+
 	op applyEmbeddingRule : -> Action .
 
 	--- The T parameter of the Frame rule -- a separable heap

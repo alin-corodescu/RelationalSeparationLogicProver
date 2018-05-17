@@ -1,10 +1,54 @@
 --- Exemplul 1
 load prover-interface.maude
 loop init .
-(prove({x |-> 1 ; x |-> 1} [x] := 1 -- [x] := 1 {x |-> 1 ; x |-> 1}))
+(prove({x |-> 1 ; x |-> 1} [x] := 2 -- [x] := 2 {x |-> 2 ; x |-> 2}))
 (applyEmbeddingRule)
-(ok)
+---(ok) the ok no longer needed
 
+--- Exemplul 2
+load prover-interface.maude
+loop init .
+(prove (
+	{ 
+		(
+			(x |-> 1) * (y |-> 1) ;
+			(z |-> 1) * (t |-> 1)
+		)
+		*
+		(x eqs z /\ Emp)
+		*
+		(y eqs t /\ Emp)
+	}
+	[x] := 2 ; [y] := 3
+	--
+	[t] := 3 ; [z] := 2
+	{
+		Same
+		*
+		(x eqs z /\ Emp) 
+		*
+		(y eqs t /\ Emp)
+	}
+	)
+)
+
+((((x |-> 1) * y |-> 1) ; (z |-> 1) * t |-> 1) => (x |-> 1 ; t |-> 1) * (y |-> 1 ; z |-> 1))
+
+    {(x |-> 1 ; t |-> 1) * (y |-> 1 ; z |-> 1)}[x]:= 2 -- [t]:= 3{(x |-> 2 ; t |-> 3) * (y |-> 1 ; z |->
+    1)} (((x |-> 2 ; t |-> 3) * (y |-> 1 ; z |-> 1)) => (((x |-> 2) * y |-> 1) ; (t |-> 3) * z |-> 1)) {(
+    (x |-> 2) * y |-> 1) ; (t |-> 3) * z |-> 1}[y]:= 3 -- [z]:= 2{((x |-> 2) * y |-> 3) ; (z |-> 2) * t
+    |-> 3} (((((x |-> 2) * y |-> 3) ; (z |-> 2) * t |-> 3) * (x eqs z /\ Emp) * (y eqs t /\ Emp)) => Same
+    * (x eqs z /\ Emp) * (y eqs t /\ Emp))
+
+(
+	(
+		((x |-> 1) * y |-> 1) ; (z |-> 1) * t |-> 1) => (x |-> 1 ; t |-> 1) * (y |-> 1 ; z |-> 1)
+)
+    {(x |-> 1 ; t |-> 1) * (y |-> 1 ; z |-> 1)}[x]:= 2 -- [t]:= 3{(x |-> 2 ; t |-> 3) * (y |-> 1 ; z |->
+    1)} (((x |-> 2 ; t |-> 3) * (y |-> 1 ; z |-> 1)) => (((x |-> 2) * y |-> 1) ; (t |-> 3) * z |-> 1)) {(
+    (x |-> 2) * y |-> 1) ; (t |-> 3) * z |-> 1}[y]:= 3 -- [z]:= 2{((x |-> 2) * y |-> 3) ; (z |-> 2) * t
+    |-> 3} (((((x |-> 2) * y |-> 3) ; (z |-> 2) * t |-> 3) * (x eqs z /\ Emp) * (y eqs t /\ Emp)) => Same
+    * (x eqs z /\ Emp) * (y eqs t /\ Emp))
 
  ***(   --- load axioms as proven goals
     rl [loadAxioms] : < noRule ; noGoal ; noGoal ; emptyGL ; emptyGL ; nil >

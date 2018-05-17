@@ -82,6 +82,10 @@ mod PROVER-INTERFACE is
 		=>
 		< noRule ; RG ; noGoal ; GG ; GL ; nil > 
 		if anyMatches(G, GL) = true .
+
+	rl [showCurrentGoal] : < showGoal ; RG ; G ; GG ; GL ; nil >
+		=>
+		< noRule ; RG ; G ; GG ; GL ; metaPrettyPrint(upModule('PROVER-INTERFACE, false), upTerm(G)) > .
 	--- end interface rules
 
 

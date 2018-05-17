@@ -19,7 +19,8 @@ mod HOARE-QUADRUPLE is
 	op Same : -> Relation .
 	op (_;_) : Assertion Assertion -> Relation .
 	--- Operators between the RSL assertions
-	ops _*_ _/\_ _\/_ _=>_ : Relation Relation -> Relation .
+	op _*_ : Relation Relation -> Relation [assoc] .
+	ops _/\_ _\/_ _=>_ : Relation Relation -> Relation .
 	op not : Relation -> Relation .
 	ops exists_._ any_._ : Id Relation -> Relation .
 

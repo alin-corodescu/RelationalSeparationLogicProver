@@ -56,4 +56,25 @@ loop init .
 (
 	applyConsequence (x |-> 1 ; t |-> 1) * (y |-> 1 ; z |-> 1)	(x |-> 2 ; t |-> 3) * (y |-> 1 ; z |-> 1)
 )
----(ok) --- Implication between relations
+(ok) --- Implication between relations
+
+(
+	applyFrameRule 
+		(y |-> 1 ; z |-> 1)
+)
+(applyEmbeddingRule)
+
+(ok) --- Implications between relations
+
+(
+	applyConsequence (x |-> 2 ; t |-> 3) * (y |-> 1 ; z |-> 1)	(x |-> 2 ; t |-> 3) * (y |-> 1 ; z |-> 1)
+)
+(ok) 
+
+(
+	applyFrameRule (x |-> 2 ; t |-> 3)
+)
+
+(ok)
+
+(ok) --- Last implication

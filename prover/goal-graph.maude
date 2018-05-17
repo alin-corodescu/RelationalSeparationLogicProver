@@ -9,7 +9,7 @@ mod GOAL-GRAPH is
 	subsort Goal < GoalList . 
 
 	--- Building the Goal list 
-	op __ : Goal GoalList -> GoalList [assoc id: emptyGL].
+	op _<>_ : GoalList GoalList -> GoalList [assoc id: emptyGL].
 
 	op emptyGL : -> GoalList .
 
@@ -20,14 +20,14 @@ mod GOAL-GRAPH is
 
 	eq anyMatches(G, emptyGL) = false .
 	
-	ceq anyMatches(G, G1 GL) = true
+	ceq anyMatches(G, G1 <> GL) = true
 		---if G := G1 .
 		if metaXmatch(upModule('PROVER-INTERFACE, false), 
 							upTerm(G1),
 							upTerm(G),
 							nil, 0, unbounded, 0) :: MatchPair .
 
-	eq anyMatches(G, G1 GL) = anyMatches(G, GL) [owise].
+	eq anyMatches(G, G1 <> GL) = anyMatches(G, GL) [owise].
 
 	
 

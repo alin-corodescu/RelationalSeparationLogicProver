@@ -44,5 +44,7 @@ mod LANGUAGE-GRAMMAR is
 
 	op pass : -> Command .
 
+	--- the null pointer
+	op nil : -> AExp .
 	ops x y z t : -> Id .
 endm

@@ -1,0 +1,3 @@
+parse ((c eqs nil) /\ Emp) \/ (exists a . (exists n . ((c |-> a) * (c + 1 |-> n)
+															;
+															(c |-> a) * (c + 1 |-> n)))) * List(n) .

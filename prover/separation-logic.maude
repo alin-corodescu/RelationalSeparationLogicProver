@@ -3,6 +3,7 @@ load language/language_grammar.maude
 mod HOARE-TRIPLE is 
 	protecting INT .
 	including LANGUAGE-GRAMMAR .
+	protecting META-LEVEL .
 
 	sort HoareTriple .
 
@@ -29,5 +30,8 @@ mod HOARE-TRIPLE is
 
 	--- Constructors used for testing purposes only
 	---ops a b : -> Assertion .
+
+	op - : -> AExp .
+	eq - = downTerm('_:AExp, null) .
 
 endm

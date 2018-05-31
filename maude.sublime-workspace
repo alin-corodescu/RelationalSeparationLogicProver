@@ -98,10 +98,7 @@
 			}
 		},
 		{
-			"contents": "load prover-interface.maude\nloop init .\n(prove(\n\t{ \n\t\t(\n\t\t\t((x |-> 1) * (y |-> 1)) ;\n\t\t\t((z |-> 1) * (t |-> 1))\n\t\t)\n\t\t*\n\t\t(x eqs z /\\ Emp)\n\t\t*\n\t\t(y eqs t /\\ Emp)\n\t}\n\t[x] := 2 ; [y] := 3\n\t--\n\t[t] := 3 ; [z] := 2\n\t{\n\t\tSame\n\t\t*\n\t\t(x eqs z /\\ Emp) \n\t\t* \n\t\t(y eqs t /\\ Emp)\n\t}\n\t)\n)\n(applyConsequence \t\t\n\t\t((\n\t\t\t((x |-> 1) * (y |-> 1)) ;\n\t\t\t((z |-> 1) * (t |-> 1))\n\t\t)\n\t\t*\n\t\t(x eqs z /\\ Emp)\n\t\t*\n\t\t(y eqs t /\\ Emp))\n\n\t\t((\n\t\t\t((x |-> 2) * (y |-> 3)) ;\n\t\t\t((z |-> 2) * (t |-> 3))\n\t\t)\n\t\t*\n\t\t(x eqs z /\\ Emp)\n\t\t*\n\t\t(y eqs t /\\ Emp))\n)\n(ok) --- temporarily approve the implication between Relations\n(\n\tapplyFrameRule \n\t\t( (x eqs z /\\ Emp) * (y eqs t /\\ Emp)) \n)\n\n(\n\tapplySequencing \n\t\t( ( ((x |-> 2) * (y |-> 1)) ; ((t |-> 3) * (z |-> 1)) ) )\n)\n\n(\n\tapplyConsequence (x |-> 1 ; t |-> 1) * (y |-> 1 ; z |-> 1)\t(x |-> 2 ; t |-> 3) * (y |-> 1 ; z |-> 1)\n)\n(ok) --- Implication between relations\n\n(\n\tapplyFrameRule \n\t\t(y |-> 1 ; z |-> 1)\n)\n(applyEmbeddingRule)\n\n(ok) --- Implications between relations\n\n(\n\tapplyConsequence (x |-> 2 ; t |-> 3) * (y |-> 1 ; z |-> 1)\t(x |-> 2 ; t |-> 3) * (y |-> 1 ; z |-> 1)\n)\n(ok) \n\n(\n\tapplyFrameRule (x |-> 2 ; t |-> 3)\n)\n\n(ok)\n\n(ok) --- Last implication",
 			"file": "prover/runner.maude",
-			"file_size": 1171,
-			"file_write_time": 131710380745987642,
 			"settings":
 			{
 				"buffer_size": 1172,
@@ -113,7 +110,7 @@
 			"file": "prover/relational-sep-logic.maude",
 			"settings":
 			{
-				"buffer_size": 837,
+				"buffer_size": 839,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -122,7 +119,7 @@
 			"file": "prover/separation-logic.maude",
 			"settings":
 			{
-				"buffer_size": 640,
+				"buffer_size": 718,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -131,7 +128,7 @@
 			"file": "prover/language/language_grammar.maude",
 			"settings":
 			{
-				"buffer_size": 1486,
+				"buffer_size": 1529,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -145,9 +142,25 @@
 	"command_palette":
 	{
 		"height": 75.0,
-		"last_filter": "maude",
+		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"ma",
+				"Set Syntax: Maude"
+			],
+			[
+				"theme",
+				"UI: Select Color Scheme"
+			],
+			[
+				"set syntax maude",
+				"Set Syntax: Maude"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
 			[
 				"maude",
 				"Set Syntax: Maude"
@@ -155,14 +168,6 @@
 			[
 				"color",
 				"UI: Select Color Scheme"
-			],
-			[
-				"theme",
-				"UI: Select Theme"
-			],
-			[
-				"install",
-				"Package Control: Install Package"
 			],
 			[
 				"instal",
@@ -193,9 +198,7 @@
 	},
 	"expanded_folders":
 	[
-		"/usr/projects/MaudePlayground",
-		"/usr/projects/MaudePlayground/prover",
-		"/usr/projects/MaudePlayground/prover/language"
+		"/home/alin/Licenta/MaudePlayground"
 	],
 	"file_history":
 	[
@@ -292,7 +295,7 @@
 	"groups":
 	[
 		{
-			"selected": 6,
+			"selected": 4,
 			"sheets":
 			[
 				{
@@ -314,11 +317,11 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/Maude Syntax Highlighting/maude.tmLanguage",
+							"syntax": "Packages/Text/Plain text.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2741.0,
+						"translation.y": 3224.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 6,
@@ -343,7 +346,7 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/Maude Syntax Highlighting/maude.tmLanguage",
+							"syntax": "Packages/Text/Plain text.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
@@ -372,7 +375,7 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/Maude Syntax Highlighting/maude.tmLanguage"
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -400,7 +403,7 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/Maude Syntax Highlighting/maude.tmLanguage"
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -428,13 +431,13 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/Maude Syntax Highlighting/maude.tmLanguage"
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -450,8 +453,8 @@
 						"selection":
 						[
 							[
-								762,
-								762
+								2171,
+								2171
 							]
 						],
 						"settings":
@@ -459,7 +462,7 @@
 							"syntax": "Packages/Maude Syntax Highlighting/maude.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 756.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -488,10 +491,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 171.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -500,20 +503,20 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 837,
+						"buffer_size": 839,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								692,
-								700
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Maude Syntax Highlighting/maude.tmLanguage",
+							"syntax": "Packages/Text/Plain text.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
@@ -529,20 +532,20 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 640,
+						"buffer_size": 718,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								353,
-								353
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Maude Syntax Highlighting/maude.tmLanguage",
+							"syntax": "Packages/Text/Plain text.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
@@ -558,20 +561,20 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1486,
+						"buffer_size": 1529,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1470,
-								1470
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Maude Syntax Highlighting/maude.tmLanguage",
+							"syntax": "Packages/Text/Plain text.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,

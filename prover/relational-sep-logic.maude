@@ -12,16 +12,16 @@ mod HOARE-QUADRUPLE is
 	--- Not sure if it should be another BExp, or the same - True vs true in the paper
 	subsort BExp < Relation .
 
-	op {_}_--_{_} : Relation Command Command Relation -> HoareQuadruple .
+	op {_}_--_{_} : Relation Command Command Relation -> HoareQuadruple [format (ng d d on rn on gn d d o)].
 
 
 	op Emp : -> Relation .
 	op Same : -> Relation .
-	op (_;_) : Assertion Assertion -> Relation .
+	op (_;_) : Assertion Assertion -> Relation [format (d s s d)].
 	--- Operators between the RSL assertions
-	op _*_ : Relation Relation -> Relation [assoc] .
-	op _=>_ : Relation Relation -> Relation [prec 40] .
-	ops _/\_ _\/_ : Relation Relation -> Relation .
+	op _*_ : Relation Relation -> Relation [assoc format (d s t d)] .
+	op _=>_ : Relation Relation -> Relation [prec 40 format (d nr no d)] .
+	ops _/\_ _\/_ : Relation Relation -> Relation [format (d s t d)] .
 	op not : Relation -> Relation .
 	ops exists_._ any_._ : Id Relation -> Relation .
 

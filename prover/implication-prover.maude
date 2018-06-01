@@ -1,4 +1,4 @@
----load prover-grammar.maude
+load prover-grammar.maude
 
 
 mod IMPLCATION-PROVER is

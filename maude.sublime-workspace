@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"mete",
+				"metaPrettyPrint"
+			],
+			[
 				"Aximo",
 				"AxiomList"
 			],
@@ -44,101 +48,28 @@
 	"buffers":
 	[
 		{
+			"file": "prover/implication-prover.maude",
+			"settings":
+			{
+				"buffer_size": 1181,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "prover/prover-interface.maude",
 			"settings":
 			{
-				"buffer_size": 10500,
+				"buffer_size": 10757,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "prover/prover-grammar.maude",
+			"contents": "\n\t((((x |-> 1)* y |-> 1);(z |-> 1)* t |-> 1)*(x eqs z /\\ Emp)*(y eqs t /\\ Emp))\n\t=>\n\t((((x |-> 1)* y |-> 1);(z |-> 1)* t |-> 1)*(x eqs z /\\ Emp)*(y eqs t /\\ Emp))\n \n \t((((x |-> 2)* y |-> 3);(z |-> 2)* t |-> 3)*(x eqs z /\\ Emp)*(y eqs t /\\ Emp))\n \t =>\n \t (Same *(x eqs z /\\ Emp)*(y eqs t /\\ Emp))\n",
 			"settings":
 			{
-				"buffer_size": 2341,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "prover/goal-graph.maude",
-			"settings":
-			{
-				"buffer_size": 700,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "prover/axiom-matching.maude",
-			"settings":
-			{
-				"buffer_size": 1037,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "prover/matching.maude",
-			"settings":
-			{
-				"buffer_size": 364,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/alin/.config/i3/config",
-			"settings":
-			{
-				"buffer_size": 6384,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "prover/examples.maude",
-			"settings":
-			{
-				"buffer_size": 4770,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "prover/runner.maude",
-			"settings":
-			{
-				"buffer_size": 1172,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "prover/relational-sep-logic.maude",
-			"settings":
-			{
-				"buffer_size": 839,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "prover/separation-logic.maude",
-			"settings":
-			{
-				"buffer_size": 718,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "prover/language/language_grammar.maude",
-			"settings":
-			{
-				"buffer_size": 1529,
-				"encoding": "UTF-8",
+				"buffer_size": 296,
 				"line_ending": "Unix"
 			}
 		}
@@ -156,6 +87,18 @@
 		[
 			[
 				"ma",
+				"Set Syntax: Maude"
+			],
+			[
+				"m",
+				"Set Syntax: Maude"
+			],
+			[
+				"MAU",
+				"Set Syntax: Maude"
+			],
+			[
+				"maud",
 				"Set Syntax: Maude"
 			],
 			[
@@ -207,10 +150,24 @@
 	},
 	"expanded_folders":
 	[
-		"/home/alin/Licenta/MaudePlayground"
+		"/home/alin/Licenta/MaudePlayground",
+		"/home/alin/Licenta/MaudePlayground/prover",
+		"/home/alin/Licenta/MaudePlayground/prover/language"
 	],
 	"file_history":
 	[
+		"/home/alin/Licenta/MaudePlayground/prover/examples.maude",
+		"/home/alin/Licenta/MaudePlayground/prover/matching.maude",
+		"/home/alin/Licenta/MaudePlayground/prover/prover-interface.maude",
+		"/home/alin/Licenta/MaudePlayground/prover/axiom-matching.maude",
+		"/home/alin/Licenta/MaudePlayground/prover/goal-graph.maude",
+		"/home/alin/Licenta/MaudePlayground/prover/prover-grammar.maude",
+		"/home/alin/Licenta/MaudePlayground/prover/runner.maude",
+		"/home/alin/Licenta/MaudePlayground/prover/relational-sep-logic.maude",
+		"/home/alin/Licenta/MaudePlayground/prover/separation-logic.maude",
+		"/home/alin/Licenta/MaudePlayground/prover/language/language_grammar.maude",
+		"/home/alin/Licenta/MaudePlayground/prover/implication-prover.maude",
+		"/home/alin/.config/i3/config",
 		"/home/alin/LinuxSetup/ProvisioningScripts/install_i3.sh",
 		"/home/alin/backup_hdd_win/alin/ProvisioningScripts/checklist",
 		"/usr/projects/MaudePlayground/prover/examples.maude",
@@ -223,7 +180,6 @@
 		"/usr/projects/MaudePlayground/prover/goal-graph.maude",
 		"/usr/projects/MaudePlayground/limbaj_simplu.maude",
 		"/usr/projects/MaudePlayground/limbaj_separat.maude",
-		"/home/alin/.config/i3/config",
 		"/home/alin/bin/maude/maude_itp/itp-tool.maude",
 		"/home/alin/projects/Licenta/MaudePlayground/setup_jetbrains_config_and_system_paths.sh",
 		"/home/alin/projects/Licenta/MaudePlayground/limbaj_simplu.maude",
@@ -273,6 +229,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"P1",
 			"10",
 			"3",
 			"upTerm",
@@ -305,194 +262,24 @@
 	"groups":
 	[
 		{
-			"selected": 5,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "prover/prover-interface.maude",
+					"file": "prover/implication-prover.maude",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10500,
+						"buffer_size": 1181,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5174,
-								5174
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 3224.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "prover/prover-grammar.maude",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2341,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1241,
-								1241
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 399.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "prover/goal-graph.maude",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 700,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								694,
-								694
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "prover/axiom-matching.maude",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1037,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								278,
-								278
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "prover/matching.maude",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 364,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								257,
-								257
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "/home/alin/.config/i3/config",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6384,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								611,
-								613
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "prover/examples.maude",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4770,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2171,
-								2171
+								0,
+								0
 							]
 						],
 						"settings":
@@ -503,24 +290,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
-					"file": "prover/runner.maude",
+					"buffer": 1,
+					"file": "prover/prover-interface.maude",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1172,
+						"buffer_size": 10757,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								249,
-								249
+								3179,
+								3179
 							]
 						],
 						"settings":
@@ -529,97 +316,38 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 977.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
-					"file": "prover/relational-sep-logic.maude",
+					"buffer": 2,
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 839,
+						"buffer_size": 296,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								259,
+								259
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"auto_name": "",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "prover/separation-logic.maude",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 718,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "prover/language/language_grammar.maude",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1529,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]

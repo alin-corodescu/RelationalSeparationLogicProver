@@ -11,7 +11,7 @@ mod PROVER-GRAMMAR is
 	sort Action . 
 
 	op noRule : -> Action .
-	op noGoal : -> Goal .
+
 
 
 	--- Hoare triples and quadruples can be seen as goals
@@ -48,6 +48,8 @@ mod PROVER-GRAMMAR is
 	op stop : -> Action .
 
 	op showGoal : -> Action .
+
+	op check : -> Action .
 
 	op applyEmbeddingRule : -> Action .
 

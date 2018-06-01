@@ -12,15 +12,25 @@ mod GOAL-GRAPH is
 	op _<>_ : GoalList GoalList -> GoalList [assoc id: emptyGL].
 
 	op emptyGL : -> GoalList .
+	op noGoal : -> Goal .
 
-	op anyMatches : Goal GoalList -> Bool .
+	sort Goal? .
 
+	subsort Goal < Goal? . 
+	op noMatch : -> Goal? .
 	vars G G1 : Goal .
 	var GL : GoalList .
 
-	eq anyMatches(G, emptyGL) = false .
+	cmb G : Goal if noMatch =/= G .
+
+	op anyMatches : Goal GoalList -> Goal? .
+
+
+
+
+	eq anyMatches(G, emptyGL) = noMatch .
 	
-	ceq anyMatches(G, G1 <> GL) = true
+	ceq anyMatches(G, G1 <> GL) = G1
 		---if G := G1 .
 		if metaXmatch(upModule('PROVER-INTERFACE, false), 
 							upTerm(G1),

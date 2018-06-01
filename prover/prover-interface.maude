@@ -64,24 +64,30 @@ mod PROVER-INTERFACE is
 	--- after processing a goal, take the first element from that list to prove it
 	crl [takeFirstGoalFromList] : < noRule ; RG ; noGoal ; G <> GG ; GL ; nil > 
 		=> 
-		< noRule ; RG ; G ; GG ; GL ; 'current ' 'goal '  '  'is '  metaPrettyPrint(upModule('PROVER-INTERFACE, false), upTerm(G)) '\n > 
+		< check ; RG ; G ; GG ; GL ; 'current ' 'goal '  '  'is '\n metaPrettyPrint(upModule('PROVER-INTERFACE, false), upTerm(G)) '\n > 
 		if G =/= noGoal .
 
 	--- mark the current goal as done, by adding it to the proven goals list
 	--- add a metaPrettyPrint call here 
 	rl [markGoalProven] : < ok ; RG ; G ; GG ; GL ; nil >
 		=>
-		< noRule ; RG ; noGoal ; GG ; GL <> G ; nil > .
+		< noRule ; RG ; noGoal ; GG ; GL <> G ; 'admitted '  'goal ': '\n  metaPrettyPrint(upModule('PROVER-INTERFACE, false), upTerm(G)) '\n > .
 
 	crl [stopProcessing] : < noRule ; RG ; noGoal ; emptyGL ; GL ; nil >
 		=>
-		< stop ; RG ; noGoal ; emptyGL ; GL ; metaPrettyPrint(upModule('PROVER-INTERFACE, false), upTerm(RG)) 'goal ' 'has '  'been ' 'proven '\n >
+		< stop ; RG ; noGoal ; emptyGL ; GL ; metaPrettyPrint(upModule('PROVER-INTERFACE, false), upTerm(RG)) '\n 'goal ' 'has '  'been ' 'proven '\n >
 		if RG =/= noGoal .
 	
-	crl [alreadyProvenGoal] : < noRule ; RG ; G ; GG ; GL ; nil >
+	crl [alreadyProvenGoal] : < check ; RG ; G ; GG ; GL ; nil >
 		=>
-		< noRule ; RG ; noGoal ; GG ; GL ; metaPrettyPrint(upModule('PROVER-INTERFACE, false), upTerm(G)) 'was ' 'in ' 'the '  'proven ' 'goals '  'list '\n > 
-		if anyMatches(G, GL) = true .
+		if G1:Goal? :: Goal 
+		then 
+			< noRule ; RG ; noGoal ; GG ; GL ; metaPrettyPrint(upModule('PROVER-INTERFACE, false), upTerm(G)) '\n 'was ' 'matched ' 'with '\n metaPrettyPrint(upModule('PROVER-INTERFACE, false), upTerm(G1:Goal?)) '\n >
+		else
+			--- Keep on going, the check failed
+			< noRule ; RG ; G ; GG ; GL ; nil >
+		fi 
+		if G1:Goal? := anyMatches(G, GL) .
 
 	rl [showCurrentGoal] : < showGoal ; RG ; G ; GG ; GL ; nil >
 		=>

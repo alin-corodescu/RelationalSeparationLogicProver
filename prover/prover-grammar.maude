@@ -1,10 +1,8 @@
-load relational-sep-logic.maude
 load goal-graph.maude
 
 mod PROVER-GRAMMAR is
 	protecting NAT .
 	including HOARE-QUADRUPLE .
-	protecting HOARE-TRIPLE .
 	including GOAL-GRAPH . 
 
 	--- Sort representing actions on the goals.
@@ -32,13 +30,7 @@ mod PROVER-GRAMMAR is
 	--- op _=>_ : Relation Relation -> Goal . 
 	--- use cmb here, a relation is a Goal if it can be written as a Relation => Relation
 	subsort Relation < Goal . 
-	var R R1 R2 : Relation .
-	var G : Goal .
-	cmb R : Goal if (R1 => R2) := R .
 
-	subsort Assertion < Goal .
-	var P P1 P2 : Assertion .
-	cmb P : Goal if (P1 => P2) := P .
 
 	op prove : HoareQuadruple -> Action .
 
@@ -50,6 +42,8 @@ mod PROVER-GRAMMAR is
 	op showGoal : -> Action .
 
 	op check : -> Action .
+
+	op implication : -> Action .
 
 	op applyEmbeddingRule : -> Action .
 

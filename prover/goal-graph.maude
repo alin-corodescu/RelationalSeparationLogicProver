@@ -1,7 +1,9 @@
+load relational-sep-logic.maude
+
 mod GOAL-GRAPH is 
 	protecting META-LEVEL .
 	protecting BOOL .
-
+	protecting HOARE-QUADRUPLE . 
 	--- Sorts representing the goals we work with
 	sorts Goal GoalGraph GoalList .
 
@@ -21,12 +23,18 @@ mod GOAL-GRAPH is
 	vars G G1 : Goal .
 	var GL : GoalList .
 
-	cmb G : Goal if noMatch =/= G .
+	vars RR TT : Relation .
+
+	var R R1 R2 : Relation .
+	cmb R : Goal if (R1 => R2) := R .
+
+	subsort Assertion < Goal .
+	var P P1 P2 : Assertion .
+	cmb P : Goal if (P1 => P2) := P .
+
+	cmb G : Goal if noMatch =/= G . 
 
 	op anyMatches : Goal GoalList -> Goal? .
-
-
-
 
 	eq anyMatches(G, emptyGL) = noMatch .
 	
@@ -39,6 +47,13 @@ mod GOAL-GRAPH is
 
 	eq anyMatches(G, G1 <> GL) = anyMatches(G, GL) [owise].
 
+	
+	op tryImplicationProving : Goal -> Trace? .
+
+	eq tryImplicationProving(RR => TT) = metaSearchPath(upModule('IMPLICATION-PROVER, false), 
+							upTerm(RR),
+							upTerm(TT),
+							nil, '* , 40, 0) . 
 	
 
 endm

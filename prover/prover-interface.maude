@@ -1,13 +1,9 @@
 
 load prover-grammar.maude
 
-load language/language_grammar.maude
-
 mod PROVER-INTERFACE is
 	including LOOP-MODE .
-	including PROVER-GRAMMAR .
-	including HOARE-QUADRUPLE .
-	including LANGUAGE-GRAMMAR .
+	including PROVER-GRAMMAR . 
 	protecting META-LEVEL .  
 
 	--- A state in the REPL is represented as follows :
@@ -25,14 +21,13 @@ mod PROVER-INTERFACE is
 	eq init = [nil, < noRule ; noGoal ; noGoal ; emptyGL ; emptyGL ; nil >, nil ] .
 
 	var A : Action . 
-	var QIL QIL' QIL'' : QidList .
+	vars QIL QIL' QIL'' : QidList .
 	--- Root goal
 	var RG : Goal . 
 	var G : Goal .
 	--- Temporarily is just a list, will be turned into a graph
 	var GG : GoalList . 
 	var GL : GoalList . 
-
 	--- Rule handling the input to the program
 	crl [in] : 
 		[QIL, < noRule ; RG ; G ; GG ; GL ; nil > , QIL']
@@ -85,9 +80,20 @@ mod PROVER-INTERFACE is
 			< noRule ; RG ; noGoal ; GG ; GL ; metaPrettyPrint(upModule('PROVER-INTERFACE, false), upTerm(G)) '\n 'was ' 'matched ' 'with '\n metaPrettyPrint(upModule('PROVER-INTERFACE, false), upTerm(G1:Goal?)) '\n >
 		else
 			--- Keep on going, the check failed
-			< noRule ; RG ; G ; GG ; GL ; nil >
+			< implication ; RG ; G ; GG ; GL ; nil >
 		fi 
 		if G1:Goal? := anyMatches(G, GL) .
+
+	crl [tryToProveImplication] : < implication ; RG ; G ; GG ; GL ; nil > 
+		=> 
+		if Tr:[Trace?] :: Trace then 
+			< noRule ; RG ; noGoal ; GG ; GL ; metaPrettyPrint(upModule('PROVER-INTERFACE, false), upTerm(G)) 'auto-proved '\n 
+									'using ': '\n metaPrettyPrint(upModule('PROVER-INTERFACE, false), upTerm(Tr:[Trace?])) > 
+		else 
+			--- The goal could not be proven using the implication prover (Goal might not be an implication or we simply couldn't)
+			< noRule ; RG ; G ; GG ; GL ; 'didn't '  'auto '\n > 
+		fi
+		if Tr:[Trace?] := tryImplicationProving(G) .  
 
 	rl [showCurrentGoal] : < showGoal ; RG ; G ; GG ; GL ; nil >
 		=>
@@ -231,3 +237,5 @@ mod PROVER-INTERFACE is
 						upTerm(G), 'SeparationLogic-ConditionalStatement, none, 0, unbounded, 0) .
 
 endm
+
+load implication-prover.maude

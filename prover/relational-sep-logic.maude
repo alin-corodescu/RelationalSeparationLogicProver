@@ -1,9 +1,7 @@
 load separation-logic.maude
-load language/language_grammar.maude
 
 mod HOARE-QUADRUPLE is
-	including HOARE-TRIPLE .
-	including LANGUAGE-GRAMMAR . 
+	including HOARE-TRIPLE . 
 
 	sort HoareQuadruple . 
 	--- Relational separation logic condition / predicate - R S

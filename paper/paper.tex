@@ -30,11 +30,39 @@ UNIVERSITATEA "ALEXANDRU IOAN CUZA" DIN IAȘI
 \end{center}
 \end{titlepage}
 \tableofcontents
+\pagebreak
 
 \section{Introducere}
-De ce am ales aceasta tema?
+Compararea programelor sau a fragmentelor de cod și studierea echivalenței acestora este parte din activitatea fiecărui programator atunci când testează o implementare alternativă la ceva existent, repară erori din codul sursă, lansează versiuni noi ale unui produs, etc. Natural, pentru orice proces realizat de oameni se încearcă să se găsească soluții care să eficientizeze, să reducă potențiale erori și, în final, să automatizeze complet procesul. Odată ce procesul poate fi automatizat, acesta poate fi inclus în etapele realizării unui program. Cel mai relevant astfel de exemplu ar fi optimizarea codului realizată de compilator: în astfel de situație, codul optimizat trebuie sa fie echivalent cu varianta originală. \\
+
+Prezenta lucrare descrie dezvoltarea  unui utilitar de verificare a modului cum sunt relaționate doua programe, utilizând fundamente teoretice deja bine studiate și folosite, și tehnologii ce facilitează implementarea respectivelor concepte. \\
+
+Utilitarul se bazează pe Logica Hoare împreună cu extensiile sale, Logica Separatoare (numită in continuare Logica Separatoare) și Logica Separatoare Relațională (numită în continuare Logica Relațională), ce ușurează procesul de argumentare asupra programelor, implementate folosind o abordare bazată pe Logica Rescrierii în limbajul Maude. \\
+
+Acesta reprezintă un program de tip CLI în care se pot demonstra în mod interactiv relații între programe și, consecință a dependenței logicii relaționale de cea separatoare, proprietăți ale programelor (fară a fi relaționate cu alt program). Dezvoltarea utilitarului s-a realizat cu ideea de a putea fi extins ulterior, principalele extensii fiind suportarea modelării programelor concurente și automatizarea demonstrațiilor. \\
+
+Restul lucrării este structurat după cum urmează : 
+\begin{itemize}
+	\item Capitolul 1 va descrie limbajul utilizat pentru a descrie programele, împreună cu Logicile utilizate pentru a realiza raționamente peste programele descrise de limbaj
+	\item Capitolul 2 va descrie în mod detaliat modul de construire și folosire a utilitarului, cu accent pe funcționalitățile oferite de limbajul Maude.
+	\item Capitolul 3 va prezenta câteva din cercetările conexe cu tema lucrării și cum acestea ar putea fi integrate în aceasta
+	\item Capitolul 4 va prezenta concluziile lucrării, atât pentru aspectele teoretice utilizate (Logicile prin care se realizează raționamente), cât și pentru aspectele ce țin de implementare (limbajul Maude).
+\end{itemize}
+
+
+\section{Contribuții}
+Contribuțiile aduse de absolvent:
+\begin{itemize}
+	\item Modelarea logicilor relaționale și separatoare prin intermediul limbajului Maude
+	\item Modelarea unui limbaj simplu de programare folosind Maude
+	\item Crearea unui utilitar interactiv de demonstrare a relațiilor dintre programe sau a proprietăților unor programe
+	\item Integrarea acestuia cu o soluție deja existentă pentru a rezolva o sub-problemă (dacă reușesc să mai fac integrarea cu Cyclist)
+\end{itemize}
 \section{Fundamente Teoretice}
 În acest capitol voi prezenta pe scurt fundamentele teoretice ale prezentei lucrări.
+\subsection{Limbaj utilizat}
+\subsubsection{Model de stocare}
+\subsubsection{Sintaxa și semantica limbajului}
 \subsection{Logica Hoare}
 \subsection{Logica Separatoare}
 \subsection{Logica Separatoare Relațională}
@@ -42,10 +70,13 @@ De ce am ales aceasta tema?
 \section{Prover Logică Separatoare Relațională}
 Ordinea subsectiunilor mai poate fi schimbata ulterior. Capitolul cel mai semnificativ din lucrare, va contine toate detaliile de implementare ale solutiei curente
 \subsection{Prezentare Generală Maude}
+\subsection{Semantică executabilă a limbajului folosit}
 \subsection{Modelarea Logicilor Separatoare}
 \subsection{Interacțiunea prin LOOP-MODE}
 \subsection{Schemă Generală de funcționare}
 \subsection{Procese automatizate}
+\subsubsection{Potrivire automată a axiomelor și a goal-urilor dovedite}
+\subsubsection{Demonstrarea automată a implicațiilor}
 \subsection{Interfața}
 \subsection{Viitor}
 \section{Cercetări adiționale}

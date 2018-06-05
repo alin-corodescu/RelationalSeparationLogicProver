@@ -42,7 +42,6 @@ loop init .
 		*
 		(y eqs t /\ Emp))
 )
-(ok) --- temporarily approve the implication between Relations
 (
 	applyFrameRule 
 		( (x eqs z /\ Emp) * (y eqs t /\ Emp)) 
@@ -64,12 +63,10 @@ loop init .
 )
 (applyEmbeddingRule)
 
-(ok) --- Implications between relations
 
 (
 	applyConsequence (x |-> 2 ; t |-> 3) * (y |-> 1 ; z |-> 1)	(x |-> 2 ; t |-> 3) * (y |-> 1 ; z |-> 1)
 )
-(ok) 
 
 (
 	applyFrameRule (x |-> 2 ; t |-> 3)

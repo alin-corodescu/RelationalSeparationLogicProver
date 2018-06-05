@@ -4,16 +4,13 @@ mod INDUCTIVE-PREDICATES is
 	protecting INT .
 	including HOARE-QUADRUPLE .
 
-	sort InductivePredicate .
-
-	subsort InductivePredicate < Relation .
 
 	--- Todo : maybe separate InductivePredicates for both Separation and Relational Logic.
-	op List_ : Id -> InductivePredicate .
+	op List(_) : Id -> Relation .
 
-	var c : Id .
+	---var c : Id .
 	--- Define the n and a ops
-	ops n a : -> Id .
+	---ops n a : -> Id .
 
-	eq List(c) = (((c eqs null) /\ Emp) \/ (exists a . (exists n . (((c |-> a) * ((c + 1) |-> n)) ; (c |-> a) * ((c + 1) |-> n))))) * List(n) .
+	---eq List(c) = (((c eqs null) /\ Emp) \/ (exists a . (exists n . (((c |-> a) * ((c + 1) |-> n)) ; (c |-> a) * ((c + 1) |-> n))))) * List(n) [nonexec] .
 endm

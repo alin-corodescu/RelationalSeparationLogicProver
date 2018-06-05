@@ -1,0 +1,47 @@
+
+
+load prover-interface.maude
+loop init .
+(prove(
+	{ 
+		Same
+	}
+	pass ; 
+	while (! (c eqs null))
+	do 
+		x := [y] ; 
+		[c] := 0 minus x ;
+		c := [c plus 1]
+	od
+	--
+	xp := [yp] ;
+	while (! (cp eqs null))
+	do 
+		[cp] := 0 minus xp ;
+		cp := [cp plus 1] 
+	od
+	{
+		Same
+	}
+	)
+)
+
+(applyConsequence 		
+		(((
+			Same 
+			*
+			List(c)
+			* 
+			(y |-> x0 ; yp |-> x0)
+		) 
+		/\
+		(y eqs yp))
+		/\
+		(c eqs cp))
+
+		((Same
+		/\
+		(y eqs yp))
+		/\ 
+		(c eqs cp))
+)

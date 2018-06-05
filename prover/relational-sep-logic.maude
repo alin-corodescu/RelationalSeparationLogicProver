@@ -25,6 +25,8 @@ mod HOARE-QUADRUPLE is
 
 	op r : -> Relation .
 
+	op List : Id -> Relation . 
+
 
 
 endm 

@@ -2,7 +2,6 @@ load goal-graph.maude
 
 mod PROVER-GRAMMAR is
 	protecting NAT .
-	including HOARE-QUADRUPLE .
 	including GOAL-GRAPH . 
 
 	--- Sort representing actions on the goals.

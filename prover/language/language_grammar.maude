@@ -7,15 +7,12 @@ mod LANGUAGE-GRAMMAR is
 	subsorts Bool Comparison < BExp .
 	subsorts Id Int < AExp .
 
-	--- Sort for defining the list in the cons(E1,E2 .. En) operator
-	sort AllocationList . 
-	subsort AExp < AllocationList . 
-	op _,_ : AllocationList AExp -> AllocationList .
+
 	--- TODO create different ways to define AllocationLists
 	--- please refer to the Fig 1. of the Relational Separation logic for reference on the syntax of this language
 
-	op _;_ : Command Command -> Command [format (i d n d)].
-	op _:=cons(_) : Id AllocationList -> Command [format (i s s d d d)].  
+	op _;_ : Command Command -> Command [prec 50 gather(E e) format (i d n d)].
+	op _:=cons(_) : Id AExp -> Command [format (i s s d d d)].  
 	op _:=[_] : Id AExp -> Command [format (i s s d d d)]. 
 	op [_]:=_ : AExp AExp -> Command [format (i d d s s d)]. 
 	op free : AExp -> Command .
@@ -38,5 +35,5 @@ mod LANGUAGE-GRAMMAR is
 
 	--- the null pointer
 	op null : -> AExp .
-	ops x y z t : -> Id .
+	ops x y z t xp yp x0 y0 c c0 cp : -> Id .
 endm

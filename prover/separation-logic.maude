@@ -10,15 +10,15 @@ mod HOARE-TRIPLE is
 
 	sort Assertion .
 
-	op {_}_{_} : Assertion Command Assertion -> HoareTriple .
+	op {_}_{_} : Assertion Command Assertion -> HoareTriple [format (m s s no nm d d o)].
 
 	subsort BExp < Assertion .
 
-	op _*_ : Assertion Assertion -> Assertion [comm assoc format (d s s d)] .
+	op _*_ : Assertion Assertion -> Assertion [comm assoc format (s s s s)] .
 
 	op _=>_ : Assertion Assertion -> Assertion [prec 40 format (d nr no d)] .
 
-	ops _\/_ _/\_ : Assertion Assertion -> Assertion [format (d s s d)] .
+	ops _\/_ _/\_ : Assertion Assertion -> Assertion [comm format (s s s s)] .
 
 	op not : Assertion -> Assertion .
 

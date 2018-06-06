@@ -117,7 +117,7 @@ mod PROVER-INTERFACE is
 
 	rl [FrameRule] : { R * T } X -- Y { S * T } => {R} X -- Y {S} [nonexec] .
 
-	rl [SeparationLogic-FrameRule] :  {P} C {Q} => {P * V} C {P * V} [nonexec] .
+	rl [SeparationLogic-FrameRule] :  {P * V} C {Q * V} => {P} C {Q} [nonexec] .
 
 	--- This rule will trigger a warning regarding using the S variable before being bound, but in the META-LEVEL it should be ok if we bind it manually
 	rl [Sequencing] : { R }  C1 ; C2 -- C1' ; C2' { T } => { R } C1 -- C1' {S} <> {S} C2 -- C2' {T} [nonexec] . 
@@ -165,7 +165,7 @@ mod PROVER-INTERFACE is
 		=>
 		< noRule ; RG ; noGoal ; downTerm(getTerm(SubGoals?), emptyGL) <> GG ; GL ; 'applied '  'frame '  'rule '  'SL '\n > 
 		if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),
-						upTerm(G), 'SeparationLogic-FrameRule, 'V:Assertion <- upTerm(V), 0, unbounded, 0) .
+						upTerm(G), 'SeparationLogic-FrameRule, 'V:Assertion <- getTerm(metaReduce(upModule('PROVER-INTERFACE, false), upTerm(V))), 0, unbounded, 0) .
 
 	crl [applySequencing] : < applySequencing S ; RG ; G ; GG ; GL ; nil > 
 		=>

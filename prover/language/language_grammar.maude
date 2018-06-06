@@ -35,5 +35,5 @@ mod LANGUAGE-GRAMMAR is
 
 	--- the null pointer
 	op null : -> AExp .
-	ops x y z t xp yp x0 y0 c c0 cp : -> Id .
+	ops x y z t xp yp x0 y0 c c0 cp c1 : -> Id .
 endm

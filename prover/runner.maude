@@ -32,7 +32,7 @@ loop init .
 		(x eqs z /\ Emp)
 		*
 		(y eqs t /\ Emp))
-
+		--
 		((
 			((x |-> 2) * (y |-> 3)) ;
 			((z |-> 2) * (t |-> 3))
@@ -53,7 +53,7 @@ loop init .
 )
 
 (
-	applyConsequence (x |-> 1 ; t |-> 1) * (y |-> 1 ; z |-> 1)	(x |-> 2 ; t |-> 3) * (y |-> 1 ; z |-> 1)
+	applyConsequence (x |-> 1 ; t |-> 1) * (y |-> 1 ; z |-> 1) --(x |-> 2 ; t |-> 3) * (y |-> 1 ; z |-> 1)
 )
 (ok) --- Implication between relations
 
@@ -65,7 +65,7 @@ loop init .
 
 
 (
-	applyConsequence (x |-> 2 ; t |-> 3) * (y |-> 1 ; z |-> 1)	(x |-> 2 ; t |-> 3) * (y |-> 1 ; z |-> 1)
+	applyConsequence (x |-> 2 ; t |-> 3) * (y |-> 1 ; z |-> 1) -- (x |-> 2 ; t |-> 3) * (y |-> 1 ; z |-> 1)
 )
 
 (

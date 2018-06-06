@@ -14,7 +14,7 @@ mod HOARE-TRIPLE is
 
 	subsort BExp < Assertion .
 
-	op _*_ : Assertion Assertion -> Assertion [assoc format (d s s d)] .
+	op _*_ : Assertion Assertion -> Assertion [comm assoc format (d s s d)] .
 
 	op _=>_ : Assertion Assertion -> Assertion [prec 40 format (d nr no d)] .
 

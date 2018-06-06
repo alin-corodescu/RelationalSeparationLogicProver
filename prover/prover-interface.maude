@@ -113,7 +113,7 @@ mod PROVER-INTERFACE is
 
 	--- general format for action rules:
 	---		Goal => GoalList . 
-	rl [EmbeddingRule] : {P ; V} X -- Y {Q ; W} => {P} X {Q} <> {V} Y {W} [nonexec] .
+	rl [EmbeddingRule] : {[ P ; V ]} X -- Y {[ Q ; W ]} => {P} X {Q} <> {V} Y {W} [nonexec] .
 
 	rl [FrameRule] : { R * T } X -- Y { S * T } => {R} X -- Y {S} [nonexec] .
 
@@ -159,7 +159,7 @@ mod PROVER-INTERFACE is
 		=>
 		< noRule ; RG ; noGoal ; downTerm(getTerm(SubGoals?), emptyGL) <> GG  ; GL ; 'applied '  'frame '  'rule '\n > 
 		if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),
-						upTerm(G), 'FrameRule, 'T:Relation <- upTerm(T), 0, unbounded, 0) .
+						upTerm(G), 'FrameRule, 'T:Relation <- getTerm(metaReduce(upModule('PROVER-INTERFACE, false), upTerm(T))), 0, unbounded, 0) .
 
 	crl [SLapplyFrameRule] : < SLapplyFrameRule V ; RG ; G ; GG ; GL ; nil >
 		=>
@@ -179,20 +179,28 @@ mod PROVER-INTERFACE is
 		if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),
 						upTerm(G), 'SeparationLogic-Sequencing, 'V:Assertion <- upTerm(V), 0, unbounded, 0) .
 
-	crl [applyConsequence] : < applyConsequence R1 S1 ; RG ; G ; GG ; GL ; nil >
+	crl [applyConsequence] : < applyConsequence R1 -- S1 ; RG ; G ; GG ; GL ; nil >
 		=>
-		< noRule ; RG ; noGoal ; downTerm(getTerm(SubGoals?), emptyGL) <> GG ; GL ; 'applied '  'consequence '  'rule '\n > 
+		if SubGoals? :: Result4Tuple then 
+			if downTerm(getTerm(SubGoals?), emptyGL) :: GoalList then
+			< noRule ; RG ; noGoal ; downTerm(getTerm(SubGoals?), emptyGL) <> GG ; GL ; 'applied '  'consequence '  'rule '\n > 
+			else
+			< noRule ; RG ; G ; GG ; GL ; 'wrong '  'consequence '  'rule '\n > 
+			fi
+		else 
+		< noRule ; RG ; G ; GG ; GL ; 'error '  'consequence '  'rule '\n > 
+		fi 
 		if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),
-						upTerm(G), 'Consequence, 'R1:Relation <- upTerm(R1) ; 'S1:Relation <- upTerm(S1) , 0, unbounded, 0) .
+						upTerm(G), 'Consequence, 'R1:Relation <- upTerm(R1) ; 'S1:Relation <- upTerm(S1) , 0, unbounded, 0).
 
 
-	crl [SLapplyConsequence] : < SLapplyConsequence P1 Q1 ; RG ; G ; GG ; GL ; nil >
+	crl [SLapplyConsequence] : < SLapplyConsequence P1 -- Q1 ; RG ; G ; GG ; GL ; nil >
 		=>
 		< noRule ; RG ; noGoal ; downTerm(getTerm(SubGoals?), emptyGL) <> GG ; GL ; 'applied '  'consequence '  'rule '  'SL '\n > 
 		if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),
 						upTerm(G), 'SeparationLogic-Consequence, 'P1:Assertion <- upTerm(P1) ; 'Q1:Assertion <- upTerm(Q1) , 0, unbounded, 0) .
 
-	crl [applyConjunction] : < applyConjunction R1 R2 S1 S2 ; RG ; G ; GG ; GL ; nil >
+	crl [applyConjunction] : < applyConjunction R1 -- R2 -- S1 -- S2 ; RG ; G ; GG ; GL ; nil >
 		=>
 		< noRule ; RG ; noGoal ; downTerm(getTerm(SubGoals?), emptyGL) <> GG ; GL ; 'applied '  'conjuction '  'rule '\n > 
 		if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),
@@ -236,5 +244,3 @@ mod PROVER-INTERFACE is
 						upTerm(G), 'SeparationLogic-ConditionalStatement, none, 0, unbounded, 0) .
 
 endm
-
-load implication-prover.maude

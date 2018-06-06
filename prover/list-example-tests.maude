@@ -1,0 +1,7 @@
+red metaXapply(upModule('PROVER-INTERFACE, false),
+						upTerm({[y |-> x0 ; yp |-> x0]}
+pass
+--
+xp := [yp]
+{(xp eqs x0 /\ Emp) * [y |-> x0 ; yp |-> x0]}
+), 'Consequence, 'R1:Relation <- upTerm([y |-> x0 ; yp |-> x0]) ; 'S1:Relation <- upTerm([y |-> x0 ; (xp eqs x0 /\ Emp) * yp |-> x0]) , 0, unbounded, 0) .

@@ -4,7 +4,17 @@ load prover-interface.maude
 loop init .
 (prove(
 	{ 
-		Same
+		((
+			Same 
+			*
+			List(c) 
+			*
+			[ y |-> x0 ; yp |-> x0 ]
+		) 
+		*
+		(y eqs yp /\ Emp))
+		*
+		(c eqs cp /\ Emp)
 	}
 	pass ; 
 	while (! (c eqs null))
@@ -17,31 +27,34 @@ loop init .
 	xp := [yp] ;
 	while (! (cp eqs null))
 	do 
-		[cp] := 0 minus xp ;
+		[cp] := 0 minus x ;
 		cp := [cp plus 1] 
 	od
 	{
-		Same
+		(Same
+		*
+		(y eqs yp /\ Emp))
+		* 
+		(c eqs cp /\ Emp)
 	}
 	)
 )
 
-(applyConsequence 		
-		(((
-			Same 
-			*
-			List(c)
-			* 
-			(y |-> x0 ; yp |-> x0)
-		) 
-		/\
-		(y eqs yp))
-		/\
-		(c eqs cp))
+(applySequencing ( Same * List(c) * [ y |-> x0 ; yp |-> x0 ] * (y eqs yp /\ Emp) * (c eqs cp /\ Emp) * (xp eqs x0 /\ Emp) ) )
 
-		((Same
-		/\
-		(y eqs yp))
-		/\ 
-		(c eqs cp))
+
+(applyFrameRule (Same * List(c) * (y eqs yp /\ Emp) * (c eqs cp /\ Emp)) ) --- aici e interesant ca se face matching si dupa comutativitate
+
+(
+	applyConsequence
+	( [ (y |-> x0) ; (yp |-> x0) ] )
+	--
+	( [ (y |-> x0) ; ((yp |-> x0) * (xp eqs x0 /\ emp)) ] )
 )
+(ok)
+(applyEmbeddingRule)
+(ok) --- here is the {S} pass {S} => should be auto-approved
+
+(ok) --- this here should be auto-approved by axiom
+---
+(ok)

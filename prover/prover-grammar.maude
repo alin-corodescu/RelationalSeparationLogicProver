@@ -55,10 +55,10 @@ mod PROVER-GRAMMAR is
 	op applySequencing_ : Relation -> Action . 
 
 	--- The 2 parameters are R1 and S1 from the paper
-	op applyConsequence__ : Relation Relation -> Action .
+	op applyConsequence_--_ : Relation Relation -> Action .
 
 	--- Pass R1,R2,S1,S2 as parameters to the action
-	op applyConjunction____ : Relation Relation Relation Relation -> Action .
+	op applyConjunction_--_--_--_ : Relation Relation Relation Relation -> Action .
 
 	op applyAuxVarElimination_ : Id -> Action .
  
@@ -70,7 +70,7 @@ mod PROVER-GRAMMAR is
 
 	op SLapplySequencing_ : Assertion -> Action .
 
-	op SLapplyConsequence__ : Assertion Assertion -> Action .
+	op SLapplyConsequence_--_ : Assertion Assertion -> Action .
 
 	op SLapplyAuxVarElimination_ : Id -> Action .
 

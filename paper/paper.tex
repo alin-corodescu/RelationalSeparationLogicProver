@@ -3,9 +3,9 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
-\usepackage[romanian]{babel}
+\usepackage[english]{babel}
 \author{ANDREI-ALIN CORODESCU}
-\title{Prover pentru logica separatoare relațională în Maude}
+\title{Program Equivalence : Relational Separation Logic interactive prover implemented in Maude}
 \begin{document}
 \begin{titlepage}
 \begin{center}
@@ -32,57 +32,57 @@ UNIVERSITATEA "ALEXANDRU IOAN CUZA" DIN IAȘI
 \tableofcontents
 \pagebreak
 
-\section{Introducere}
-Compararea programelor sau a fragmentelor de cod și studierea echivalenței acestora este parte din activitatea fiecărui programator atunci când testează o implementare alternativă la ceva existent, repară erori din codul sursă, lansează versiuni noi ale unui produs, etc. Natural, pentru orice proces realizat de oameni se încearcă să se găsească soluții care să eficientizeze, să reducă potențiale erori și, în final, să automatizeze complet procesul. Odată ce procesul poate fi automatizat, acesta poate fi inclus în etapele realizării unui program. Cel mai relevant astfel de exemplu ar fi optimizarea codului realizată de compilator: în astfel de situație, codul optimizat trebuie sa fie echivalent cu varianta originală. \\
+\section{Introduction}
+Comparing programs or code fragments and studying their equivalence is part of every software engineer's activities when they are testing an alternative implementation for an existing solution, fixing bugs, launching new product versions, etc . Naturally, for every process completed by persons there are efforts being made in order to make it more efficient, less error-prone and, in the end, automate the process all together. Once such as a task is automated in software engineering, it can be included in the flow of any research or development phase. An example benefiting from a formal proof of program equivalence is compiler optimization, where the optimized code needs to be equivalent to the input one . \\
 
-Prezenta lucrare descrie dezvoltarea  unui utilitar de verificare a modului cum sunt relaționate doua programe, utilizând fundamente teoretice deja bine studiate și folosite, și tehnologii ce facilitează implementarea respectivelor concepte. \\
+The present paper describes the development of an interactive tool for arguing how to programs are related, based on studied and previously used theoretical concepts and technologies which facilitate the implementation of those concepts . \\
 
-Utilitarul se bazează pe Logica Hoare împreună cu extensiile sale, Logica Separatoare (numită in continuare Logica Separatoare) și Logica Separatoare Relațională (numită în continuare Logica Relațională), ce ușurează procesul de argumentare asupra programelor, implementate folosind o abordare bazată pe Logica Rescrierii în limbajul Maude. \\
+The tool represents an implementation of Hoare Logic - which allows formal reasoning about a program - , along  with 2 of its extensions, namely the Separation Logic (named Separation Logic from now on) and Relational Separation Logic (named Relational Logic from now on). The 2 extensions simplify the Hoare Logic proofs, mainly using the "*" connector, allowing for local reasoning of effects of statements in a program . The tool has been implemented in Maude, a high performance logical framework with powerful metalanguage applications which facilitate the implementations of executable environments for logics.\\
 
-Acesta reprezintă un program de tip CLI în care se pot demonstra în mod interactiv relații între programe și, consecință a dependenței logicii relaționale de cea separatoare, proprietăți ale programelor (fară a fi relaționate cu alt program). Dezvoltarea utilitarului s-a realizat cu ideea de a putea fi extins ulterior, principalele extensii fiind suportarea modelării programelor concurente și automatizarea demonstrațiilor. \\
+The tool is built as a CLI which helps argue how two programs are related using Relational Separation Logic specifications. As a consequence of the dependency of Relational Separation Logic on Separation Logic, proofs about single programs using the latter are also supported by the tool. The tool has been developed with extensibility in mind, the main desired extensions being concurrent programs support and automatic proofs. 
 
-Restul lucrării este structurat după cum urmează : 
+The rest of the paper is organized as follows: 
 \begin{itemize}
-	\item Capitolul 1 va descrie limbajul utilizat pentru a descrie programele, împreună cu Logicile utilizate pentru a realiza raționamente peste programele descrise de limbaj
-	\item Capitolul 2 va descrie în mod detaliat modul de construire și folosire a utilitarului, cu accent pe funcționalitățile oferite de limbajul Maude.
-	\item Capitolul 3 va prezenta câteva din cercetările conexe cu tema lucrării și cum acestea ar putea fi integrate în aceasta
-	\item Capitolul 4 va prezenta concluziile lucrării, atât pentru aspectele teoretice utilizate (Logicile prin care se realizează raționamente), cât și pentru aspectele ce țin de implementare (limbajul Maude).
+	\item Section 1 will describe the language supported by the tool and a brief description of the logics utilized for reasoning .
+	\item Section 2 will describe in detail the building process of the tool and how it can be used, with an accent on the features offered by the Maude language.
+	\item Section 3 will present some of the research done on subjects related to the theme of the paper and discuss how those could be integrated into the current solution.
+	\item Section 4 will present the conclusions of the paper, regarding both the theoretical and technical aspects of the paper.
 \end{itemize}
 
 
-\section{Contribuții}
-Contribuțiile aduse de absolvent:
+\section{Contributions}
+Personal contributions to the realization of the project : 
 \begin{itemize}
-	\item Modelarea logicilor relaționale și separatoare prin intermediul limbajului Maude
-	\item Modelarea unui limbaj simplu de programare folosind Maude
-	\item Crearea unui utilitar interactiv de demonstrare a relațiilor dintre programe sau a proprietăților unor programe
-	\item Integrarea acestuia cu o soluție deja existentă pentru a rezolva o sub-problemă (dacă reușesc să mai fac integrarea cu Cyclist)
+	\item Modelled the Relational Logic and Separational Logic using Maude equational and rewriting logic specifications . 
+	\item Executable semantics of a simple programming language using Maude
+	\item Developed an interactive tool for reasoning about program behaviour using the aforementioned logics.
+	\item Automation of some tasks which makes the tool more convenient to use .
 \end{itemize}
-\section{Fundamente Teoretice}
+\section{Theoretical Foundations}
 În acest capitol voi prezenta pe scurt fundamentele teoretice ale prezentei lucrări.
-\subsection{Limbaj utilizat}
-\subsubsection{Model de stocare}
-\subsubsection{Sintaxa și semantica limbajului}
-\subsection{Logica Hoare}
-\subsection{Logica Separatoare}
-\subsection{Logica Separatoare Relațională}
-\subsection{Logica Rescrierii}
-\section{Prover Logică Separatoare Relațională}
+\subsection{Language}
+\subsubsection{Storage Model}
+\subsubsection{Syntax and Semantics of the language}
+\subsection{Hoare Logic}
+\subsection{Separational Logic}
+\subsection{Relational Separation Logic}
+\subsection{Rewriting Logic}
+\section{Relational Separation Logic Interactive Prover}
 Ordinea subsectiunilor mai poate fi schimbata ulterior. Capitolul cel mai semnificativ din lucrare, va contine toate detaliile de implementare ale solutiei curente
-\subsection{Prezentare Generală Maude}
-\subsection{Semantică executabilă a limbajului folosit}
-\subsection{Modelarea Logicilor Separatoare}
-\subsection{Interacțiunea prin LOOP-MODE}
-\subsection{Schemă Generală de funcționare}
-\subsection{Procese automatizate}
-\subsubsection{Potrivire automată a axiomelor și a goal-urilor dovedite}
-\subsubsection{Demonstrarea automată a implicațiilor}
-\subsection{Interfața}
-\subsection{Viitor}
-\section{Cercetări adiționale}
-\subsection{Automatizarea demonstrațiilor}
-\subsection{Extensii pentru programe concurente}
+\subsection{Maude - General Overview}
+\subsection{Executable semantics of the language}
+\subsection{Modelling the Separation Logics}
+\subsection{Interaction by Maude LOOP-MAUDE}
+\subsection{Prover execution flow}
+\subsection{Automated processes}
+\subsubsection{Automatic matching of axioms and previously proven goals}
+\subsubsection{Automatic demonstration of implications}
+\subsection{User Interface}
+\subsection{Future directions}
+\section{Additional Research}
+\subsection{Automatic prover}
+\subsection{Concurrent programs extension}
 \subsection{Java+ITP}
 
-\section{Concluzii}
+\section{Conclusions}
 \end{document}

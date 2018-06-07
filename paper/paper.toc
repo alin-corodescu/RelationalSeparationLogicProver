@@ -1,27 +1,27 @@
-\babel@toc {romanian}{}
-\contentsline {section}{\numberline {1}Introducere}{2}
-\contentsline {section}{\numberline {2}Contribu\IeC {\textcommabelow t}ii}{3}
-\contentsline {section}{\numberline {3}Fundamente Teoretice}{3}
-\contentsline {subsection}{\numberline {3.1}Limbaj utilizat}{3}
-\contentsline {subsubsection}{\numberline {3.1.1}Model de stocare}{3}
-\contentsline {subsubsection}{\numberline {3.1.2}Sintaxa \IeC {\textcommabelow s}i semantica limbajului}{3}
-\contentsline {subsection}{\numberline {3.2}Logica Hoare}{3}
-\contentsline {subsection}{\numberline {3.3}Logica Separatoare}{3}
-\contentsline {subsection}{\numberline {3.4}Logica Separatoare Rela\IeC {\textcommabelow t}ional\IeC {\u a}}{3}
-\contentsline {subsection}{\numberline {3.5}Logica Rescrierii}{3}
-\contentsline {section}{\numberline {4}Prover Logic\IeC {\u a} Separatoare Rela\IeC {\textcommabelow t}ional\IeC {\u a}}{3}
-\contentsline {subsection}{\numberline {4.1}Prezentare General\IeC {\u a} Maude}{4}
-\contentsline {subsection}{\numberline {4.2}Semantic\IeC {\u a} executabil\IeC {\u a} a limbajului folosit}{4}
-\contentsline {subsection}{\numberline {4.3}Modelarea Logicilor Separatoare}{4}
-\contentsline {subsection}{\numberline {4.4}Interac\IeC {\textcommabelow t}iunea prin LOOP-MODE}{4}
-\contentsline {subsection}{\numberline {4.5}Schem\IeC {\u a} General\IeC {\u a} de func\IeC {\textcommabelow t}ionare}{4}
-\contentsline {subsection}{\numberline {4.6}Procese automatizate}{4}
-\contentsline {subsubsection}{\numberline {4.6.1}Potrivire automat\IeC {\u a} a axiomelor \IeC {\textcommabelow s}i a goal-urilor dovedite}{4}
-\contentsline {subsubsection}{\numberline {4.6.2}Demonstrarea automat\IeC {\u a} a implica\IeC {\textcommabelow t}iilor}{4}
-\contentsline {subsection}{\numberline {4.7}Interfa\IeC {\textcommabelow t}a}{4}
-\contentsline {subsection}{\numberline {4.8}Viitor}{4}
-\contentsline {section}{\numberline {5}Cercet\IeC {\u a}ri adi\IeC {\textcommabelow t}ionale}{4}
-\contentsline {subsection}{\numberline {5.1}Automatizarea demonstra\IeC {\textcommabelow t}iilor}{4}
-\contentsline {subsection}{\numberline {5.2}Extensii pentru programe concurente}{4}
-\contentsline {subsection}{\numberline {5.3}Java+ITP}{4}
-\contentsline {section}{\numberline {6}Concluzii}{4}
+\babel@toc {english}{}
+\contentsline {section}{\numberline {1}Introduction}{2}
+\contentsline {section}{\numberline {2}Contributions}{3}
+\contentsline {section}{\numberline {3}Theoretical Foundations}{3}
+\contentsline {subsection}{\numberline {3.1}Language}{4}
+\contentsline {subsubsection}{\numberline {3.1.1}Storage Model}{4}
+\contentsline {subsubsection}{\numberline {3.1.2}Syntax and Semantics of the language}{4}
+\contentsline {subsection}{\numberline {3.2}Hoare Logic}{4}
+\contentsline {subsection}{\numberline {3.3}Separational Logic}{4}
+\contentsline {subsection}{\numberline {3.4}Relational Separation Logic}{4}
+\contentsline {subsection}{\numberline {3.5}Rewriting Logic}{4}
+\contentsline {section}{\numberline {4}Relational Separation Logic Interactive Prover}{4}
+\contentsline {subsection}{\numberline {4.1}Maude - General Overview}{5}
+\contentsline {subsection}{\numberline {4.2}Executable semantics of the language}{5}
+\contentsline {subsection}{\numberline {4.3}Modelling the Separation Logics}{5}
+\contentsline {subsection}{\numberline {4.4}Interaction by Maude LOOP-MAUDE}{5}
+\contentsline {subsection}{\numberline {4.5}Prover execution flow}{5}
+\contentsline {subsection}{\numberline {4.6}Automated processes}{5}
+\contentsline {subsubsection}{\numberline {4.6.1}Automatic matching of axioms and previously proven goals}{5}
+\contentsline {subsubsection}{\numberline {4.6.2}Automatic demonstration of implications}{5}
+\contentsline {subsection}{\numberline {4.7}User Interface}{5}
+\contentsline {subsection}{\numberline {4.8}Future directions}{5}
+\contentsline {section}{\numberline {5}Additional Research}{5}
+\contentsline {subsection}{\numberline {5.1}Automatic prover}{5}
+\contentsline {subsection}{\numberline {5.2}Concurrent programs extension}{5}
+\contentsline {subsection}{\numberline {5.3}Java+ITP}{5}
+\contentsline {section}{\numberline {6}Conclusions}{5}

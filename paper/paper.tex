@@ -1,5 +1,6 @@
 \documentclass[12pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -108,7 +109,46 @@ The semantics of the previously defined language are standard but a few clarific
 		\subitem{\( x := E \) updates the value of the variable \(x\) with the value of the expression \(E\) - note that this command does not modify the heap in any way, as it usually happens with regular programming languages when updating the value of a variable}
 \end{itemize}
 \subsection{Hoare Logic}
-\subsection{Separational Logic}
+Hoare Logic is a formal system which allows us to rigorously reason about the behaviour of programs.
+The main component of Hoare Logic is the Hoare Triple, defined as follows:
+\[ \{P\}\  C\  \{Q\} \]
+where \(P\) denotes the state of the program before the execution of the command \(C\) and \(Q\) denotes the state of the program after the execution of \(C\). \\
+
+The role of a Hoare triple is to capture how a command or set of commands modify the state of a program in a formal manner. \\
+
+\(P\) and \(Q\), called precondition and postcondition, respectively can be specified using an assertion language . Figure \ref{fig:assertionSyntax} represents the assertion language, defined in relation with the language syntax: 
+\vspace{1cm}
+\begin{figure}
+	\begin{tabularx}{\linewidth}{l  X}
+		Assertions& \(P ::= B \mid P\ \Rightarrow\ P \mid P \land P \mid P \lor P \mid \neg P \mid {\exists x . P} \) \\
+	\end{tabularx}
+	\caption{Syntax of the assertion language}
+	\label{fig:assertionSyntax}
+\end{figure}
+\\
+
+At the base of proofs based on Hoare Logic are a set of axioms and proof rules which can be applied to Hoare triples. These axioms and rules will be discussed in the following section.
+\subsection{Separation Logic}
+Separation Logic is an extension of Hoare Logic which simplifies reasoning about program execution by introducing ways of localising parts of the proof : draw conclusions based on a subset of the program state, the subset chosen such that it contains only the parts relevant to the command specified by the analysed Hoare triple. \\
+
+The main feature of Separation Logic is the \textbf{separating conjunction} \(*\) which allows to split the assertion into parts which refer to disjoint areas of the heap. Through the \(*\) operator, Separation Logic enables reasoning about the effects of commands only at a local level, by splitting the assertions into a section which is relevant to the current command and "saving" the rest for subsequent commands. \\
+
+Separation Logic introduces new elements to the assertions language - Figure \ref{fig:SLassertionSyntax}:  \\
+
+\begin{figure}
+	\begin{tabularx}{\linewidth}{l  X}
+		Assertions& \(P ::= ... (specified\ previously) \mid E \mapsto E \mid P * P \mid emp \) \\
+	\end{tabularx}
+	\caption{Syntax of the assertion language}
+	\label{fig:SLassertionSyntax}
+\end{figure}
+
+\paragraph{Semantics of the new elements}
+\begin{itemize}
+	\item{\(E \mapsto E\prime \) means that the heap has an active cell at address \(E\), with the content \(E\prime\), and the cell is the \textbf{only} active cell in the heap}
+	\item{\(P * Q\) holds for heap \(h\) iff \(\exists h_0,h_1\) such that \(h_0 * h_1 = h\) and \(P\) holds for \(h_0\) and \(Q\) holds for \(h_1\)}
+	\item{\(emp\) denotes a heap without any active cells}
+\end{itemize}
 \subsection{Relational Separation Logic}
 \subsection{Rewriting Logic}
 \section{Relational Separation Logic Interactive Prover}

@@ -6,23 +6,24 @@
 \contentsline {subsubsection}{\numberline {3.1.1}Storage Model}{4}
 \contentsline {subsubsection}{\numberline {3.1.2}Syntax and Semantics of the language}{4}
 \contentsline {paragraph}{Semantics of the language}{4}
-\contentsline {subsection}{\numberline {3.2}Hoare Logic}{6}
-\contentsline {subsection}{\numberline {3.3}Separational Logic}{6}
-\contentsline {subsection}{\numberline {3.4}Relational Separation Logic}{6}
-\contentsline {subsection}{\numberline {3.5}Rewriting Logic}{6}
-\contentsline {section}{\numberline {4}Relational Separation Logic Interactive Prover}{6}
-\contentsline {subsection}{\numberline {4.1}Maude - General Overview}{6}
-\contentsline {subsection}{\numberline {4.2}Executable semantics of the language}{6}
-\contentsline {subsection}{\numberline {4.3}Modelling the Separation Logics}{6}
-\contentsline {subsection}{\numberline {4.4}Interaction by Maude LOOP-MAUDE}{6}
-\contentsline {subsection}{\numberline {4.5}Prover execution flow}{6}
-\contentsline {subsection}{\numberline {4.6}Automated processes}{6}
-\contentsline {subsubsection}{\numberline {4.6.1}Automatic matching of axioms and previously proven goals}{6}
-\contentsline {subsubsection}{\numberline {4.6.2}Automatic demonstration of implications}{6}
-\contentsline {subsection}{\numberline {4.7}User Interface}{6}
-\contentsline {subsection}{\numberline {4.8}Future directions}{6}
-\contentsline {section}{\numberline {5}Additional Research}{6}
-\contentsline {subsection}{\numberline {5.1}Automatic prover}{6}
-\contentsline {subsection}{\numberline {5.2}Concurrent programs extension}{6}
-\contentsline {subsection}{\numberline {5.3}Java+ITP}{6}
-\contentsline {section}{\numberline {6}Conclusions}{6}
+\contentsline {subsection}{\numberline {3.2}Hoare Logic}{5}
+\contentsline {subsection}{\numberline {3.3}Separation Logic}{6}
+\contentsline {paragraph}{Semantics of the new elements}{6}
+\contentsline {subsection}{\numberline {3.4}Relational Separation Logic}{7}
+\contentsline {subsection}{\numberline {3.5}Rewriting Logic}{7}
+\contentsline {section}{\numberline {4}Relational Separation Logic Interactive Prover}{7}
+\contentsline {subsection}{\numberline {4.1}Maude - General Overview}{8}
+\contentsline {subsection}{\numberline {4.2}Executable semantics of the language}{8}
+\contentsline {subsection}{\numberline {4.3}Modelling the Separation Logics}{8}
+\contentsline {subsection}{\numberline {4.4}Interaction by Maude LOOP-MAUDE}{8}
+\contentsline {subsection}{\numberline {4.5}Prover execution flow}{8}
+\contentsline {subsection}{\numberline {4.6}Automated processes}{8}
+\contentsline {subsubsection}{\numberline {4.6.1}Automatic matching of axioms and previously proven goals}{8}
+\contentsline {subsubsection}{\numberline {4.6.2}Automatic demonstration of implications}{8}
+\contentsline {subsection}{\numberline {4.7}User Interface}{8}
+\contentsline {subsection}{\numberline {4.8}Future directions}{8}
+\contentsline {section}{\numberline {5}Additional Research}{8}
+\contentsline {subsection}{\numberline {5.1}Automatic prover}{8}
+\contentsline {subsection}{\numberline {5.2}Concurrent programs extension}{8}
+\contentsline {subsection}{\numberline {5.3}Java+ITP}{8}
+\contentsline {section}{\numberline {6}Conclusions}{8}

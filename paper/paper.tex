@@ -4,27 +4,29 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage[english]{babel}
+\usepackage{array}
+\usepackage{tabularx}
 \author{ANDREI-ALIN CORODESCU}
 \title{Program Equivalence : Relational Separation Logic interactive prover implemented in Maude}
 \begin{document}
 \begin{titlepage}
 \begin{center}
 \textbf{
-UNIVERSITATEA "ALEXANDRU IOAN CUZA" DIN IAȘI
+"ALEXANDRU IOAN CUZA" UNIVERSITY OF IAȘI
 }
 \\
-\textbf{FACULTATEA DE INFORMATICĂ}
+\textbf{FACULTY OF COMPUTER SCIENCE}
 \end{center}
-   \vspace{50mm}
+   \vspace{40mm}
 \begin{center}
-	\Large\textbf {TITLU PROVIZORIU}\\
-	\vspace{30mm}
+	\Large\textbf {Program Equivalence : Relational Separation Logic interactive prover implemented in Maude}\\
+	\vspace{40mm}
 	\large\textit {ANDREI-ALIN CORODESCU}
 	\\
 	\vspace{20mm}
-	\textbf{Sesiunea: }\textit{iulie, 2018}\\
+	\textbf{Session: }\textit{July, 2018}\\
 	\vspace{30mm}
-	\textbf{Coordonator științific}\\
+	\textbf{Scientific Coordinator}\\
 	\textbf{\textit{Conf. Dr. Ciobâcă Ștefan}}
 	\vspace{30mm}
 \end{center}
@@ -37,9 +39,9 @@ Comparing programs or code fragments and studying their equivalence is part of e
 
 The present paper describes the development of an interactive tool for arguing how to programs are related, based on studied and previously used theoretical concepts and technologies which facilitate the implementation of those concepts . \\
 
-The tool represents an implementation of Hoare Logic - which allows formal reasoning about a program - , along  with 2 of its extensions, namely the Separation Logic (named Separation Logic from now on) and Relational Separation Logic (named Relational Logic from now on). The 2 extensions simplify the Hoare Logic proofs, mainly using the "*" connector, allowing for local reasoning of effects of statements in a program . The tool has been implemented in Maude, a high performance logical framework with powerful metalanguage applications which facilitate the implementations of executable environments for logics.\\
+The tool represents an implementation of Hoare Logic - which allows formal reasoning about a program - , along  with 2 of its extensions, namely the Separation Logic (named Separation Logic from now on) and Relational Separation Logic \cite{relational} (named Relational Logic from now on). The 2 extensions simplify the Hoare Logic proofs, mainly using the "*" connector, allowing for local reasoning of effects of statements in a program . The tool has been implemented in Maude, a high performance logical framework with powerful metalanguage applications which facilitate the implementations of executable environments for logics.\\
 
-The tool is built as a CLI which helps argue how two programs are related using Relational Separation Logic specifications. As a consequence of the dependency of Relational Separation Logic on Separation Logic, proofs about single programs using the latter are also supported by the tool. The tool has been developed with extensibility in mind, the main desired extensions being concurrent programs support and automatic proofs. 
+The tool is built as a CLI which helps \cite{primer} \cite{SeparationLogic} \cite{JAVAITP} \cite{REWRITING} \cite{maudeprimer} \cite{manual} \cite{rewrConcurrency} \cite{cyclist} argue how two programs are related using Relational Separation Logic specifications. As a consequence of the dependency of Relational Separation Logic on Separation Logic, proofs about single programs using the latter are also supported by the tool. The tool has been developed with extensibility in mind, the main desired extensions being concurrent programs support and automatic proofs. \\
 
 The rest of the paper is organized as follows: 
 \begin{itemize}
@@ -53,16 +55,58 @@ The rest of the paper is organized as follows:
 \section{Contributions}
 Personal contributions to the realization of the project : 
 \begin{itemize}
-	\item Modelled the Relational Logic and Separational Logic using Maude equational and rewriting logic specifications . 
+	\item Modelled the Relational Logic and Separation Logic using Maude equational and rewriting logic specifications . 
 	\item Executable semantics of a simple programming language using Maude
 	\item Developed an interactive tool for reasoning about program behaviour using the aforementioned logics.
 	\item Automation of some tasks which makes the tool more convenient to use .
+	\item Examples of formal proofs done using the tool
 \end{itemize}
 \section{Theoretical Foundations}
-În acest capitol voi prezenta pe scurt fundamentele teoretice ale prezentei lucrări.
+In this section we will briefly present the theoretical aspects on which the project is based. 
 \subsection{Language}
+The prover supports expressing programs in a simple, imperative language, commonly used throughout papers \cite{SeparationLogic} \cite{primer} related to the subject of program verification, including the one describing Relational Separation Logic \cite{relational}, around  which this project is based. 
 \subsubsection{Storage Model}
+A state of in our storage model is defined by a pair consisting of a \(Store\) and a \(Heap\) .
+\\
+ Assuming that all the variables usable in programs from the set \(\mathtt{Vars}\) and the set of positive natural numbers is denoted by \(\mathtt{PosNats}\): \\
+ 
+A \(Store\) is defined as:
+\[ \mathtt{S} : \mathtt{Vars} \rightarrow \mathtt{PosNats} \]
+ 
+A \(Heap\) represents a mapping from the \(\mathtt{PosNats}\) to \(\mathtt{Integers}\)
+\[ \mathtt{H} : \mathtt{PosNats} \rightarrow \mathtt{Integers} \] 
+More informally, the \(Store\) holds the value of the variables while the \(Heap\) maps the active memory cells during a program execution to their contents.
 \subsubsection{Syntax and Semantics of the language}
+\begin{figure}[h]
+	\begin{tabularx}{\linewidth}{l  X}
+	Integer Expressions& \(E ::= x \mid Integer \mid E\ \mathtt{plus}\ E \mid E\ \mathtt{times}\ E \mid E\ \mathtt{minus}\ E \) \\
+	\\
+	Boolean Expressions& \(B ::= false \mid true \mid B\ \mathtt{\&\&}\ B \mid  B\ ||\ B \mid B\  \mathtt{->}\ B \mid B \mathtt{<=>} B \mid \ ! B \mid E\ \mathtt{ge}\ E \mid E\ \mathtt{le}\ E \mid E\ \mathtt{eqs}\ E \)\\
+	\\ 	
+	Commands& \(C ::= x := alloc(E) \mid x := [E] \mid [E] := E \mid free(E) \mid x := E \mid C;C \mid if\ B\ then\ C\ else\ C \mid while\ B\ do\ C\ od \) \\
+	\end{tabularx}
+	\caption{Syntax of the language}
+	\label{fig:langSyntax}
+\end{figure}
+The syntax of the language is presented in Figure \ref{fig:langSyntax} . It represents an adapted subset of the language presented in the Relational Separation Logic paper \cite{relational} . 
+\paragraph{Semantics of the language}
+The semantics of the previously defined language are standard but a few clarifications are necessary to point out how our language constructs interact with the storage model, as well as a few differences from regular programming languages:
+\begin{itemize}
+	\item{Verbosity of operators - most operators are replaced by their literal names ( \(+\) becomes \(\mathtt{plus}\) etc.); we have opted for this approach to avoid complication when implementing the language in Maude, because most of the operators are already defined in Maude for its built-in types, and overloading them could cause conflicts since we are basing our own defined types on Maude's primitives.}
+		\subitem{\( B\ \mathtt{ge}\ B\) translates to the usual \(>=\) operator}
+		\subitem{\( B\ \mathtt{le}\ B\) translates to the usual \(<=\) operator}
+		\subitem{\( B\ \mathtt{eqs}\ B\) translates to the usual \(==\) equality comparison operator}
+		\subitem{\( B\ \mathtt{->}\ B\) denotes implication between boolean expressions}
+		\subitem{\(B\ \mathtt{<=>}\ B\) denotes equivalence between boolean expressions}
+		\subitem{The rest of the operators are mostly similar to their C++ or Java counterparts and their semantics are self explanatory}
+	\item{Memory allocation / deallocation: }
+		\subitem{\(x := alloc(E)\) allocates a new cell in the memory, initializes it with the value of \(E\) and stores its address in the variable \(x\)}
+		\subitem{\(x := free(E)\) deallocates the cell at the address equal to the value of \(E\)}
+	\item{Working with variables and memory: }
+		\subitem{\( x := [E] \) reads the contents of the memory cell at address \(E\) and stores the value in the variable \(x\)}
+		\subitem{\( [E] := E\prime \) updates the contents of the memory cell at address \(E\) with the value of the expression \(E\prime\)}
+		\subitem{\( x := E \) updates the value of the variable \(x\) with the value of the expression \(E\) - note that this command does not modify the heap in any way, as it usually happens with regular programming languages when updating the value of a variable}
+\end{itemize}
 \subsection{Hoare Logic}
 \subsection{Separational Logic}
 \subsection{Relational Separation Logic}
@@ -85,4 +129,7 @@ Ordinea subsectiunilor mai poate fi schimbata ulterior. Capitolul cel mai semnif
 \subsection{Java+ITP}
 
 \section{Conclusions}
+\pagebreak
+\bibliographystyle{unsrt}
+\bibliography{bibliography}
 \end{document}

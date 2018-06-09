@@ -1,3 +1,4 @@
+load prover-interface.maude
 mod IMPLICATION-PROVER is
 	including PROVER-INTERFACE .
 
@@ -10,47 +11,49 @@ mod IMPLICATION-PROVER is
 	--- Relational BExp in case we change it later
 	var B : BExp .
 
-	eq R * false = false .
+	rl R * false => false .
 
-	eq (emp ; emp) = Emp .
+	---rl (emp ; emp) => Emp .
 
-	eq R * ( S \/ T ) = (R * S) \/ (R * T) .
+	rl R * ( S \/ T ) => (R * S) \/ (R * T) .
 
-	eq ((P1 * P2) ; Q1 * Q2) = (P1 ; Q1) * (P2 ; Q2) .
+	rl [(P1 * P2) ; Q1 * Q2] => [P1 ; Q1] * [P2 ; Q2] .
+---
+	---rl R * (exists x . S) => (exists x . R) * S .
+---
+	rl [(P1 /\ P2) ; Q ] => [P1 ; Q] /\ [ P2 ; Q ] .
+---
+	---rl (P ; (Q1 /\ Q2)) => (P ; Q1) /\ (P ; Q2).
+---
+	---rl ((P1 \/ P2) ; Q ) => (P1 ; Q) \/ ( P2 ; Q) .
+---
+	---rl (P ; (Q1 \/ Q2)) => (P ; Q1) \/ (P ; Q2).
+---
+	---rl (P ; false) => false .
+---
+	---rl (false ; Q) => false .
+---
+	---rl R * ((E rls E') /\ Emp) => R /\ (E rls E') .
+---
+	---rl (R * Q) /\ B => R * (Q /\ B) .
+---
+	---rl ( (P /\ B) ; Q) => (P ; (Q /\ B)) .
+---
+	---rl (P ; (Q /\ B)) => (P ; Q) /\ B .
+---
+	---rl (P ; Q) * (Emp * E rls E') => ((P * (emp * E rls E')) ; Q) .
+---
+	---rl ((P * (emp * E rls E')) ; Q) => (P ; (Q * (emp * E rls E'))) .
+	
+	--- Here we switch from <=> to => 
 
-	eq R * (exists x . S) = (exists x . R) * S .
+	---rl Emp =>> Same .
 
-	eq ((P1 /\ P2) ; Q ) = (P1 ; Q) /\ ( P2 ; Q) .
+	---rl Same * Same =>> Same .
 
-	eq (P ; (Q1 /\ Q2)) = (P ; Q1) /\ (P ; Q2).
+	---rl ( E |-> E1 ; E |-> E1) =>> Same .
 
-	eq ((P1 \/ P2) ; Q ) = (P1 ; Q) \/ ( P2 ; Q) .
-
-	eq (P ; (Q1 \/ Q2)) = (P ; Q1) \/ (P ; Q2).
-
-	eq (P ; false) = false .
-
-	eq (false ; Q) = false .
-
-	eq R * ((E eqs E') /\ Emp) = R /\ (E eqs E') .
-
-	eq (R * Q) /\ B = R * (Q /\ B) .
-
-	eq ( (P /\ B) ; Q) = (P ; (Q /\ B)) .
-
-	eq (P ; (Q /\ B)) = (P ; Q) /\ B .
-
-	eq (P ; Q) * (Emp * E eqs E') = ((P * (emp * E eqs E')) ; Q) .
-
-	eq ((P * (emp * E eqs E')) ; Q) = (P ; (Q * (emp * E eqs E'))) .
-
-	---rl Emp => Same .
-
-	---rl Same * Same => Same .
-
-	---rl ( E |-> E1 ; E |-> E1) => Same .
-
-	---rl Same /\ ( (E |-> E1 ; E |-> E1') * true ) => E1 eqs E1' .
+	---rl Same /\ ( (E |-> E1 ; E |-> E1') * true ) =>> E1 rls E1' .
 
  endm
 

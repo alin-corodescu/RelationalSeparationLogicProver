@@ -1,5 +1,5 @@
 load relational-sep-logic.maude
-
+load implication-prover.maude
 mod GOAL-GRAPH is 
 	protecting META-LEVEL .
 	protecting BOOL .

@@ -25,6 +25,7 @@ mod HOARE-QUADRUPLE is
 
 	op r : -> Relation .
 
+	--- Define other predicates here
 	op List : Id -> Relation . 
 
 

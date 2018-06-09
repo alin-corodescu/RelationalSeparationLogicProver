@@ -56,19 +56,14 @@
 	"buffers":
 	[
 		{
+			"contents": "\nload prover-grammar.maude\nload implication-prover.maude\nmod PROVER-INTERFACE is\n\tincluding LOOP-MODE .\n\tincluding PROVER-GRAMMAR . \n\tprotecting META-LEVEL .  \n\n\t--- A state in the REPL is represented as follows :\n\t--- \tAction = rule to be applied\n\t---\t\tGoal = Root goal which we are trying to prove\n\t---\t\tGoal = Current goal which is being proven - \n\t---\t\t\tneeds to be linked to a node in the graph below\n\t--- \tGoalGraph = A graph of goals needed to be proven\n\t---\t\tGoalList = A list of goals which we know are true  \n\t---\t\tQidList = the output of the last action\n\top <_;_;_;_;_;_> : Action Goal Goal GoalGraph GoalList QidList -> State .\n\n\top init : -> System [ctor].\n\n\teq init = [nil, < noRule ; noGoal ; noGoal ; emptyGL ; emptyGL ; nil >, nil ] .\n\n\tvar A : Action . \n\tvars QIL QIL' QIL'' : QidList .\n\t--- Root goal\n\tvar RG : Goal . \n\tvar G : Goal .\n\t--- Temporarily is just a list, will be turned into a graph\n\tvar GG : GoalList . \n\tvar GL : GoalList . \n\t--- Rule handling the input to the program\n\tcrl [in] : \n\t\t[QIL, < noRule ; RG ; G ; GG ; GL ; nil > , QIL']\n\t\t=> \n\t\t\tif T:ResultPair? :: ResultPair  \n\t          then [nil,  \n\t                < downTerm(getTerm(T:ResultPair?), noRule) ; RG ; G ; GG ; GL ; nil >,  \n\t                QIL']  \n\t          else [nil, < noRule ; RG ; G ; GG ; GL ; nil >, 'ERROR QIL]  \n\t          fi  \n\t\tif QIL =/= nil\n\t\t /\\ T:ResultPair? := metaParse(upModule('PROVER-GRAMMAR, false), QIL, 'Action) .\n\n\n    crl [out] :\n       [QIL, < A ; RG ; G ; GG ; GL ;  QIL' >, QIL'']\n       => [QIL, < A ; RG ; G ; GG ; GL ; nil >, QIL''  QIL']\n       if QIL' =/= nil .\n\n\n    --- begin interface rules \n    var HQ : HoareQuadruple .\n    rl [proveGoal] : < prove(HQ) ; RG ; G ; GG ; GL ; nil > \n\t\t=>\n\t\t< noRule ; HQ ; noGoal ; HQ <> emptyGL ; \n\t\tdownTerm('`{_`}_`{_`}['_|->_['E:AExp,'s_['0.Zero]],'`[_`]:=_['E:AExp,'F:AExp],'_|->_['E:AExp,'F:AExp]] , emptyGL)\n\t\t; 'begin '\\n > .\n\n\t--- after processing a goal, take the first element from that list to prove it\n\tcrl [takeFirstGoalFromList] : < noRule ; RG ; noGoal ; G <> GG ; GL ; nil > \n\t\t=> \n\t\t< check ; RG ; G ; GG ; GL ; 'current ' 'goal '  '  'is '\\n metaPrettyPrint(upModule('PROVER-INTERFACE, false), upTerm(G)) '\\n > \n\t\tif G =/= noGoal .\n\n\t--- mark the current goal as done, by adding it to the proven goals list\n\t--- add a metaPrettyPrint call here \n\trl [markGoalProven] : < ok ; RG ; G ; GG ; GL ; nil >\n\t\t=>\n\t\t< noRule ; RG ; noGoal ; GG ; GL <> G ; 'admitted '  'goal ': '\\n  metaPrettyPrint(upModule('PROVER-INTERFACE, false), upTerm(G)) '\\n > .\n\n\tcrl [stopProcessing] : < noRule ; RG ; noGoal ; emptyGL ; GL ; nil >\n\t\t=>\n\t\t< stop ; RG ; noGoal ; emptyGL ; GL ; metaPrettyPrint(upModule('PROVER-INTERFACE, false), upTerm(RG)) '\\n 'goal ' 'has '  'been ' 'proven '\\n >\n\t\tif RG =/= noGoal .\n\t\n\tcrl [alreadyProvenGoal] : < check ; RG ; G ; GG ; GL ; nil >\n\t\t=>\n\t\tif G1:Goal? :: Goal \n\t\tthen \n\t\t\t< noRule ; RG ; noGoal ; GG ; GL ; metaPrettyPrint(upModule('PROVER-INTERFACE, false), upTerm(G)) '\\n 'was ' 'matched ' 'with '\\n metaPrettyPrint(upModule('PROVER-INTERFACE, false), upTerm(G1:Goal?)) '\\n >\n\t\telse\n\t\t\t--- Keep on going, the check failed\n\t\t\t< implication ; RG ; G ; GG ; GL ; nil >\n\t\tfi \n\t\tif G1:Goal? := anyMatches(G, GL) .\n\n\tcrl [tryToProveImplication] : < implication ; RG ; G ; GG ; GL ; nil > \n\t\t=> \n\t\tif Tr:[Trace?] :: Trace then \n\t\t\t< noRule ; RG ; noGoal ; GG ; GL ; metaPrettyPrint(upModule('PROVER-INTERFACE, false), upTerm(G)) '  'auto-proved '\\n \n\t\t\t\t\t\t\t\t\t'using ': '\\n metaPrettyPrint(upModule('PROVER-INTERFACE, false), upTerm(Tr:[Trace?])) '\\n > \n\t\telse \n\t\t\t--- The goal could not be proven using the implication prover (Goal might not be an implication or we simply couldn't)\n\t\t\t< noRule ; RG ; G ; GG ; GL ; 'didn't '  'auto '\\n > \n\t\tfi\n\t\tif Tr:[Trace?] := tryImplicationProving(G) .  \n\n\trl [showCurrentGoal] : < showGoal ; RG ; G ; GG ; GL ; nil >\n\t\t=>\n\t\t< noRule ; RG ; G ; GG ; GL ; metaPrettyPrint(upModule('PROVER-INTERFACE, false), upTerm(G)) '\\n > .\n\t--- end interface rules\n\n\n\tvars R S T : Relation .\n\tvars R1 R2 S1 S2 : Relation .\n\tvar P Q V W P1 Q1 : Assertion .\n\tvar X Y : Command .\n\tvar C1 C2 C1' C2' : Command .\n\tvar B B' : BExp . \n\tvar C C' : Command .\n\tvar Var : Id .\n\tvar SubGoals? : [Result4Tuple] .\n\tvar SubGoals : GoalList .\n\n\t--- general format for action rules:\n\t---\t\tGoal => GoalList . \n\trl [EmbeddingRule] : {[ P ; V ]} X -- Y {[ Q ; W ]} => {P} X {Q} <> {V} Y {W} [nonexec] .\n\n\trl [FrameRule] : { R * T } X -- Y { S * T } => {R} X -- Y {S} [nonexec] .\n\n\trl [SeparationLogic-FrameRule] :  {P * V} C {Q * V} => {P} C {Q} [nonexec] .\n\n\t--- This rule will trigger a warning regarding using the S variable before being bound, but in the META-LEVEL it should be ok if we bind it manually\n\trl [Sequencing] : { R }  C1 ; C2 -- C1' ; C2' { T } => { R } C1 -- C1' {S} <> {S} C2 -- C2' {T} [nonexec] . \n\n\trl [SeparationLogic-Sequencing] :  {P} C1 ; C2 {Q} => {P} C1 {V} <> {V} C2 {Q} [nonexec] .\n\n\t--- Same case as above for R1 and S1\n\trl [Consequence] : { R } X -- Y { S } => ((R => R1) <> ({R1} X -- Y {S1})) <> (S1 => S) [nonexec] .\n\n\trl [SeparationLogic-Consequence] : {P} C {Q} => ((P => P1) <> ({P1} C {Q1})) <> (Q1 => Q) [nonexec] .\n\n\trl [Conjunction] : { R1 /\\ R2 } X -- Y { S1 /\\ S2 } => {R1} X -- Y {S1} <> {R2} X -- Y {S2} [nonexec] .\n\n\trl [AuxVarElimination] : {exists Var . R} C -- C' {exists Var . S} => {R} C -- C' {S} [nonexec] .\n\n\t--- We need to add the condition under which this is true\n\trl [SeparationLogic-AuxVarElimination] : {exists Var . P } C { exists Var .  Q} => {P} C {Q} [nonexec] .\n\n\trl [Loop] : {R} while B do C od -- while B' do C' od {R /\\ ! B} => (R => (B <=> B')) <> {R /\\ B} C -- C' {R} [nonexec] .\n\n\t--- Here P is the loop invariant\n\trl [SeparationLogic-Loop] : {P} while B do C od { ! B /\\ P } => {P /\\ B} C {P} [nonexec] .\n\n\n\trl [ConditionalStatement] : {R} if B then C1 else C2 -- if B' then C1' else C2' {S} \n\t\t=>\n\t\t((R => (B <=> B')) <> ({R /\\ B} C1 -- C1' {S})) <> ({R /\\ ! B} C2 -- C2' {S}) [nonexec] .\n\n\trl [SeparationLogic-ConditionalStatement] : {P} if B then C1 else C2 {Q} => {B /\\ P} C1 {Q} <> { ! B /\\ P } C2 {Q} [nonexec] .\n\n\n\tcrl [applyEmbeddingRule] : < applyEmbeddingRule ; RG ; G ; GG ; GL ; nil > \n\t\t=>\n\t\t< noRule ; RG ; noGoal ; downTerm(getTerm(SubGoals?), emptyGL) <> GG ; GL ; 'applied '  'embedding '  'rule '\\n > \n\t\tif SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),\n\t\t\t\t\t\tupTerm(G), 'EmbeddingRule, none, 0, unbounded, 0) .\n\n\tcrl [applyFrameRule] : < applyFrameRule T ; RG ; G ; GG ; GL ; nil >\n\t\t=>\n\t\t< noRule ; RG ; noGoal ; downTerm(getTerm(SubGoals?), emptyGL) <> GG  ; GL ; 'applied '  'frame '  'rule '\\n > \n\t\tif SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),\n\t\t\t\t\t\tupTerm(G), 'FrameRule, 'T:Relation <- getTerm(metaReduce(upModule('PROVER-INTERFACE, false), upTerm(T))), 0, unbounded, 0) .\n\n\tcrl [SLapplyFrameRule] : < SLapplyFrameRule V ; RG ; G ; GG ; GL ; nil >\n\t\t=>\n\t\t< noRule ; RG ; noGoal ; downTerm(getTerm(SubGoals?), emptyGL) <> GG ; GL ; 'applied '  'frame '  'rule '  'SL '\\n > \n\t\tif SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),\n\t\t\t\t\t\tupTerm(G), 'SeparationLogic-FrameRule, 'V:Assertion <- getTerm(metaReduce(upModule('PROVER-INTERFACE, false), upTerm(V))), 0, unbounded, 0) .\n\n\tcrl [applySequencing] : < applySequencing S ; RG ; G ; GG ; GL ; nil > \n\t\t=>\n\t\t< noRule ; RG ; noGoal ; downTerm(getTerm(SubGoals?), emptyGL) <> GG ; GL ; 'applied '  'sequencing '  'rule '\\n  > \n\t\tif SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),\n\t\t\t\t\t\tupTerm(G), 'Sequencing, 'S:Relation <- upTerm(S), 0, unbounded, 0) .\n\n\tcrl [SLapplySequencing] : < SLapplySequencing V ; RG ; G ; GG ; GL ; nil > \n\t\t=>\n\t\t< noRule ; RG ; noGoal ; downTerm(getTerm(SubGoals?), emptyGL) <> GG ; GL ; 'applied '  'sequencing '  'rule '  'SL '\\n > \n\t\tif SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),\n\t\t\t\t\t\tupTerm(G), 'SeparationLogic-Sequencing, 'V:Assertion <- upTerm(V), 0, unbounded, 0) .\n\n\tcrl [applyConsequence] : < applyConsequence R1 -- S1 ; RG ; G ; GG ; GL ; nil >\n\t\t=>\n\t\tif SubGoals? :: Result4Tuple then \n\t\t\tif downTerm(getTerm(SubGoals?), emptyGL) :: GoalList then\n\t\t\t< noRule ; RG ; noGoal ; downTerm(getTerm(SubGoals?), emptyGL) <> GG ; GL ; 'applied '  'consequence '  'rule '\\n > \n\t\t\telse\n\t\t\t< noRule ; RG ; G ; GG ; GL ; 'wrong '  'consequence '  'rule '\\n > \n\t\t\tfi\n\t\telse \n\t\t< noRule ; RG ; G ; GG ; GL ; 'error '  'consequence '  'rule '\\n > \n\t\tfi \n\t\tif SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),\n\t\t\t\t\t\tupTerm(G), 'Consequence, 'R1:Relation <- upTerm(R1) ; 'S1:Relation <- upTerm(S1) , 0, unbounded, 0).\n\n\n\tcrl [SLapplyConsequence] : < SLapplyConsequence P1 -- Q1 ; RG ; G ; GG ; GL ; nil >\n\t\t=>\n\t\t< noRule ; RG ; noGoal ; downTerm(getTerm(SubGoals?), emptyGL) <> GG ; GL ; 'applied '  'consequence '  'rule '  'SL '\\n > \n\t\tif SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),\n\t\t\t\t\t\tupTerm(G), 'SeparationLogic-Consequence, 'P1:Assertion <- upTerm(P1) ; 'Q1:Assertion <- upTerm(Q1) , 0, unbounded, 0) .\n\n\tcrl [applyConjunction] : < applyConjunction R1 -- R2 -- S1 -- S2 ; RG ; G ; GG ; GL ; nil >\n\t\t=>\n\t\t< noRule ; RG ; noGoal ; downTerm(getTerm(SubGoals?), emptyGL) <> GG ; GL ; 'applied '  'conjuction '  'rule '\\n > \n\t\tif SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),\n\t\t\t\t\t\tupTerm(G), 'Conjunction, 'R1:Relation <- upTerm(R1) ; 'R2:Relation <- upTerm(R2) ; 'S1:Relation <- upTerm(S1) ; 'S2:Relation <- upTerm(S2) , 0, unbounded, 0) .\n\n\t--- todo the logical variable sort is  probably of sort qid or something, need to think this well\n\tcrl [applyAuxVarElimination] : < applyAuxVarElimination Var ; RG ; G ; GG ; GL ; nil > \n\t\t=>\n\t\t< noRule ; RG ; noGoal ; downTerm(getTerm(SubGoals?), emptyGL) <> GG ; GL ; 'applied '  'aux-var-elim '  'rule '\\n  > \n\t\tif SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),\n\t\t\t\t\t\tupTerm(G), 'AuxVarElimination, 'Var:Id <- upTerm(Var), 0, unbounded, 0) .\n\n\tcrl [SLapplyAuxVarElimination] : < SLapplyAuxVarElimination Var ; RG ; G ; GG ; GL ; nil > \n\t\t=>\n\t\t< noRule ; RG ; noGoal ; downTerm(getTerm(SubGoals?), emptyGL) <> GG ; GL ; 'applied '  'aux-var-elim '  'rule '  'SL '\\n > \n\t\tif SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),\n\t\t\t\t\t\tupTerm(G), 'SeparationLogic-AuxVarElimination, 'Var:Id <- upTerm(Var), 0, unbounded, 0) .\n\n\tcrl [applyLoop] : < applyLoop ; RG ; G ; GG ; GL ; nil > \n\t\t=>\n\t\t< noRule ; RG ; noGoal ; downTerm(getTerm(SubGoals?), emptyGL) <> GG ; GL ; 'applied '  'Loop '  'rule '\\n > \n\t\tif SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),\n\t\t\t\t\t\tupTerm(G), 'Loop, none, 0, unbounded, 0) .\n\n\tcrl [SLapplyLoop] : < SLapplyLoop ; RG ; G ; GG ; GL ; nil > \n\t\t=>\n\t\t< noRule ; RG ; noGoal ; downTerm(getTerm(SubGoals?), emptyGL) <> GG ; GL ; 'applied '  'Loop '  'rule '  'SL '\\n  > \n\t\tif SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),\n\t\t\t\t\t\tupTerm(G), 'SeparationLogic-Loop, none, 0, unbounded, 0) .\n\n\tcrl [applyConditionalStatement] : < applyConditionalStatement ; RG ; G ; GG ; GL ; nil > \n\t\t=>\n\t\t< noRule ; RG ; noGoal ; downTerm(getTerm(SubGoals?), emptyGL) <> GG ; GL ; 'applied '  'conditional '  'rule '\\n > \n\t\tif SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),\n\t\t\t\t\t\tupTerm(G), 'ConditionalStatement, none, 0, unbounded, 0) .\n\n\tcrl [SLapplyConditionalStatement] : < SLapplyConditionalStatement ; RG ; G ; GG ; GL ; nil > \n\t\t=>\n\t\t< noRule ; RG ; noGoal ; downTerm(getTerm(SubGoals?), emptyGL) <>  GG ; GL ; 'applied '  'conditional '  'rule '  'SL '\\n  > \n\t\tif SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false),\n\t\t\t\t\t\tupTerm(G), 'SeparationLogic-ConditionalStatement, none, 0, unbounded, 0) .\n\nendm\n",
 			"file": "prover/prover-interface.maude",
+			"file_size": 11585,
+			"file_write_time": 131728576062549899,
 			"settings":
 			{
-				"buffer_size": 11585,
+				"buffer_size": 11615,
 				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "prover/language/language_grammar.maude",
-			"settings":
-			{
-				"buffer_size": 1343,
 				"line_ending": "Unix"
 			}
 		},
@@ -86,7 +81,16 @@
 			"file": "prover/relational-sep-logic.maude",
 			"settings":
 			{
-				"buffer_size": 924,
+				"buffer_size": 958,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "prover/implication-prover.maude",
+			"settings":
+			{
+				"buffer_size": 1278,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -240,7 +244,7 @@
 	],
 	"find":
 	{
-		"height": 29.0
+		"height": 42.0
 	},
 	"find_in_files":
 	{
@@ -256,6 +260,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"=",
+			"eq",
 			"\n\t---",
 			"\n\t",
 			" \n",
@@ -285,6 +291,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"=>",
+			"rl",
 			"\n\t",
 			"\n\t---",
 			"format (d n t d)",
@@ -303,7 +311,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -312,15 +320,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 11585,
+						"buffer_size": 11615,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								3789,
+								3789
 							]
 						],
 						"settings":
@@ -329,43 +337,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2340.0,
+						"translation.y": 1199.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "prover/language/language_grammar.maude",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 1343,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1248,
-								1248
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Maude Syntax Highlighting/maude.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
 					"file": "prover/language/Todo licenta:",
 					"semi_transient": false,
 					"settings":
@@ -390,24 +369,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 2,
 					"file": "prover/relational-sep-logic.maude",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 924,
+						"buffer_size": 958,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								919,
+								919
 							]
 						],
 						"settings":
@@ -419,7 +398,36 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "prover/implication-prover.maude",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1278,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								538,
+								538
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Maude Syntax Highlighting/maude.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -493,7 +501,7 @@
 	"project": "maude.sublime-project",
 	"replace":
 	{
-		"height": 54.0
+		"height": 75.0
 	},
 	"save_all_on_build": true,
 	"select_file":

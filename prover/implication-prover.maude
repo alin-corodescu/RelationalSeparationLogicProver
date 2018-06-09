@@ -1,6 +1,6 @@
-load prover-interface.maude
+load relational-sep-logic.maude
 mod IMPLICATION-PROVER is
-	including PROVER-INTERFACE .
+	including HOARE-QUADRUPLE .
 
 	--- BEGIN proof rules
 	vars R S T : Relation .
@@ -33,7 +33,7 @@ mod IMPLICATION-PROVER is
 ---
 	---rl (false ; Q) => false .
 ---
-	---rl R * ((E rls E') /\ Emp) => R /\ (E rls E') .
+	---rl R * ((E eqs E') /\ Emp) => R /\ (E eqs E') .
 ---
 	---rl (R * Q) /\ B => R * (Q /\ B) .
 ---
@@ -41,10 +41,14 @@ mod IMPLICATION-PROVER is
 ---
 	---rl (P ; (Q /\ B)) => (P ; Q) /\ B .
 ---
-	---rl (P ; Q) * (Emp * E rls E') => ((P * (emp * E rls E')) ; Q) .
----
-	---rl ((P * (emp * E rls E')) ; Q) => (P ; (Q * (emp * E rls E'))) .
-	
+
+	---rl (P ; Q) * (Emp * E eqs E') => ((P * (emp * E eqs E')) ; Q) .
+
+	--- De sus o trec jos
+	rl [ (P * (emp /\ E eqs E')) ; Q ] => [ P ; (Q * (emp /\ E eqs E')) ] .
+
+	--- De jos o trec in afara
+	rl [ P ; (Q * (emp /\ E eqs E')) ] => [ P ; Q ] * (Emp /\ E eqs E') .
 	--- Here we switch from <=> to => 
 
 	---rl Emp =>> Same .
@@ -53,7 +57,7 @@ mod IMPLICATION-PROVER is
 
 	---rl ( E |-> E1 ; E |-> E1) =>> Same .
 
-	---rl Same /\ ( (E |-> E1 ; E |-> E1') * true ) =>> E1 rls E1' .
+	---rl Same /\ ( (E |-> E1 ; E |-> E1') * true ) =>> E1 eqs E1' .
 
  endm
 

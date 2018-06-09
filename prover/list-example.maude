@@ -51,12 +51,17 @@ loop init .
 	--
 	( [ (y |-> x0) ; ((yp |-> x0) * (xp eqs x0 /\ emp)) ] )
 )
-(ok)
+--- (ok) --- this got auto-approved because it was R=>R
 (applyEmbeddingRule)
 (ok) --- here is the {S} pass {S} => should be auto-approved
 
 (ok) --- this here should be auto-approved by axiom
-(ok)
+
+
+--- [y |-> x0 ;  ( emp /\ xp eqs x0 ) * yp |-> x0 ]
+--- =>
+----( ( Emp /\ xp eqs x0 ) * [y |-> x0 ; yp |-> x0] )
+--- (ok) --- implication proof works, wohoo
 
 --- part 2 begins now
 
@@ -67,9 +72,9 @@ loop init .
 	( (Same * List(c) * (y eqs yp /\ Emp) * (xp eqs x0 /\ Emp) * (c eqs cp /\ Emp) * [y |-> x0 ; yp |-> x0]) /\ !(!(c eqs null)) ) --- R si not B
 )
 
-(ok) --- first implication
+---(ok) --- first implication -> auto-approved being same
 (applyLoop)
-(ok) --- Loop implication
+(ok) --- Loop implication -> will look in the paper to see how they prove it
 (applyConsequence
 	([(c0 |-> -) * ((c0 plus 1) |-> c1) * (y |-> x0) * (c eqs c0 /\ emp) 
 		; (c0 |-> -) * ((c0 plus 1) |-> c1) * (xp eqs x0 /\ emp ) * (cp eqs c0 /\ emp) ] 

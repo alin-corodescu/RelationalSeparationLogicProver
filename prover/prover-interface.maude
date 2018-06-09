@@ -87,7 +87,7 @@ mod PROVER-INTERFACE is
 		=> 
 		if Tr:[Trace?] :: Trace then 
 			< noRule ; RG ; noGoal ; GG ; GL ; metaPrettyPrint(upModule('PROVER-INTERFACE, false), upTerm(G)) '  'auto-proved '\n 
-									'using ': '\n metaPrettyPrint(upModule('PROVER-INTERFACE, false), upTerm(Tr:[Trace?])) '\n > 
+									'using ': '\n metaPrettyPrint(upModule('IMPLICATION-PROVER, false), upTerm(Tr:[Trace?])) '\n > 
 		else 
 			--- The goal could not be proven using the implication prover (Goal might not be an implication or we simply couldn't)
 			< noRule ; RG ; G ; GG ; GL ; 'didn't '  'auto '\n > 

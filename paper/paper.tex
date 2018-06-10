@@ -359,8 +359,13 @@ The semantics of the Relation Language are derived from the semantics of the Ass
 Most of the rules are adapted from the Separation Logic ones, and the link between the two logics is given by the \textbf{Embedding Rule}, which allows to transform a Relational Separation Logic Hoare Quadruple into two Separation Logic Hoare Triples. The rules are presented in Figure \ref{fig:ProofRue}. 
 \clearpage
 \subsection{Rewriting Logic}
+Rewriting logic is both a semantic and logical framework \cite{rewritingLogic} in which, via \textbf{term rewriting}, changes within systems (concurrent or not) and other logics can be expressed naturally. The latter represents the motivation for choosing rewriting logic for our project, as well as extensibility in the future, in terms of concurrent program analysis. \\
 
-\section{Relational Separation Logic Interactive Prover}
+One of the strong points of rewriting logic is that it reduces the \textbf{representational distance}, as it was named in \cite{rewritingLogic}, of the systems modelled using it. Representational distance is how much detail is lost in the translation process between semantic representation and implementation. This feature will be highlighted in the following sections, describing the Maude representation of the Relational Separation Logic and an executable semantic specification of the language supported by the prover. As we can see, the Relational Separation Logic has been represented naturally using rewrite rules and the translation process between representation and implementation usually involves just syntactic differences.\\
+
+A rewrite theory is a triplet : \[\mathcal{R} = (\Sigma, E, R)\]
+where \(\Sigma\) represent the "environment" - in our case, \(\Sigma\) represents all the symbols which can appear when representing a Hoare Quadruple and their corresponding operators , \(E\) represents a set of equations denoting algebraic identities for \(\Sigma\) and \(R\) represents a set of rewrite rules, possibly conditional which take the form of \(t \leftarrow t\prime\ [condition]\), where \(t\) and \(t\prime\) are terms. 
+\section{Relational Separation Logic Interactive Prover} 
 Ordinea subsectiunilor mai poate fi schimbata ulterior. Capitolul cel mai semnificativ din lucrare, va contine toate detaliile de implementare ale solutiei curente
 \subsection{Maude - General Overview}
 \subsection{Executable semantics of the language}

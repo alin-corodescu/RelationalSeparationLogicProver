@@ -15,18 +15,18 @@
 \contentsline {paragraph}{Semantics of the Relation Language}{8}
 \contentsline {subsection}{\numberline {3.5}Rewriting Logic}{11}
 \contentsline {section}{\numberline {4}Relational Separation Logic Interactive Prover}{11}
-\contentsline {subsection}{\numberline {4.1}Maude - General Overview}{11}
-\contentsline {subsection}{\numberline {4.2}Executable semantics of the language}{11}
-\contentsline {subsection}{\numberline {4.3}Modelling the Separation Logics}{11}
-\contentsline {subsection}{\numberline {4.4}Interaction by Maude LOOP-MAUDE}{11}
-\contentsline {subsection}{\numberline {4.5}Prover execution flow}{11}
-\contentsline {subsection}{\numberline {4.6}Automated processes}{11}
-\contentsline {subsubsection}{\numberline {4.6.1}Automatic matching of axioms and previously proven goals}{11}
-\contentsline {subsubsection}{\numberline {4.6.2}Automatic demonstration of implications}{11}
-\contentsline {subsection}{\numberline {4.7}User Interface}{11}
-\contentsline {subsection}{\numberline {4.8}Future directions}{11}
-\contentsline {section}{\numberline {5}Additional Research}{11}
-\contentsline {subsection}{\numberline {5.1}Automatic prover}{11}
-\contentsline {subsection}{\numberline {5.2}Concurrent programs extension}{11}
-\contentsline {subsection}{\numberline {5.3}Java+ITP}{11}
-\contentsline {section}{\numberline {6}Conclusions}{11}
+\contentsline {subsection}{\numberline {4.1}Maude - General Overview}{12}
+\contentsline {subsection}{\numberline {4.2}Executable semantics of the language}{12}
+\contentsline {subsection}{\numberline {4.3}Modelling the Separation Logics}{12}
+\contentsline {subsection}{\numberline {4.4}Interaction by Maude LOOP-MAUDE}{12}
+\contentsline {subsection}{\numberline {4.5}Prover execution flow}{12}
+\contentsline {subsection}{\numberline {4.6}Automated processes}{12}
+\contentsline {subsubsection}{\numberline {4.6.1}Automatic matching of axioms and previously proven goals}{12}
+\contentsline {subsubsection}{\numberline {4.6.2}Automatic demonstration of implications}{12}
+\contentsline {subsection}{\numberline {4.7}User Interface}{12}
+\contentsline {subsection}{\numberline {4.8}Future directions}{12}
+\contentsline {section}{\numberline {5}Additional Research}{12}
+\contentsline {subsection}{\numberline {5.1}Automatic prover}{12}
+\contentsline {subsection}{\numberline {5.2}Concurrent programs extension}{12}
+\contentsline {subsection}{\numberline {5.3}Java+ITP}{12}
+\contentsline {section}{\numberline {6}Conclusions}{12}

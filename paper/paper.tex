@@ -10,6 +10,13 @@
 \usepackage{ebproof}
 \author{ANDREI-ALIN CORODESCU}
 \title{Program Equivalence : Relational Separation Logic interactive prover implemented in Maude}
+\newcommand{\hq}[4]{
+	\left\{{#1}\right\}
+	\let\scriptstyle\textstyle 
+	\substack{{#2} \\ 	\let\scriptstyle\textstyle {#3}} 
+	\left\{{#4}\right\}
+}
+
 \begin{document}
 \begin{titlepage}
 \begin{center}
@@ -245,7 +252,114 @@ The main abstraction introduced by the Relational Separation Logic is the Hoare 
 \[\{R\}\ {C_1 \atop C_2}\   \{T\}\]
 
 \(R\) represents a \textbf{relation} between the two program states holding before the execution of \(C_1\) and \(C_2\) respectively while \(T\) represents a \textbf{relation} which holds after the execution of the two commands. 
+\\
+
+Since relational separation language reasons about two programs simultaneously, it employs a storage model in which both programs share a single \(Store\) but have independent \(Heaps\). This implies that the programs need to use \textbf{disjoint} parts of the same \(Store\). The benefit of such a model is that we can use variables in Relations which aren't used by the two programs directly to relate them.
+\begin{figure}[h]
+	\noindent\rule{\linewidth}{0.4pt}
+	\medskip
+	\begin{tabularx}{\linewidth}{l  X}
+		Relation& \(R ::= Same \mid Emp \mid \left( P_1 \atop P_2 \right) \mid R_1 * R_2 \mid B \mid R_1 \Rightarrow R_2 \mid R_1 \land R_2 \mid R_1 \lor R_2 \mid \neg R \mid \exists x. R \mid \forall x. R \) \\
+	\end{tabularx}
+	\caption{Syntax of the relation language}
+	\label{fig:RelationSyntax}
+	\noindent\rule{\linewidth}{0.4pt}
+\end{figure}
+\paragraph{Semantics of the Relation Language}
+The semantics of the Relation Language are derived from the semantics of the Assertion Language, and in the following section I will present the newly introduced elements. 
+\begin{itemize}
+	\item{ \(Same\) denotes that the heaps associated with the 2 programs are identical}
+	\item{ \(Emp\) is the Relational equivalent of the \(emp\) assertion; specifies two empty heaps}
+	\item{ \(\left(P_1 \atop P_2\right)\) is the building block of the Relational separation logic: it allows to construct a relation between programs by putting together 2 assertions, \(P_1\) holding for the first program and \(P_2\) holding for the second program}
+	\item{ \(R_1 * R_2\) represents the relational separating conjunction and it keeps a similar meaning to the Separation Logic one ; it separates two relations referring to \textbf{disjoint} parts of the heaps of the two programs.}
+\end{itemize}
+\begin{figure}
+		\noindent\rule{\linewidth}{0.4pt}
+	Loop:
+	\[
+	\begin{prooftree}
+	\Hypo{R \Rightarrow (B \Leftrightarrow B\prime)}
+	\Hypo{\{R \land B \} {C \atop C\prime} {R}}
+	\Infer 2 {\{R\}
+		\let\scriptstyle\textstyle 
+		\substack{\mathtt{while\ B\ do\ C\ od} \\ \mathtt{while\ B\prime\ do\ C\prime\ od}} \{R \land \neg B\}}
+	\end{prooftree}	
+	\]
+	Conditional Statement
+	\[
+	\begin{prooftree}
+	\Hypo{R \Rightarrow (B \Leftrightarrow B\prime)}
+	\Hypo{ \{R \land B\} 		
+		\let\scriptstyle\textstyle 
+		\substack{C_1 \\ C_1\prime} \{S\}
+		}
+	\Hypo{
+		\{R \land \neg B\}
+		\let\scriptstyle\textstyle 
+		\substack{C_2 \\ C_2\prime}
+		\{S\}
+	}
+	\Infer 3 {\{R\}\  	
+				\let\scriptstyle\textstyle 
+				\substack{\mathtt{if\ B\ then\ C_1\ else\ C_2\ fi} \\ \mathtt{if\ B\prime\ then\ C_1\prime\ else\ C_2\prime fi}} \{S\}}
+	\end{prooftree}	
+	\]
+	Sequencing Rule
+	\[
+	\begin{prooftree}
+	\Hypo{ \hq{R}{C_1}{C_1\prime}{S}}
+	\Hypo{ \hq{S}{C_2}{C_2\prime}{T}}
+	\Infer 2 {\hq{R}{C_1 ; C_2}{C_1\prime ; C_2\prime}{T}}
+	\end{prooftree}	
+	\]
+	Frame Rule
+	\[
+	\begin{prooftree}
+	\Hypo { \hq{R}{C}{C\prime}{S}}
+	\Infer 1 {\hq{R * T} {C}{C\prime}{S * T}}
+	\end{prooftree}	
+	\]
+	Embedding rule
+	\[
+	\begin{prooftree}
+	\Hypo{\{P\} C \{Q\}}
+	\Hypo{\{P\prime\} C\prime \{Q\prime\}}
+	\Infer 2 {\hq{\left( \substack{P \\ P\prime}\right)}{C}{C\prime}{\left( \substack{Q \\ Q\prime}\right)}}
+	\end{prooftree}	
+	\]
+	Consequence Rule
+	\[
+	\begin{prooftree}
+	\Hypo{R \Rightarrow R_1}
+	\Hypo{\hq{R_1}{C}{C\prime}{S_1}}
+	\Hypo{S \Rightarrow S_1}
+	\Infer 3 {\hq{R}{C}{C\prime}{S}}
+	\end{prooftree}	
+	\]
+	Conjunction Rule
+	\[
+	\begin{prooftree}
+	\Hypo{\hq{R_1}{C}{C\prime}{S_1}}
+		\Hypo{\hq{R_2}{C}{C\prime}{S_2}}
+	\Infer 2 {\hq{R_1 \land R_2}{C}{C\prime}{S_1 \land S_2}}
+	\end{prooftree}	
+	\]
+	Auxiliary Variable Elimination
+	\[
+	\begin{prooftree}
+	\Hypo{\hq{R}{C}{C\prime}{S}}
+	\Infer 1 {\hq{\exists x.R}{C}{C\prime}{\exists x.S}}
+	\end{prooftree}	
+	\]
+	\caption{Relational Separation Logic Proof Rules}
+	\label{fig:ProofRue}
+	\noindent\rule{\linewidth}{0.4pt}
+\end{figure}
+
+Most of the rules are adapted from the Separation Logic ones, and the link between the two logics is given by the \textbf{Embedding Rule}, which allows to transform a Relational Separation Logic Hoare Quadruple into two Separation Logic Hoare Triples. The rules are presented in Figure \ref{fig:ProofRue}. 
+\clearpage
 \subsection{Rewriting Logic}
+
 \section{Relational Separation Logic Interactive Prover}
 Ordinea subsectiunilor mai poate fi schimbata ulterior. Capitolul cel mai semnificativ din lucrare, va contine toate detaliile de implementare ale solutiei curente
 \subsection{Maude - General Overview}

@@ -59,7 +59,7 @@
 			"file": "prover/prover-interface.maude",
 			"settings":
 			{
-				"buffer_size": 11585,
+				"buffer_size": 11587,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -68,7 +68,7 @@
 			"file": "prover/goal-graph.maude",
 			"settings":
 			{
-				"buffer_size": 1300,
+				"buffer_size": 1268,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -104,7 +104,7 @@
 			"file": "prover/implication-prover.maude",
 			"settings":
 			{
-				"buffer_size": 1316,
+				"buffer_size": 1441,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -325,7 +325,7 @@
 	"groups":
 	[
 		{
-			"selected": 5,
+			"selected": 4,
 			"sheets":
 			[
 				{
@@ -334,15 +334,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 11585,
+						"buffer_size": 11587,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								26,
-								26
+								0,
+								0
 							]
 						],
 						"settings":
@@ -363,15 +363,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1300,
+						"buffer_size": 1268,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								61,
-								61
+								0,
+								0
 							]
 						],
 						"settings":
@@ -470,7 +470,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -479,15 +479,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1316,
+						"buffer_size": 1441,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1108,
-								1108
+								0,
+								0
 							]
 						],
 						"settings":
@@ -499,7 +499,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{

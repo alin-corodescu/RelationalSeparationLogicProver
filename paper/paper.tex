@@ -7,6 +7,7 @@
 \usepackage[english]{babel}
 \usepackage{array}
 \usepackage{tabularx}
+\usepackage{ebproof}
 \author{ANDREI-ALIN CORODESCU}
 \title{Program Equivalence : Relational Separation Logic interactive prover implemented in Maude}
 \begin{document}
@@ -79,6 +80,7 @@ A \(Heap\) represents a mapping from the \(\mathtt{PosNats}\) to \(\mathtt{Integ
 More informally, the \(Store\) holds the value of the variables while the \(Heap\) maps the active memory cells during a program execution to their contents.
 \subsubsection{Syntax and Semantics of the language}
 \begin{figure}[h]
+	\noindent\rule{\linewidth}{0.4pt}
 	\begin{tabularx}{\linewidth}{l  X}
 	Integer Expressions& \(E ::= x \mid Integer \mid E\ \mathtt{plus}\ E \mid E\ \mathtt{times}\ E \mid E\ \mathtt{minus}\ E \) \\
 	\\
@@ -88,9 +90,11 @@ More informally, the \(Store\) holds the value of the variables while the \(Heap
 	\end{tabularx}
 	\caption{Syntax of the language}
 	\label{fig:langSyntax}
+	\noindent\rule{\linewidth}{0.4pt}
 \end{figure}
 The syntax of the language is presented in Figure \ref{fig:langSyntax} . It represents an adapted subset of the language presented in the Relational Separation Logic paper \cite{relational} . 
 \paragraph{Semantics of the language}
+{
 The semantics of the previously defined language are standard but a few clarifications are necessary to point out how our language constructs interact with the storage model, as well as a few differences from regular programming languages:
 \begin{itemize}
 	\item{Verbosity of operators - most operators are replaced by their literal names ( \(+\) becomes \(\mathtt{plus}\) etc.); we have opted for this approach to avoid complication when implementing the language in Maude, because most of the operators are already defined in Maude for its built-in types, and overloading them could cause conflicts since we are basing our own defined types on Maude's primitives.}
@@ -108,6 +112,7 @@ The semantics of the previously defined language are standard but a few clarific
 		\subitem{\( [E] := E\prime \) updates the contents of the memory cell at address \(E\) with the value of the expression \(E\prime\)}
 		\subitem{\( x := E \) updates the value of the variable \(x\) with the value of the expression \(E\) - note that this command does not modify the heap in any way, as it usually happens with regular programming languages when updating the value of a variable}
 \end{itemize}
+}
 \subsection{Hoare Logic}
 Hoare Logic is a formal system which allows us to rigorously reason about the behaviour of programs.
 The main component of Hoare Logic is the Hoare Triple, defined as follows:
@@ -118,29 +123,100 @@ The role of a Hoare triple is to capture how a command or set of commands modify
 
 \(P\) and \(Q\), called precondition and postcondition, respectively can be specified using an assertion language . Figure \ref{fig:assertionSyntax} represents the assertion language, defined in relation with the language syntax: 
 \vspace{1cm}
-\begin{figure}
+\begin{figure}[h]
+	\noindent\rule{\linewidth}{0.4pt}
 	\begin{tabularx}{\linewidth}{l  X}
 		Assertions& \(P ::= B \mid P\ \Rightarrow\ P \mid P \land P \mid P \lor P \mid \neg P \mid {\exists x . P} \) \\
 	\end{tabularx}
 	\caption{Syntax of the assertion language}
+	\noindent\rule{\linewidth}{0.4pt}
 	\label{fig:assertionSyntax}
 \end{figure}
 \\
 
-At the base of proofs based on Hoare Logic are a set of axioms and proof rules which can be applied to Hoare triples. These axioms and rules will be discussed in the following section.
+\begin{figure}[h!]
+	\noindent\rule{\linewidth}{0.4pt}
+	Empty Statement Axiom
+	\[
+	\begin{prooftree}
+	\Hypo{}
+	\Infer 1 {\{P\}\  \mathtt{skip}\  \{P\}}
+	\end{prooftree}	
+	\]
+	Assignment Axiom 
+	\medskip
+	\[
+	\begin{prooftree}
+	\Hypo{}
+	\Infer 1 {\{P[E/x]\}\  \mathtt{x := E}\  \{P\}}
+	\end{prooftree}	
+	\]
+	Composition Rule
+	\medskip
+	\[
+	\begin{prooftree}
+	\Hypo{ \{P\} S \{Q\}}
+	\Hypo{ \{Q\} T \{R\}}
+	\Infer 2 {\{P\}\  \mathtt{S ; T}\  \{Q\}}
+	\end{prooftree}	
+	\]
+	Consequence Rule
+	\medskip
+	\[
+	\begin{prooftree}
+	\Hypo{P \Rightarrow P\prime}
+	\Hypo{\{P\prime\} C \{Q\prime\}}
+	\Hypo{Q \Rightarrow Q\prime}
+	\Infer 3 {\{P\}\  C  \{Q\}}
+	\end{prooftree}	
+	\]
+	Auxiliary Variable Elimination Rule
+	\medskip
+	\[
+	\begin{prooftree}
+	\Hypo{\{P\} C \{Q\}}
+	\Infer 1 [\(x \notin Free(C)\)]{\{\exists x.P\}\ C\ \{\exists x. Q\}}
+	\end{prooftree}	
+	\]
+	Conditional Rule
+	\medskip
+	\[
+	\begin{prooftree}
+	\Hypo{\{B \land P\} S \{Q\}}
+	\Hypo{\{\neg B \land P\} T \{Q\}}
+	\Infer 2 {\{P\} \mathtt{if\ B\ then\ S\ else\ T\ fi} \{Q\}}
+	\end{prooftree}	
+	\]
+	While Rule
+	\medskip
+	\[
+	\begin{prooftree}
+	\Hypo{\{P \land B\} S\{P\}}
+	\Infer 1 {\{P\}\  \mathtt{while\ B\ do\ S\ od}\  \{\neg B \land P\}}
+	\end{prooftree}	
+	\]
+	\caption{Hoare Logic Rules}
+	\label{fig:HLRules}
+	\noindent\rule{\linewidth}{0.4pt}
+\end{figure}
+
+At the base of proofs based on Hoare Logic are a set of axioms and proof rules which can be applied to Hoare triples, presented in Figure \ref{fig:HLRules}
+
 \subsection{Separation Logic}
-Separation Logic is an extension of Hoare Logic which simplifies reasoning about program execution by introducing ways of localising parts of the proof : draw conclusions based on a subset of the program state, the subset chosen such that it contains only the parts relevant to the command specified by the analysed Hoare triple. \\
+Separation Logic is an extension of Hoare Logic which simplifies reasoning about program execution by introducing ways of localising parts of the proof : draw conclusions based on a subset of the program state, the subset chosen such that it contains only the parts relevant to the command specified in the analysed Hoare triple. \\
 
 The main feature of Separation Logic is the \textbf{separating conjunction} \(*\) which allows to split the assertion into parts which refer to disjoint areas of the heap. Through the \(*\) operator, Separation Logic enables reasoning about the effects of commands only at a local level, by splitting the assertions into a section which is relevant to the current command and "saving" the rest for subsequent commands. \\
 
 Separation Logic introduces new elements to the assertions language - Figure \ref{fig:SLassertionSyntax}:  \\
 
 \begin{figure}
+	\noindent\rule{\linewidth}{0.4pt}
 	\begin{tabularx}{\linewidth}{l  X}
 		Assertions& \(P ::= ... (specified\ previously) \mid E \mapsto E \mid P * P \mid emp \) \\
 	\end{tabularx}
 	\caption{Syntax of the assertion language}
 	\label{fig:SLassertionSyntax}
+	\noindent\rule{\linewidth}{0.4pt}
 \end{figure}
 
 \paragraph{Semantics of the new elements}
@@ -149,7 +225,26 @@ Separation Logic introduces new elements to the assertions language - Figure \re
 	\item{\(P * Q\) holds for heap \(h\) iff \(\exists h_0,h_1\) such that \(h_0 * h_1 = h\) and \(P\) holds for \(h_0\) and \(Q\) holds for \(h_1\)}
 	\item{\(emp\) denotes a heap without any active cells}
 \end{itemize}
+\paragraph{Inference Rules for Separation Logic} 
+Separation Logic introduces a new rule, called Frame Rule, which makes use of the \(*\) operator to allow local reasoning :
+\\
+\noindent\rule{\linewidth}{0.4pt}
+Frame Rule
+\medskip
+\[
+\begin{prooftree}
+\Hypo{\{P\}\ C\ \{Q\}}
+\Infer 1 [\(Modifies(C) \cup Free(R) = \emptyset \)]{\{P * R \}\ C\ \{Q * R\}}
+\end{prooftree}		
+\]
+\noindent\rule{\linewidth}{0.4pt}
 \subsection{Relational Separation Logic}
+Relational Separation Logic builds upon the foundations layed by the Separation Logic by extending it to facilitate analysing how two programs are related. 
+\paragraph{Hoare Quadruple}
+The main abstraction introduced by the Relational Separation Logic is the Hoare Quadruple, which express the effects of commands on the states of the two programs. 
+\[\{R\}\ {C_1 \atop C_2}\   \{T\}\]
+
+\(R\) represents a \textbf{relation} between the two program states holding before the execution of \(C_1\) and \(C_2\) respectively while \(T\) represents a \textbf{relation} which holds after the execution of the two commands. 
 \subsection{Rewriting Logic}
 \section{Relational Separation Logic Interactive Prover}
 Ordinea subsectiunilor mai poate fi schimbata ulterior. Capitolul cel mai semnificativ din lucrare, va contine toate detaliile de implementare ale solutiei curente

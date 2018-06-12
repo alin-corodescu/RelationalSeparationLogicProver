@@ -366,8 +366,27 @@ One of the strong points of rewriting logic is that it reduces the \textbf{repre
 A rewrite theory is a triplet : \[\mathcal{R} = (\Sigma, E, R)\]
 where \(\Sigma\) represent the "environment" - in our case, \(\Sigma\) represents all the symbols which can appear when representing a Hoare Quadruple and their corresponding operators , \(E\) represents a set of equations denoting algebraic identities for \(\Sigma\) and \(R\) represents a set of rewrite rules, possibly conditional which take the form of \(t \leftarrow t\prime\ [condition]\), where \(t\) and \(t\prime\) are terms. 
 \section{Relational Separation Logic Interactive Prover} 
-Ordinea subsectiunilor mai poate fi schimbata ulterior. Capitolul cel mai semnificativ din lucrare, va contine toate detaliile de implementare ale solutiei curente
+This chapter will include details related to the implementation and usage of the Relational Separation Logic prover and highlight a few of Maude's features which made it the a language fit for the purpose of this project.
 \subsection{Maude - General Overview}
+Maude is a programming language which is based on Rewriting Logic, discussed in the previous section. 
+The main features used for this project which set Maude apart are :
+\begin{itemize}
+	\item \textbf{Expressiveness}
+	\subitem Maude allows the user to model a wide range of applications through user-defined data types and operators
+	\subitem The principles upon which Maude was built make the implementations be close to the problem they are trying to solve. This forces programmers to come up with clever, often simple and self-explanatory solutions.
+	\item \textbf{Simplicity}
+	\subitem
+	The previously mentioned expressiveness is augmented by the simplicity of the Maude language, which incorporates just a few keywords and commands,and the user is then tasked with building solutions using the underlying system (and, if desired, using pre-defined modules).
+	\item \textbf{Metalanguage applications}
+	\subitem
+	Maude has a powerful, built-in way of analysing and controlling Maude's execution environment at runtime via the META-LEVEL module. Throughout this project we make heavy use of the meta language capabilities of Maude to control the flow of the prover execution. This approach also has the benefit of adding extensibility to it.
+\end{itemize} 
+Good references for Maude language include:
+\begin{itemize}
+	\item Maude Primer \cite{primer} which was written for Maude 2.0.1 but still applies to the latest versions of Maude is a good starting point for learning Maude, as it introduces the language in a more informal, friendlier way
+	\item Maude Manual \cite{manual} which presents the whole Maude system in depth, along with the mathematical foundations
+	\item All about Maude book \cite{allAboutMaude} which includes everything contained in the manual and presents some of the more relevant tools implemented in Maude .
+\end{itemize}
 \subsection{Executable semantics of the language}
 \subsection{Modelling the Separation Logics}
 \subsection{Interaction by Maude LOOP-MAUDE}

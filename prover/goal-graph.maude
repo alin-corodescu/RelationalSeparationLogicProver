@@ -52,7 +52,7 @@ mod GOAL-GRAPH is
 	eq tryImplicationProving(RR => TT) = metaSearchPath(upModule('IMPLICATION-PROVER, false), 
 							upTerm(RR),
 							upTerm(TT),
-							nil, '* , 40, 0) . 
+							nil, '* , 5, 0) . 
 	
 
 endm

@@ -53,6 +53,8 @@ mod PROVER-INTERFACE is
 		=>
 		< noRule ; HQ ; noGoal ; HQ <> emptyGL ; 
 		downTerm('`{_`}_`{_`}['_|->_['E:AExp,'s_['0.Zero]],'`[_`]:=_['E:AExp,'F:AExp],'_|->_['E:AExp,'F:AExp]] , emptyGL)
+		<> downTerm('`{_`}_`{_`}['_|->_['E1:AExp,'E2:AExp],'_:=`[_`]['v:Id,'E1:AExp],'_*_['_/\_['emp.Assertion, '_eqs_['v:Id,'E2:AExp]],'_|->_['E1:AExp,'E2:AExp]]] , emptyGL)
+		<> downTerm('`{_`}_`{_`}['S:Assertion,'pass.Command,'S:Assertion], emptyGL)
 		; 'begin '\n > .
 
 	--- after processing a goal, take the first element from that list to prove it

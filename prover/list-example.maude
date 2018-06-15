@@ -53,9 +53,9 @@ loop init .
 )
 --- (ok) --- this got auto-approved because it was R=>R
 (applyEmbeddingRule)
-(ok) --- here is the {S} pass {S} => should be auto-approved
+---(ok) --- here is the {S} pass {S} => should be auto-approved
 
-(ok) --- this here should be auto-approved by axiom
+---(ok) --- this here should be auto-approved by axiom
 
 
 --- [y |-> x0 ;  ( emp /\ xp eqs x0 ) * yp |-> x0 ]
@@ -85,17 +85,22 @@ loop init .
 		* List(c1) * Same * (y eqs yp /\ Emp) * [emp ; yp |-> x0])
 )
 
-(ok) 
+---
+---( !(c eqs null) /\  Same *  List(c) *  ( Emp /\ y eqs yp ) *  ( Emp /\ xp eqs x0 ) *  ( Emp /\ c eqs cp ) * [y |-> x0 ; yp |-> x0]      )
+---=>
+---( Same *  List(c1) *  ( Emp /\ y eqs yp ) *  [emp ; yp |-> x0] * [ ( emp /\ c eqs c0 ) *  (y |-> x0) *  (c0 |-> _:AExp) * (c0 plus 1)|-> c1    ;  ( emp /\ xp eqs x0 ) *  ( emp /\ cp eqs c0 ) *  (c0 |-> _:AExp) *
+    ---(c0 plus 1)|-> c1   ]    )
+(ok) --- this one expands the list predicate
 (applyFrameRule (List(c1) * Same * (y eqs yp /\ Emp) * [emp ; yp |-> x0]))
 (applyEmbeddingRule)
 (SLapplySequencing ((c0 |-> (0 minus x0)) * ((c0 plus 1) |-> c1) * (y |-> x0) * (emp /\ c eqs c0)))
 (SLapplySequencing ((c0 |-> -) * ((c0 plus 1) |-> c1) * (y |-> x0) * (emp /\ c eqs c0) * (emp /\ x eqs x0)))
 (SLapplyFrameRule ((c0 |-> -) * ((c0 plus 1) |-> c1) * (emp /\ c eqs c0)))
-(ok) --- should be a kind of axiom with auto matching
-(SLapplyFrameRule ( (emp /\ c eqs c0 ) *  (y |-> x0) * ((c0 plus 1)|-> c1) ) )
-(ok) --- will be matched by axiom
+---(ok) --- should be a kind of axiom with auto matching
+(SLapplyFrameRule ( (y |-> x0) * ((c0 plus 1)|-> c1) ) )
+(ok) --- will be matched by axiom, need to interpret equals
 (SLapplyFrameRule ( (y |-> x0) *  (c0 |->(0 minus x0)) ) )
-(ok)
+(ok) --- interpret equals
 
 
 --- Second branch begin
@@ -107,4 +112,4 @@ loop init .
 (ok) --- qeuals again, good example of store modification
 
 (ok) --- part 2 List decomposition proof
-(ok) --- first consequence second implication
+(ok) --- first consequence second implication  

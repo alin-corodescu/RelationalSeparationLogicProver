@@ -56,9 +56,9 @@ mod IMPLICATION-PROVER is
 
 	rl Same * Same => Same .
 
-	rl ( E |-> E1 ; E |-> E1) => Same .
+	rl [ E |-> E1 ; E |-> E1 ] => Same .
 
-	rl Same /\ ( (E |-> E1 ; E |-> E1') * true ) => E1 eqs E1' .
+	rl Same /\ ( [E |-> E1 ; E |-> E1'] * true ) => E1 eqs E1' .
 
  endm
 

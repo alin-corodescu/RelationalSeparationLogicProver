@@ -77,16 +77,20 @@
 			"file": "prover/implication-prover.maude",
 			"settings":
 			{
-				"buffer_size": 1460,
+				"buffer_size": 1461,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "prover/list-example.maude",
+			"contents": "Todo licenta:\n\t-> semnaleaza diferentele subtile intre egal si |->, etc., cum sa ajuti omul sa inteleaga mai bine ce ai facut acolo\n\n\n\nQuestions :\n\t-> Trebuie sa fie stil de documentatie, adica sa spun cum sa fie folosit?\n\t-> Are limita de pagini sau nu?\n\t-> Cand trebuie sa fie gata? ",
+			"file": "prover/language/Todo licenta:",
+			"file_size": 255,
+			"file_write_time": 131735218352027418,
 			"settings":
 			{
-				"buffer_size": 3114,
+				"buffer_size": 285,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
@@ -307,7 +311,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -374,15 +378,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1460,
+						"buffer_size": 1461,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								864,
-								864
+								437,
+								437
 							]
 						],
 						"settings":
@@ -391,39 +395,38 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 201.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "prover/list-example.maude",
-					"semi_transient": true,
+					"file": "prover/language/Todo licenta:",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3114,
+						"buffer_size": 285,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2635,
-								2635
+								284,
+								284
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Maude Syntax Highlighting/maude.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1641.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{

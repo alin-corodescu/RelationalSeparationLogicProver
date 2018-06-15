@@ -16,7 +16,7 @@
 \contentsline {subsection}{\numberline {3.5}Rewriting Logic}{11}
 \contentsline {section}{\numberline {4}Relational Separation Logic Interactive Prover}{11}
 \contentsline {subsection}{\numberline {4.1}Maude - General Overview}{11}
-\contentsline {subsection}{\numberline {4.2}Executable semantics of the language}{13}
+\contentsline {subsection}{\numberline {4.2}Executable semantics of the language}{12}
 \contentsline {subsection}{\numberline {4.3}Modelling the Separation Logics}{13}
 \contentsline {subsection}{\numberline {4.4}Interaction by Maude LOOP-MAUDE}{13}
 \contentsline {subsection}{\numberline {4.5}Prover execution flow}{13}

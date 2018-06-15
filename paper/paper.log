@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.6.2)  12 JUN 2018 20:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.6.2)  15 JUN 2018 10:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -847,6 +847,11 @@ Overfull \hbox (2.43063pt too wide) in paragraph at lines 381--383
 EL mod-
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 391--392
+
+ []
+
 [12] [13] (./paper.bbl) [14] (./paper.aux) ) 
 Here is how much of TeX's memory you used:
  10755 strings out of 492982
@@ -874,7 +879,7 @@ ype1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super
 share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/ty
 pe1/public/cm-super/sfti1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/
 sfti1440.pfb>
-Output written on paper.pdf (15 pages, 273861 bytes).
+Output written on paper.pdf (15 pages, 274459 bytes).
 PDF statistics:
  130 PDF objects out of 1000 (max. 8388607)
  93 compressed objects within 1 object stream

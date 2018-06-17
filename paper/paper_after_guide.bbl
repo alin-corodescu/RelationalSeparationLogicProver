@@ -1,0 +1,55 @@
+\begin{thebibliography}{1}
+
+\bibitem{relational}
+Hongseok Yang.
+\newblock Relational separation logic.
+\newblock {\em Theor. Comput. Sci.}, 375(1-3):308--334, April 2007.
+
+\bibitem{primer}
+Peter~W. O'Hearn.
+\newblock A primer on separation logic (and automatic program verification and
+  analysis).
+\newblock In {\em Software Safety and Security}, 2012.
+
+\bibitem{SeparationLogic}
+J.~C. Reynolds.
+\newblock Separation logic: a logic for shared mutable data structures.
+\newblock In {\em Proceedings 17th Annual IEEE Symposium on Logic in Computer
+  Science}, pages 55--74, 2002.
+
+\bibitem{JAVAITP}
+Ralf Sasse and José Meseguer.
+\newblock Java+itp: A verification tool based on hoare logic and algebraic
+  semantics.
+\newblock {\em Electronic Notes in Theoretical Computer Science}, 176(4):29 --
+  46, 2007.
+\newblock Proceedings of the 6th International Workshop on Rewriting Logic and
+  its Applications (WRLA 2006).
+
+\bibitem{REWRITING}
+Traian~Florin Şerbănuţă, Grigore Roşu, and José Meseguer.
+\newblock A rewriting logic approach to operational semantics.
+\newblock {\em Information and Computation}, 207(2):305 -- 340, 2009.
+\newblock Special issue on Structural Operational Semantics (SOS).
+
+\bibitem{maudeprimer}
+Theodore McCombs.
+\newblock Maude 2.0 primer, August 2003.
+
+\bibitem{manual}
+Manuel Clavel, Francisco Duran, Steven Eker, Santiago Escobar, Narciso
+  Patrick~Lincoln, Marti-Olietand~Jose Meseguer, and Carolyn Talcott.
+\newblock {\em Maude Manual (Version 2.7.1)}, July 2016.
+
+\bibitem{rewrConcurrency}
+José Meseguer.
+\newblock Conditional rewriting logic as a unified model of concurrency.
+\newblock {\em Theoretical Computer Science}, 96(1):73 -- 155, 1992.
+
+\bibitem{cyclist}
+James Brotherston, Nikos Gorogiannis, and Rasmus~L Petersen.
+\newblock A generic cyclic theorem prover.
+\newblock In {\em Asian Symposium on Programming Languages and Systems}, pages
+  350--367. Springer, 2012.
+
+\end{thebibliography}

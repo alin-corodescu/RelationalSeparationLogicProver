@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.6.3)  17 JUN 2018 13:12
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.6.3)  17 JUN 2018 14:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**paper.tex
-(./paper.tex
+**paper_after_guide.tex
+(./paper_after_guide.tex
 LaTeX2e <2016/02/01>
 Babel <3.9q> and hyphenation patterns for 81 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
@@ -456,8 +456,8 @@ ex
 \ebproof@level=\count101
 \ebproof@box@stack=\box28
 \ebproof@box@temp=\box29
-) (./paper.aux)
-\openout1 = `paper.aux'.
+) (./paper_after_guide.aux)
+\openout1 = `paper_after_guide.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
 LaTeX Font Info:    ... okay on input line 20.
@@ -472,17 +472,19 @@ LaTeX Font Info:    ... okay on input line 20.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
 LaTeX Font Info:    ... okay on input line 20.
 LaTeX Font Info:    Try loading font information for U+msa on input line 25.
- (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 25.
+
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./paper.toc)
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./paper_after_guide.toc)
 \tf@toc=\write3
-\openout3 = `paper.toc'.
+\openout3 = `paper_after_guide.toc'.
 
  [1]
 Underfull \hbox (badness 10000) in paragraph at lines 47--48
@@ -499,123 +501,39 @@ Underfull \hbox (badness 10000) in paragraph at lines 51--52
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 53--54
-
- []
-
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 57.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 59.
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 57.
- [2]
-Underfull \hbox (badness 10000) in paragraph at lines 78--81
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 59.
+
+Underfull \hbox (badness 10000) in paragraph at lines 65--66
 
  []
 
-[3] [4]
-Underfull \hbox (badness 10000) in paragraph at lines 126--128
-
- []
-
-[5]
-Underfull \hbox (badness 10000) in paragraph at lines 129--130
+[2]
+Underfull \hbox (badness 10000) in paragraph at lines 67--68
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 131--143
+Underfull \hbox (badness 10000) in paragraph at lines 72--73
 
  []
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 213--214
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 215--216
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 217--218
-
- []
-
-[6] [7]
-
-Package amsmath Warning: Foreign command \atop;
-(amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 252.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 254--256
-
- []
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[8] [9] [10]
-Underfull \hbox (badness 10000) in paragraph at lines 362--363
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 364--365
-
- []
-
-
-Overfull \hbox (10.70813pt too wide) in paragraph at lines 368--368
-[]\T1/cmr/bx/n/17.28 Relational Sep-a-ra-tion Logic In-ter-ac-tive Prover 
- []
-
-
-Overfull \hbox (1.53844pt too wide) in paragraph at lines 375--376
-[]| \T1/cmr/m/n/12 Maude al-lows the user to model a wide range of ap-pli-ca-ti
-ons through
- []
-
-[11
-
-]
-Overfull \hbox (2.43063pt too wide) in paragraph at lines 381--383
-\T1/cmr/m/n/12 Maude's ex-e-cu-tion en-vi-ron-ment at run-time via the META-LEV
-EL mod-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 391--392
-
- []
-
-[12] [13] (./paper.bbl) [14] (./paper.aux) ) 
+(./paper_after_guide.bbl [3]) [4] (./paper_after_guide.aux) ) 
 Here is how much of TeX's memory you used:
- 2756 strings out of 493029
- 37843 string characters out of 6136235
- 103579 words of memory out of 5000000
- 6258 multiletter control sequences out of 15000+600000
- 19571 words of font info for 57 fonts, out of 8000000 for 9000
+ 2740 strings out of 493029
+ 37788 string characters out of 6136235
+ 97520 words of memory out of 5000000
+ 6244 multiletter control sequences out of 15000+600000
+ 19066 words of font info for 54 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 40i,13n,52p,767b,344s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/c
-m-super/cm-super-t1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8
-.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></
-usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmtt8.pfb></usr/share/texmf/fonts/type1/public/cm-supe
+ 40i,7n,40p,748b,233s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/
+fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf/fonts/type1/public/cm-supe
 r/sfbi0700.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbi1440.pfb></usr
 /share/texmf/fonts/type1/public/cm-super/sfbx0600.pfb></usr/share/texmf/fonts/t
 ype1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super
@@ -623,10 +541,10 @@ ype1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super
 share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/ty
 pe1/public/cm-super/sfti1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/
 sfti1440.pfb>
-Output written on paper.pdf (15 pages, 274448 bytes).
+Output written on paper_after_guide.pdf (5 pages, 165038 bytes).
 PDF statistics:
- 130 PDF objects out of 1000 (max. 8388607)
- 93 compressed objects within 1 object stream
+ 61 PDF objects out of 1000 (max. 8388607)
+ 43 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

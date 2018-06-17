@@ -1,4 +1,4 @@
-\babel@toc {english}{}
+\select@language {english}
 \contentsline {section}{\numberline {1}Introduction}{2}
 \contentsline {section}{\numberline {2}Contributions}{3}
 \contentsline {section}{\numberline {3}Theoretical Foundations}{3}
@@ -12,7 +12,7 @@
 \contentsline {paragraph}{Inference Rules for Separation Logic}{8}
 \contentsline {subsection}{\numberline {3.4}Relational Separation Logic}{8}
 \contentsline {paragraph}{Hoare Quadruple}{8}
-\contentsline {paragraph}{Semantics of the Relation Language}{8}
+\contentsline {paragraph}{Semantics of the Relation Language}{9}
 \contentsline {subsection}{\numberline {3.5}Rewriting Logic}{11}
 \contentsline {section}{\numberline {4}Relational Separation Logic Interactive Prover}{11}
 \contentsline {subsection}{\numberline {4.1}Maude - General Overview}{11}

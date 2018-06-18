@@ -72,6 +72,41 @@ This project aims to lay the foundations of a tool which facilitates formal reas
 Previous work related to the topic has been done mostly in terms of Separation Logic based tools, with Relational Separation Logic not being treated as much. \\
 
 A notable example which also uses the same framework as this project, namely Maude, is the Java+ITP\cite{JAVAITP} tool, which enables analysis of Java programs using Separation Logic. The implementation relies heavily on Maude's ITP (iterative theorem prover).
+
+\section{Relational Separation Logic Interactive Prover} 
+This chapter will include details related to the implementation and usage of the Relational Separation Logic prover and highlight a few of Maude's features which made it the a language fit for the purpose of this project.
+\subsection{Modelling the Separation Logics}
+Thanks to Maude's ability to naturally represent logics, the modelling of the Separation Logic and Relational Separation Logic is mostly reduced to translating the logical formulae into appropriate syntax for Maude, making the representational distance \cite{maudeprimer} almost non existent. \\
+
+Each proof rule in the Separation Logic and Relational Separation Logic has been translated into a Maude rewrite rule. The resulting rules have been marked as non-executable because the goal is to control when they are applied.
+\subsection{Interaction by Maude LOOP-MODE}
+Maude's LOOP-MODE module is the entry point for any interactive Maude application, being the only way to store state between commands. In this chapter we will discuss how we handle input and output , the structure of a state and the role every element plays in the execution of the prover.\\
+
+We will make a distinction between \textbf{Loop state}, which specific to Maude's LOOP-MODE module and the \textbf{Prover state} which is specific to our use-case, and holds the necessary data related to the state of the proof we are currently working on. The \textbf{Prover state} is encapsulated within \textbf{Loop state}.
+\subsection{Input and output handling}
+To understand how our prover handles input and output, it is important to note that the flows of the LOOP-MODE module is as follows: 
+\begin{figure}
+	Aici va veni figura care explica input -> rewriting maxim -> output
+\end{figure}
+\subsection{State of the program}
+Following the examples provided together with the Maude Manual \cite{manual}, our state is composed multiple sections modified accordingly during program execution .
+\subsection{Prover execution flow}
+In this section we will describe the flow of a demonstration made using our prover.
+\subsection{Automated processes}
+This section will describe the functional parts of the prover which have been automated to make it more user-friendly and even prove sub-goals of the main demonstration by itself. Since the automation of the prover is part of the future goals of this project, we will also include a few notes on how we might approach problems related to this goal, even though they have not been implemented yet.
+\subsubsection{Automatic matching of axioms and previously proven goals}
+\subsubsection{Automatic demonstration of implications}
+\subsection{User Interface}
+Since our project aims to simplify the demonstrations of Separation Logic / Relational Separation Logic formulae, using an interactive prover, the user interface plays a major role in the success of the project - the easier it is to use and understand, the more chances of success it has. This idea has been presented in \cite{primer}, when discussing key elements of tools related to program verification. \\
+
+Maude provides a simple, yet powerful system for controlling the output formatting of the CLI through which we aim to make the demonstrations more readable and user-friendly. \\
+
+For a more advanced user interface or to expose the prover's functionalities through a programming interface, a wrapper written in more feature-rich language through which to control the Maude environment is probably the best choice. The concept is exemplified the Maude plug-in for Eclipse, \textbf{citation needed} which enables writing of Maude code inside the Eclipse IDE, and the plug-in communicates with the underlying Maude environment.
+\subsection{Future directions}
+
+\section{Conclusions}
+
+\pagebreak
 \bibliographystyle{unsrt}
 \bibliography{bibliography}
 

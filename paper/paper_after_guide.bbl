@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{relational}
 Hongseok Yang.
@@ -51,5 +51,12 @@ James Brotherston, Nikos Gorogiannis, and Rasmus~L Petersen.
 \newblock A generic cyclic theorem prover.
 \newblock In {\em Asian Symposium on Programming Languages and Systems}, pages
   350--367. Springer, 2012.
+
+\bibitem{allAboutMaude}
+Manuel Clavel, Francisco Dur\'{a}n, Steven Eker, Patrick Lincoln, Narciso
+  Mart\'{\i}-Oliet, Jos{\'e} Meseguer, and Carolyn Talcott.
+\newblock {\em All About Maude - a High-performance Logical Framework: How to
+  Specify, Program and Verify Systems in Rewriting Logic}.
+\newblock Springer-Verlag, Berlin, Heidelberg, 2007.
 
 \end{thebibliography}

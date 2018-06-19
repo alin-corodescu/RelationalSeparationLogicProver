@@ -79,6 +79,10 @@ This chapter will include details related to the implementation and usage of the
 Thanks to Maude's ability to naturally represent logics, the modelling of the Separation Logic and Relational Separation Logic is mostly reduced to translating the logical formulae into appropriate syntax for Maude, making the representational distance \cite{maudeprimer} almost non existent. \\
 
 Each proof rule in the Separation Logic and Relational Separation Logic has been translated into a Maude rewrite rule. The resulting rules have been marked as non-executable because the goal is to control when they are applied.
+
+\subsubsection{Sort Hierarchy}
+This section will describe the sorts defined in Maude to handle the constructs of both Separation logics.
+\subsection{Language Grammar and executable semantics}
 \subsection{Interaction by Maude LOOP-MODE}
 Maude's LOOP-MODE module is the entry point for any interactive Maude application, being the only way to store state between commands. In this chapter we will discuss how we handle input and output , the structure of a state and the role every element plays in the execution of the prover.\\
 
@@ -92,6 +96,8 @@ To understand how our prover handles input and output, it is important to note t
 Following the examples provided together with the Maude Manual \cite{manual}, our state is composed multiple sections modified accordingly during program execution .
 \subsection{Prover execution flow}
 In this section we will describe the flow of a demonstration made using our prover.
+\subsubsection{User Actions}
+\subsubsection{System Actions}
 \subsection{Automated processes}
 This section will describe the functional parts of the prover which have been automated to make it more user-friendly and even prove sub-goals of the main demonstration by itself. Since the automation of the prover is part of the future goals of this project, we will also include a few notes on how we might approach problems related to this goal, even though they have not been implemented yet.
 \subsubsection{Automatic matching of axioms and previously proven goals}

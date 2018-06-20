@@ -7,7 +7,9 @@
 \usepackage[english]{babel}
 \usepackage{array}
 \usepackage{tabularx}
+\usepackage{tikz}
 \usepackage{ebproof}
+\usepackage{listings}
 \author{ANDREI-ALIN CORODESCU}
 \title{Program Equivalence : Relational Separation Logic interactive prover implemented in Maude}
 \newcommand{\hq}[4]{
@@ -16,7 +18,32 @@
 	\substack{{#2} \\ 	\let\scriptstyle\textstyle {#3}} 
 	\left\{{#4}\right\}
 }
+\usepackage{color}
 
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+\lstset{style=mystyle}
 \begin{document}
 \begin{titlepage}
 \begin{center}
@@ -51,7 +78,13 @@ The tool represents an implementation of Hoare Logic - which allows formal reaso
 The tool is built as a CLI which helps \cite{primer} \cite{SeparationLogic} \cite{JAVAITP} \cite{REWRITING} \cite{maudeprimer} \cite{manual} \cite{rewrConcurrency} \cite{cyclist} with reasoning how two programs are related using Relational Separation Logic specifications. As a consequence of the dependency of Relational Separation Logic on Separation Logic, proofs about single programs using the latter are also supported by the tool. The tool has been developed with extensibility in mind, the main desired extensions being concurrent programs support and automatic proofs. \\
 
 The rest of the paper is organized as follows: 
-
+\begin{itemize}
+	\item {\textbf{Section 1} will describe the main personal contributions to the realization of this project}
+	\item {\textbf{Section 2} will present the problem this project aims to solve}
+	\item {\textbf{Section 3} will shortly present some other projects related to ours}
+	\item {\textbf{Section 4} will briefly touch upon the theoretical foundations of this project, together with the technologies used to implement them}
+	\item {\textbf{Section 5}, the main section of this paper, will present our approach to solving the problem, discuss shortcomings of the current solution and how it can be improved in the future. All the elements of our project will be presented in an individual sub-section}
+\end{itemize}
 
 \section{Contributions}
 Personal contributions to the realization of the project : 
@@ -66,19 +99,52 @@ The problem this project is aiming to solve is related to formal reasoning about
 
 Comparing programs or code fragments and studying their equivalence is part of every software engineer's activities when they are testing an alternative implementation for an existing solution, fixing bugs, launching new product versions, etc . Naturally, for every process completed manually there are efforts being made in order to make it more efficient, less error-prone and, in the end, automate the process all together. Once such a task is automated in software engineering, it can be included in the flow of any research or development phase of a product. An example benefiting from a formal proof of program equivalence is compiler optimization, where the optimized code needs to be equivalent to the input one . \\
 
-This project aims to lay the foundations of a tool which facilitates formal reasoning about program equivalence with a focus on extensibility and automation of tasks.
+This project aims to lay the foundations of a tool which facilitates formal reasoning on the way two programs are related with a focus on extensibility and automation of tasks.
 
 \section{Previous work}
 Previous work related to the topic has been done mostly in terms of Separation Logic based tools, with Relational Separation Logic not being treated as much. \\
 
 A notable example which also uses the same framework as this project, namely Maude, is the Java+ITP\cite{JAVAITP} tool, which enables analysis of Java programs using Separation Logic. The implementation relies heavily on Maude's ITP (iterative theorem prover).
 
-\section{Relational Separation Logic Interactive Prover} 
-This chapter will include details related to the implementation and usage of the Relational Separation Logic prover and highlight a few of Maude's features which made it the a language fit for the purpose of this project.
-\subsection{Modelling the Separation Logics}
-Thanks to Maude's ability to naturally represent logics, the modelling of the Separation Logic and Relational Separation Logic is mostly reduced to translating the logical formulae into appropriate syntax for Maude, making the representational distance \cite{maudeprimer} almost non existent. \\
+\section{Theoretical Foundations and technologies}
+This section will briefly introduce the concepts on which the project is based, together with the technologies used to implement it, along with a few references to resources which explain them in depth.
+\subsection{Separation Logic}
+Separation Logic allows for reasoning about the effects of code on the program state in a formal manner. The main abstraction used in separation logic is the \textbf{Hoare Triple}
+\[ \{P\}\  C\  \{Q\} \]
+where \(P\) denotes the a condition satisfied by state of the program before the execution of the command \(C\) and \(Q\) denotes another condition satisfied by state of the program after the execution of \(C\).
+\\
 
-Each proof rule in the Separation Logic and Relational Separation Logic has been translated into a Maude rewrite rule. The resulting rules have been marked as non-executable because the goal is to control when they are applied.
+Good references for reading on separation logic include : 
+\begin{itemize}
+	\item \cite{primer} - for a good introduction and some interesting usages
+	\item \cite{SeparationLogic} - for a more in depth explanation, including the mathematical fundaments of the logic
+\end{itemize} 
+\subsection{Relational Separation Logic}
+Relational Separation Logic, which is the central concept of our project builds upon the Separation Logic to reason about how to programs are related, by using the concept of a \textbf{Hoare Quadruple}
+\[\{R\}\ {C_1 \atop C_2}\   \{T\}\]
+\(R\) represents a \textbf{relation} between the two program states holding before the execution of commands \(C_1\) and \(C_2\) respectively while \(T\) represents a \textbf{relation} which holds after the execution of the two commands. 
+\\
+
+Relational Separation Logic is presented in detail in \cite{relational}.
+\subsection{Maude}
+Maude is a framework based on rewriting logic which allows for natural representations of a wide range of applications, including other logics, which made it a perfect fit for our case. Maude allows for short and simple, yet clever and self-explanatory solutions to problems. 
+\\
+
+ Good references for Maude language include:
+ \begin{itemize}
+ 	\item Maude Primer \cite{primer} which was written for Maude 2.0.1 but still applies to the latest versions of Maude is a good starting point for learning Maude, as it introduces the language in a more informal, friendlier way
+ 	\item Maude Manual \cite{manual} which presents the whole Maude system in depth, along with the mathematical foundations
+ 	\item All about Maude book \cite{allAboutMaude} which includes everything contained in the manual and presents some of the more relevant tools implemented in Maude .
+ \end{itemize}
+\section{Relational Separation Logic Interactive Prover} 
+This section will include details related to the implementation and usage of the Relational Separation Logic prover and highlight a few of Maude's features which made it the a language fit for the purpose of this project.
+\\
+
+The information presented in this section assumes the reader's familiarity with Maude, especially the META-LEVEL module and with the underlying theoretical concepts implemented by the prover (Separation Logic and Relational Separation Logic)
+\subsection{Modelling the Separation Logics}
+Thanks to Maude's ability to naturally represent logics, the modelling of the Separation Logic and Relational Separation Logic is mostly reduced to translating the logical formulae into appropriate syntax for Maude, making the representational distance (the amount of information lost when representing a theoretical concept into a programming language)\cite{manual} almost non existent. \\
+
+Each proof rule in the Separation Logic and Relational Separation Logic has been translated into a Maude rewrite rule. 
 \\
 The prover is centered around the concept of \textbf{Goals} which can be one of the three things: 
 \begin{itemize}
@@ -98,13 +164,18 @@ This section will describe how we defined our language in Maude [and how it is p
 Maude's LOOP-MODE module is the entry point for any interactive Maude application, being the only way to store state between commands. In this chapter we will discuss how we handle input and output , the structure of a state and the role every element plays in the execution of the prover.\\
 
 We will make a distinction between \textbf{Loop state}, which specific to Maude's LOOP-MODE module and the \textbf{Prover state} which is specific to our use-case, and holds the necessary data related to the state of the proof we are currently working on. The \textbf{Prover state} is encapsulated within \textbf{Loop state}.
-\subsection{Input and output handling}
-To understand how our prover handles input and output, it is important to note that the flows of the LOOP-MODE module is as follows: 
-\begin{figure}
-	Aici va veni figura care explica input -> rewriting maxim -> output
+\begin{figure}[h]
+	\noindent\rule{\linewidth}{0.4pt}
+
+	\[
+		[\mathtt{INPUT},\ \mathtt{PROVER-STATE},\ \mathtt{OUPTUT}]
+	\]
+	\label{fig:loopState}
+	\caption{Loop state}
+	\noindent\rule{\linewidth}{0.4pt}
 \end{figure}
 \subsection{State of the program}
-Following the examples provided together with the Maude Manual \cite{manual}, our state is composed multiple sections modified accordingly during program execution .
+Following the examples provided together with the Maude Manual \cite{manual}, our state (Figure \ref{fig:ProverState}) is composed multiple sections modified accordingly during program execution .
 \begin{itemize}
 	\item{\textbf{Action} - represents the current action to be executed by the prover, more details about supported actions are included in the following sections.}
 	\item{\textbf{Root Goal} - represents the end-goal of this demonstration}
@@ -113,21 +184,87 @@ Following the examples provided together with the Maude Manual \cite{manual}, ou
 	\item{\textbf{Proven Goals} - List of goals which have been already been proven or axioms. Each goal will be first checked to see if it matches any goal in this list to prevent repeating the same proofs.}
 	\item{\textbf{Staging output} - contains the output generated by the current action, before being passed to the Loop state. This staging mechanism enables each action (user or system) to generate output independent of the other actions.}
 \end{itemize}
+\begin{figure}[h]
+	\noindent\rule{\linewidth}{0.4pt}
+	\(
+	< \mathtt{Action}, \mathtt{Root Goal}, \mathtt{Current Goal}, \mathtt{Goal Stack}, \mathtt{Proven Goals}, \mathtt{Staging Output} >
+	\)
+	\caption{Prover State}
+	\label{fig:ProverState}
+	\noindent\rule{\linewidth}{0.4pt}
+\end{figure}
+\subsection{Input and output handling}
+To understand how our prover handles input and output, it is important to note that the flows of the LOOP-MODE module is as follows: 
+\begin{enumerate}
+	\item User input is placed in the \(\mathtt{INPUT}\) member of the loop state
+	\item Maude engine applies all the rewritings possible, resulting in a new loop state. 
+	
+	This is the step where all the logic of the prover goes into, in the form of rewriting rules which modify the prover state.
+	\item The member \(\mathtt{OUTPUT}\) of this new loop state is taken and displayed at the console.
+\end{enumerate}
+There are two main rules used for handling input and output : 
+\begin{enumerate}
+	\item{\texttt{in} rule, which is responsible for parsing the user input and modifying the action in the prover state accordingly}
+	\begin{lstlisting}[caption=in rule]
+crl [in] : 
+--- [ INPUT, <PROVER_STATE>, OUTPUT]
+[QIL, < noRule ; RG ; G ; GS ; GL ; nil > , QIL']
+=> 
+if T:ResultPair? :: ResultPair  
+--- If parsing succeeded, place the parsed action in
+--- the prover state
+then [nil, < downTerm(getTerm(T:ResultPair?), noAction) ; RG ; G ; GS ; GL ; nil >, QIL']  
+--- If the parsing failed, display an error
+else [nil, < noRule ; RG ; G ; GS ; GL ; nil >, 'ERROR QIL]  
+fi  
+--- Try to parse the input as an term of sort Action
+if QIL =/= nil /\ T:ResultPair? := metaParse(upModule('PROVER-GRAMMAR, false), QIL, 'Action) .
+\end{lstlisting}
+	\item{\texttt{out} rule, which takes the staging output from the prover state and appends it to the currently existing output in the loop state}
+	\begin{lstlisting}[caption=out rule]
+crl [out] :
+[QIL, < A ; RG ; G ; GS ; GL ;  QIL' >, QIL'']
+=> [QIL, < A ; RG ; G ; GS ; GL ; nil >, QIL''  QIL']
+if QIL' =/= nil .
+\end{lstlisting}
+\end{enumerate}
+
 \subsection{Prover execution flow}
-In this section we will describe the flow of a demonstration made using our prover.
+In this section we will describe the flow of a demonstration made using our prover. A diagram presenting how the prover works is presented in Figure \ref{fig:ProverDiagram}
+\\
+\begin{enumerate}
+	\item The user issues the command \texttt{loop init .} in the Maude console. This will initialize the loop state.
+	\item Now the user will have to specify the goal it wants to prove, by issuing the command \begin{center}(\texttt{prove} G)\end{center}, where G is the representation of the goal using the syntax defined for our logics. The command will populate the required fields of the prover state (\textbf{RootGoal}, \textbf{GoalStack}) with G.
+	\\
+	Please note that the command is enclosed within parentheses, this being a requirement of Maude LOOP-MODE \cite{manual}. All the prover specific commands need to be enclosed in parenthesis. The previous command, \texttt{loop init .} was not enclosed because it is a Maude specific command, not something we want to pass as input to our prover.
+	\item The next phase involves applying the logic proof rules to the goals in the \textbf{GoalStack} to generate sub-goals and prove them. This phase lasts until there are no more goals left in the \textbf{GoalStack}, meaning that the \textbf{RootGoal} has been proven.
+\end{enumerate}
+\begin{figure}[h]
+	\caption{Prover Execution Diagram}
+	\label{fig:ProverDiagram}
+\end{figure}
 \subsubsection{User Actions}
 User actions are the main entry point for user interaction and they describe how the user intends to process the current goal.
 \begin{itemize}
-	\item {Rule application action - indicates the application of a specific rule to the current goal, the action can be parameterized or not, depending on the rule.}
-	\item {ok action - admits the current goal}
-	\item {showGoal action - prints the current goal to the console - it does not modify the state of the prover}
+	\item {Rule application action - indicates the application of a specific rule to the current goal, the action can be parametrized or not, depending on the rule. These actions are named following the pattern :	
+	\begin{center}
+		[\textbf{SL}] + \textbf{apply} + \textit{RuleName}
+	\end{center}
+		With \textbf{SL} being added only when applying Separation Logic rules, to distinguish between the Relational Separation Logic rules with the same name.
+	}
+	\begin{figure}[h]
+		\caption{Examples of user actions which control the application of rules}
+		\label{fig:userActions}
+	\end{figure}
+	\item {\(\mathtt{ok}\) action - admits the current goal}
+	\item {\(\mathtt{showGoal}\) action - prints the current goal to the console - it does not modify the state of the prover}
 \end{itemize}
 \subsubsection{System Actions}
 System actions were implemented to mimic the behaviour of a "chain of responsibility" design pattern from object-oriented programming. The system actions are all applied in order before asking for user input. System actions are the main component through which our prover can be enriched with other features in the future, because integrating a new system action is simple. At the moment, the system actions are:
 \begin{itemize}
-	\item {check} - marks the current goal to be checked against previously proven goals or axioms
-	\item {implication} - marks the current goal to be run through the implication prover - in case the goal is an implication, try to prove it automatically
-	\item {stop} - when there are no more sub-goals to be proven, the prover should stop and indicate the success of proving the root goal
+	\item {\texttt{check}} - marks the current goal to be checked against previously proven goals or axioms
+	\item {\texttt{implication}} - marks the current goal to be run through the implication prover - in case the goal is an implication, try to prove it automatically
+	\item {\texttt{stop}} - when there are no more sub-goals to be proven, the prover should stop and indicate the success of proving the root goal
 \end{itemize}
 \subsection{Automated processes}
 This section will describe the functional parts of the prover which have been automated to make it more user-friendly and even prove sub-goals of the main demonstration by itself. Since the automation of the prover is part of the future goals of this project, we will also include a few notes on how we might approach problems related to this goal, even though they have not been implemented yet.

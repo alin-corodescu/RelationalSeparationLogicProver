@@ -7,7 +7,7 @@ mod PROVER-GRAMMAR is
 	--- Sort representing actions on the goals.
 	sort Action . 
 
-	op noRule : -> Action .
+	op noAction : -> Action .
 
 
 

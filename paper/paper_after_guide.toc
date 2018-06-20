@@ -1,21 +1,25 @@
 \babel@toc {english}{}
 \contentsline {section}{\numberline {1}Introduction}{2}
-\contentsline {section}{\numberline {2}Contributions}{2}
+\contentsline {section}{\numberline {2}Contributions}{3}
 \contentsline {section}{\numberline {3}Description of the problem}{3}
 \contentsline {section}{\numberline {4}Previous work}{3}
-\contentsline {section}{\numberline {5}Relational Separation Logic Interactive Prover}{3}
-\contentsline {subsection}{\numberline {5.1}Modelling the Separation Logics}{4}
-\contentsline {subsubsection}{\numberline {5.1.1}Sort Hierarchy}{4}
-\contentsline {subsection}{\numberline {5.2}Language Grammar and executable semantics}{4}
-\contentsline {subsection}{\numberline {5.3}Interaction by Maude LOOP-MODE}{4}
-\contentsline {subsection}{\numberline {5.4}Input and output handling}{5}
-\contentsline {subsection}{\numberline {5.5}State of the program}{5}
-\contentsline {subsection}{\numberline {5.6}Prover execution flow}{6}
-\contentsline {subsubsection}{\numberline {5.6.1}User Actions}{6}
-\contentsline {subsubsection}{\numberline {5.6.2}System Actions}{6}
-\contentsline {subsection}{\numberline {5.7}Automated processes}{6}
-\contentsline {subsubsection}{\numberline {5.7.1}Automatic matching of axioms and previously proven goals}{7}
-\contentsline {subsubsection}{\numberline {5.7.2}Automatic demonstration of implications}{7}
-\contentsline {subsection}{\numberline {5.8}User Interface}{7}
-\contentsline {subsection}{\numberline {5.9}Future directions}{7}
-\contentsline {section}{\numberline {6}Conclusions}{7}
+\contentsline {section}{\numberline {5}Theoretical Foundations and technologies}{4}
+\contentsline {subsection}{\numberline {5.1}Separation Logic}{4}
+\contentsline {subsection}{\numberline {5.2}Relational Separation Logic}{4}
+\contentsline {subsection}{\numberline {5.3}Maude}{5}
+\contentsline {section}{\numberline {6}Relational Separation Logic Interactive Prover}{5}
+\contentsline {subsection}{\numberline {6.1}Modelling the Separation Logics}{5}
+\contentsline {subsubsection}{\numberline {6.1.1}Sort Hierarchy}{6}
+\contentsline {subsection}{\numberline {6.2}Language Grammar and executable semantics}{6}
+\contentsline {subsection}{\numberline {6.3}Interaction by Maude LOOP-MODE}{6}
+\contentsline {subsection}{\numberline {6.4}State of the program}{7}
+\contentsline {subsection}{\numberline {6.5}Input and output handling}{8}
+\contentsline {subsection}{\numberline {6.6}Prover execution flow}{9}
+\contentsline {subsubsection}{\numberline {6.6.1}User Actions}{9}
+\contentsline {subsubsection}{\numberline {6.6.2}System Actions}{10}
+\contentsline {subsection}{\numberline {6.7}Automated processes}{10}
+\contentsline {subsubsection}{\numberline {6.7.1}Automatic matching of axioms and previously proven goals}{11}
+\contentsline {subsubsection}{\numberline {6.7.2}Automatic demonstration of implications}{11}
+\contentsline {subsection}{\numberline {6.8}User Interface}{11}
+\contentsline {subsection}{\numberline {6.9}Future directions}{11}
+\contentsline {section}{\numberline {7}Conclusions}{11}

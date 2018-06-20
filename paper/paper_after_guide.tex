@@ -10,6 +10,7 @@
 \usepackage{tikz}
 \usepackage{ebproof}
 \usepackage{listings}
+\usepackage{url}
 \author{ANDREI-ALIN CORODESCU}
 \title{Program Equivalence : Relational Separation Logic interactive prover implemented in Maude}
 \newcommand{\hq}[4]{
@@ -127,7 +128,7 @@ Relational Separation Logic, which is the central concept of our project builds 
 
 Relational Separation Logic is presented in detail in \cite{relational}.
 \subsection{Maude}
-Maude is a framework based on rewriting logic which allows for natural representations of a wide range of applications, including other logics, which made it a perfect fit for our case. Maude allows for short and simple, yet clever and self-explanatory solutions to problems. 
+Maude \cite{maudesite} is a framework based on rewriting logic \cite{rewritingLogic} which allows for natural representations of a wide range of applications, including other logics, which made it a perfect fit for our case. Maude allows for short and simple, yet clever and self-explanatory solutions to problems. 
 \\
 
  Good references for Maude language include:
@@ -140,7 +141,11 @@ Maude is a framework based on rewriting logic which allows for natural represent
 This section will include details related to the implementation and usage of the Relational Separation Logic prover and highlight a few of Maude's features which made it the a language fit for the purpose of this project.
 \\
 
-The information presented in this section assumes the reader's familiarity with Maude, especially the META-LEVEL module and with the underlying theoretical concepts implemented by the prover (Separation Logic and Relational Separation Logic)
+The information presented in this section assumes the reader's familiarity with Maude, especially the META-LEVEL module and with the underlying theoretical concepts implemented by the prover (Separation Logic and Relational Separation Logic). References for these can be found in the previous section.
+\\
+
+This section will include snippets of Maude code, but since Maude is a very expressive and self-explanatory language, I have not included of thorough presentation of every language construct defined for the scope of this project. Ideas presented will be accompanied by some examples and key ideas of the implementation but for a more detailed presentation, please refer to the code itself.
+ 
 \subsection{Modelling the Separation Logics}
 Thanks to Maude's ability to naturally represent logics, the modelling of the Separation Logic and Relational Separation Logic is mostly reduced to translating the logical formulae into appropriate syntax for Maude, making the representational distance (the amount of information lost when representing a theoretical concept into a programming language)\cite{manual} almost non existent. \\
 
@@ -152,10 +157,50 @@ The prover is centered around the concept of \textbf{Goals} which can be one of 
 	\item {Hoare Triple} - corresponding to Separation Logic
 	\item {Implication between relations / assertions} 
 \end{itemize} 
-The proof rules are interpreted in a bottom-up manner, meaning that applying a rule to a goal matching the conclusion of a rule will generate new goals consisting of the hypothesis elements of the rule.
-\begin{figure}
-	This figure will explain how we translated the proof rules into Maude syntax
+The proof rules are interpreted in a bottom-up manner, meaning that applying a rule to a goal matching the conclusion of a rule will generate new goals consisting of the hypothesis elements of the rule : Figure \ref{fig:SLTranslation} presents how a Separation Logic rule has been translated into Maude syntax and Figure \ref{fig:RSLTranslation} presents the same process for the Relational Separation Logic counterpart of the rule.
+\begin{figure}[h]
+	Consequence Rule
+	\medskip
+	\[
+	\begin{prooftree}
+	\Hypo{P \Rightarrow P\prime}
+	\Hypo{\{P\prime\} C \{Q\prime\}}
+	\Hypo{Q \Rightarrow Q\prime}
+	\Infer 3 {\{P\}\  C  \{Q\}}
+	\end{prooftree}	
+	\]
+	Is represented in Maude syntax as : 
+\begin{lstlisting}[caption=Separation Logic Consequence rule]
+	rl [SeparationLogic-Consequence] : {P} C {Q} => ((P => P1) <> ({P1} C {Q1})) <> (Q1 => Q) [nonexec] .
+\end{lstlisting}
+	\caption{Example of a translation to Maude syntax of a Separation Logic proof rule}
+	\label{fig:SLTranslation}
 \end{figure}
+
+\begin{figure}[h]
+	Consequence Rule
+	\[
+	\begin{prooftree}
+	\Hypo{R \Rightarrow R_1}
+	\Hypo{\hq{R_1}{C}{C\prime}{S_1}}
+	\Hypo{S \Rightarrow S_1}
+	\Infer 3 {\hq{R}{C}{C\prime}{S}}
+	\end{prooftree}	
+	\]
+	Is represented in Maude syntax as : 
+	\begin{lstlisting}[caption=Relational Separation Logic Consequence rule]
+	rl [Consequence] : { R } C1 -- C2  { S } => ((R => R1) <> ({R1} C1 -- C2 {S1})) <> (S1 => S) [nonexec] .
+	\end{lstlisting}
+	\caption{Example of a translation to Maude syntax of a Relational Separation Logic proof rule}
+	\label{fig:RSLTranslation}
+\end{figure}
+The \texttt{<>} operator is used to separate sub-goals generated by the rule.
+\\
+
+The \texttt{---} operator is used to separate the two snippets of code mentioned in the \textbf{Hoare Quadruple}.
+\\
+
+All the rules are marked with the attribute \texttt{[nonexec]} because we want them to be applied in a controlled manner, at the meta-level. Some of the rules, the examples included, are not even valid executable Maude rules, because they make use of variables before binding them (for example \texttt{P1} is used in a rule before it is bound). At the meta-level however we can manually bind values to those variables, as we will exemplify when discussing how we apply these rules to goals.
 \subsubsection{Sort Hierarchy}
 This section will describe the sorts defined in Maude to handle the constructs of both Separation logics.
 \subsection{Language Grammar and executable semantics}
@@ -275,7 +320,7 @@ Since our project aims to simplify the demonstrations of Separation Logic / Rela
 
 Maude provides a simple, yet powerful system for controlling the output formatting of the CLI through which we aim to make the demonstrations more readable and user-friendly. \\
 
-For a more advanced user interface or to expose the prover's functionalities through a programming interface, a wrapper written in more feature-rich language through which to control the Maude environment is probably the best choice. The concept is exemplified the Maude plug-in for Eclipse, \textbf{citation needed} which enables writing of Maude code inside the Eclipse IDE, and the plug-in communicates with the underlying Maude environment.
+For a more advanced user interface or to expose the prover's functionalities through a programming interface, a wrapper written in more feature-rich language through which to control the Maude environment is probably the best choice. The concept is exemplified the Maude plug-in for Eclipse, \cite{maudeEclipsePLugin} which enables writing of Maude code inside the Eclipse IDE, and the plug-in communicates with the underlying Maude environment. The project also includes a plug-in which allows any Java program to communicate with Maude.
 \subsection{Future directions}
 
 \section{Conclusions}

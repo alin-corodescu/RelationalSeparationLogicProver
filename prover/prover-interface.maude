@@ -127,7 +127,7 @@ mod PROVER-INTERFACE is
 	rl [SeparationLogic-Sequencing] :  {P} C1 ; C2 {Q} => {P} C1 {V} <> {V} C2 {Q} [nonexec] .
 
 	--- Same case as above for R1 and S1
-	rl [Consequence] : { R } X -- Y { S } => ((R => R1) <> ({R1} X -- Y {S1})) <> (S1 => S) [nonexec] .
+	rl [Consequence] : { R } C1 -- C2  { S } => ((R => R1) <> ({R1} C1 -- C2 {S1})) <> (S1 => S) [nonexec] .
 
 	rl [SeparationLogic-Consequence] : {P} C {Q} => ((P => P1) <> ({P1} C {Q1})) <> (Q1 => Q) [nonexec] .
 

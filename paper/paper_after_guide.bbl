@@ -52,11 +52,28 @@ James Brotherston, Nikos Gorogiannis, and Rasmus~L Petersen.
 \newblock In {\em Asian Symposium on Programming Languages and Systems}, pages
   350--367. Springer, 2012.
 
+\bibitem{maudesite}
+Maude site.
+\newblock
+  \url{http://maude.cs.illinois.edu/w/index.php?title=The_Maude_System},
+  (accessed 20.06.2018).
+
+\bibitem{rewritingLogic}
+José Meseguer.
+\newblock Twenty years of rewriting logic.
+\newblock {\em The Journal of Logic and Algebraic Programming}, 81(7):721 --
+  781, 2012.
+\newblock Rewriting Logic and its Applications.
+
 \bibitem{allAboutMaude}
 Manuel Clavel, Francisco Dur\'{a}n, Steven Eker, Patrick Lincoln, Narciso
   Mart\'{\i}-Oliet, Jos{\'e} Meseguer, and Carolyn Talcott.
 \newblock {\em All About Maude - a High-performance Logical Framework: How to
   Specify, Program and Verify Systems in Rewriting Logic}.
 \newblock Springer-Verlag, Berlin, Heidelberg, 2007.
+
+\bibitem{maudeEclipsePLugin}
+Maude development tools.
+\newblock \url{http://mdt.sourceforge.net/}, (accessed 20.06.2018).
 
 \end{thebibliography}

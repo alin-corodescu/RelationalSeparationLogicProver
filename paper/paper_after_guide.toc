@@ -1,4 +1,4 @@
-\babel@toc {english}{}
+\select@language {english}
 \contentsline {section}{\numberline {1}Introduction}{2}
 \contentsline {section}{\numberline {2}Contributions}{3}
 \contentsline {section}{\numberline {3}Description of the problem}{3}
@@ -10,16 +10,21 @@
 \contentsline {section}{\numberline {6}Relational Separation Logic Interactive Prover}{5}
 \contentsline {subsection}{\numberline {6.1}Modelling the Separation Logics}{6}
 \contentsline {subsubsection}{\numberline {6.1.1}Sort Hierarchy}{7}
-\contentsline {subsection}{\numberline {6.2}Language Grammar and executable semantics}{7}
-\contentsline {subsection}{\numberline {6.3}Interaction by Maude LOOP-MODE}{7}
-\contentsline {subsection}{\numberline {6.4}State of the program}{8}
-\contentsline {subsection}{\numberline {6.5}Input and output handling}{9}
-\contentsline {subsection}{\numberline {6.6}Prover execution flow}{10}
-\contentsline {subsubsection}{\numberline {6.6.1}User Actions}{11}
-\contentsline {subsubsection}{\numberline {6.6.2}System Actions}{11}
-\contentsline {subsection}{\numberline {6.7}Automated processes}{12}
-\contentsline {subsubsection}{\numberline {6.7.1}Automatic matching of axioms and previously proven goals}{12}
-\contentsline {subsubsection}{\numberline {6.7.2}Automatic demonstration of implications}{12}
-\contentsline {subsection}{\numberline {6.8}User Interface}{12}
-\contentsline {subsection}{\numberline {6.9}Future directions}{12}
-\contentsline {section}{\numberline {7}Conclusions}{12}
+\contentsline {subsection}{\numberline {6.2}Language Grammar and executable semantics}{8}
+\contentsline {subsubsection}{\numberline {6.2.1}Storage Model}{8}
+\contentsline {subsubsection}{\numberline {6.2.2}Syntax and Semantics of the language}{9}
+\contentsline {paragraph}{Semantics of the language}{9}
+\contentsline {paragraph}{Maude Modelling of the language}{10}
+\contentsline {paragraph}{Executable semantics of the language, in Maude}{11}
+\contentsline {subsection}{\numberline {6.3}Interaction by Maude LOOP-MODE}{11}
+\contentsline {subsection}{\numberline {6.4}State of the program}{11}
+\contentsline {subsection}{\numberline {6.5}Input and output handling}{12}
+\contentsline {subsection}{\numberline {6.6}Prover execution flow}{13}
+\contentsline {subsubsection}{\numberline {6.6.1}User Actions}{16}
+\contentsline {subsubsection}{\numberline {6.6.2}System Actions}{16}
+\contentsline {subsection}{\numberline {6.7}Automated processes}{17}
+\contentsline {subsubsection}{\numberline {6.7.1}Automatic matching of axioms and previously proven goals}{17}
+\contentsline {subsubsection}{\numberline {6.7.2}Automatic demonstration of implications}{17}
+\contentsline {subsection}{\numberline {6.8}User Interface}{17}
+\contentsline {subsection}{\numberline {6.9}Future directions}{17}
+\contentsline {section}{\numberline {7}Conclusions}{17}

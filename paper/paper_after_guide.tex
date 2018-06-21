@@ -10,6 +10,7 @@
 \usepackage{tikz}
 \usepackage{ebproof}
 \usepackage{listings}
+\usepackage{graphicx}
 \usepackage{url}
 \author{ANDREI-ALIN CORODESCU}
 \title{Program Equivalence : Relational Separation Logic interactive prover implemented in Maude}
@@ -202,9 +203,85 @@ The \texttt{---} operator is used to separate the two snippets of code mentioned
 
 All the rules are marked with the attribute \texttt{[nonexec]} because we want them to be applied in a controlled manner, at the meta-level. Some of the rules, the examples included, are not even valid executable Maude rules, because they make use of variables before binding them (for example \texttt{P1} is used in a rule before it is bound). At the meta-level however we can manually bind values to those variables, as we will exemplify when discussing how we apply these rules to goals.
 \subsubsection{Sort Hierarchy}
-This section will describe the sorts defined in Maude to handle the constructs of both Separation logics.
+Much in the same manner as we modeled the language grammar, the Relational Separation Logic \cite{relational} and Separation Logic \cite{SeparationLogic} \cite{primer} have been modeled by defining sorts and declaring operators using these sorts. The main point of reference for our modeling has been \cite{relational}, for both logics. Some examples of translations from specification to code are included below.
+\begin{itemize}
+	\item \texttt{Assertion} is the sort used to handle Separation Logic assertions. It is a super sort of the \texttt{BExp} sort defined as part of our language.
+	\item \texttt{HoareTriple} is the sort associated with the concept with the same name, in a Separation Logic context.
+	\begin{lstlisting}[caption=Hoare Triple constructor operator]
+op {_}_{_} : Assertion Command Assertion -> HoareTriple .\end{lstlisting}
+	\item \texttt{Relation} is the sort associated with Relational Separation Logic relations. As it was the case with \texttt{Assertion}, it is a super sort of the \texttt{BExp} sort of our language grammar. Because both the \texttt{Relation} and \texttt{Assertion} are super sorts of the same sort, Maude will display a few warnings which are not affecting functionality, but in the future, creating a separate \texttt{BExp} sort for both the \texttt{Assertion} and \texttt{Relation} sorts would be a better option.
+	\item \texttt{HoareQuadruple} is again associated with the concept with the same name, in the Relational Separation Logic context.
+	\begin{lstlisting}[caption=Examples of Relational Separation Logic specific constructs]
+--- Operator which creates a relation from two assertions
+op [_;_] : Assertion Assertion -> Relation .
+--- Operator which constructs a Hoare Quadruple 
+op {_}_--_{_} : Relation Command Command Relation -> HoareQuadruple .\end{lstlisting}
+\end{itemize}
+The other operators defined for the Assertion and Relation languages have been in the same manner as the programming language operators, following their presentation in \cite{relational}. For a full reference, please refer to the code accompanying this paper.
 \subsection{Language Grammar and executable semantics}
-This section will describe how we defined our language in Maude [and how it is possible to create executable semantics for this language]
+The prover supports expressing programs in a simple, imperative language, commonly used throughout papers \cite{SeparationLogic} \cite{primer} related to the subject of program verification, including the one describing Relational Separation Logic \cite{relational}, around  which this project is based. 
+\subsubsection{Storage Model}
+A state of in our storage model is defined by a pair consisting of a \(Store\) and a \(Heap\) .
+\\
+Assuming that all the variables usable in programs from the set \(\mathtt{Vars}\) and the set of positive natural numbers is denoted by \(\mathtt{PosNats}\): \\
+
+A \(Store\) is defined as:
+\[ \mathtt{S} : \mathtt{Vars} \rightarrow \mathtt{PosNats} \]
+
+A \(Heap\) represents a mapping from the \(\mathtt{PosNats}\) to \(\mathtt{Integers}\)
+\[ \mathtt{H} : \mathtt{PosNats} \rightarrow \mathtt{Integers} \] 
+More informally, the \(Store\) holds the value of the variables while the \(Heap\) maps the active memory cells during a program execution to their contents.
+\subsubsection{Syntax and Semantics of the language}
+\begin{figure}[h]
+	\noindent\rule{\linewidth}{0.4pt}
+	\begin{tabularx}{\linewidth}{l  X}
+		Integer Expressions& \(E ::= x \mid Integer \mid E\ \mathtt{plus}\ E \mid E\ \mathtt{times}\ E \mid E\ \mathtt{minus}\ E \) \\
+		\\
+		Boolean Expressions& \(B ::= false \mid true \mid B\ \mathtt{\&\&}\ B \mid  B\ ||\ B \mid B\  \mathtt{->}\ B \mid B \mathtt{<=>} B \mid \ ! B \mid E\ \mathtt{ge}\ E \mid E\ \mathtt{le}\ E \mid E\ \mathtt{eqs}\ E \)\\
+		\\ 	
+		Commands& \(C ::= x := alloc(E) \mid x := [E] \mid [E] := E \mid free(E) \mid x := E \mid C;C \mid if\ B\ then\ C\ else\ C \mid while\ B\ do\ C\ od \) \\
+	\end{tabularx}
+	\caption{Syntax of the language}
+	\label{fig:langSyntax}
+	\noindent\rule{\linewidth}{0.4pt}
+\end{figure}
+The syntax of the language is presented in Figure \ref{fig:langSyntax} . It represents an adapted subset of the language presented in the Relational Separation Logic paper \cite{relational} . 
+\paragraph{Semantics of the language}
+{
+	The semantics of the previously defined language are standard but a few clarifications are necessary to point out how our language constructs interact with the storage model, as well as a few differences from regular programming languages:
+	\begin{itemize}
+		\item{Verbosity of operators - most operators are replaced by their literal names ( \(+\) becomes \(\mathtt{plus}\) etc.); we have opted for this approach to avoid complication when implementing the language in Maude, because most of the operators are already defined in Maude for its built-in types, and overloading them could cause conflicts since we are basing our own defined types on Maude's primitives.}
+		\subitem{\( B\ \mathtt{ge}\ B\) translates to the usual \(>=\) operator}
+		\subitem{\( B\ \mathtt{le}\ B\) translates to the usual \(<=\) operator}
+		\subitem{\( B\ \mathtt{eqs}\ B\) translates to the usual \(==\) equality comparison operator}
+		\subitem{\( B\ \mathtt{->}\ B\) denotes implication between boolean expressions}
+		\subitem{\(B\ \mathtt{<=>}\ B\) denotes equivalence between boolean expressions}
+		\subitem{The rest of the operators are mostly similar to their C++ or Java counterparts and their semantics are self explanatory}
+		\item{Memory allocation / deallocation: }
+		\subitem{\(x := alloc(E)\) allocates a new cell in the memory, initializes it with the value of \(E\) and stores its address in the variable \(x\)}
+		\subitem{\(x := free(E)\) deallocates the cell at the address equal to the value of \(E\)}
+		\item{Working with variables and memory: }
+		\subitem{\( x := [E] \) reads the contents of the memory cell at address \(E\) and stores the value in the variable \(x\)}
+		\subitem{\( [E] := E\prime \) updates the contents of the memory cell at address \(E\) with the value of the expression \(E\prime\)}
+		\subitem{\( x := E \) updates the value of the variable \(x\) with the value of the expression \(E\) - note that this command does not modify the heap in any way, as it usually happens with regular programming languages when updating the value of a variable}
+	\end{itemize}
+\paragraph{Maude Modelling of the language}
+Maude makes the representation of programming languages grammar a straight forward and natural process, by defining sorts corresponding to language elements and their associated operators. The sorts defined in Maude for the grammar are the following : 
+\begin{itemize}
+	\item \texttt{AExp} - abbreviation for Arithmetic Expression - equivalent for Integer expressions in the specification. To capture the first two possible forms of Integer expressions in Figure \ref{fig:langSyntax}, the AExp sort is a super sort of \texttt{Int} of \texttt{INT} standard module and \texttt{Id}, which is the sort defined for variables.
+	\item \texttt{BExp} - abbreviation for Boolean Expressions - equivalent for the Boolean Expressions type in the specification. It is a super sort of \texttt{Bool} of standard module \texttt{BOOL}. 
+	\item \texttt{Command} sort maintains the same name as in the specification.
+\end{itemize}
+An example of operator translation from specification to Maude code is presented in Listing \ref{code:languageGrammer}. Note that we have opted to skip the attributes associated with the operators, as they are irrelevant in this case.
+\\
+
+\begin{lstlisting}[label=code:languageGrammer,caption=Example of operator translation to Maude code]
+	op while_do_od : BExp Command -> Command [...].
+	op _:=_ : Id AExp -> Command [...]. 
+\end{lstlisting}
+
+\paragraph{Executable semantics of the language, in Maude}
+Maude also supports specifying executable semantics for the language using rewriting logic \cite{rewrConcurrency}. A proof of concept for a language similar to the one used by the prover is present in the code of the project, but it is out of scope for the presentation of the prover \textbf{Need reference to the final file name}. An executable environment for the programming language used in the prover is a valid candidate for future improvements.
 \subsection{Interaction by Maude LOOP-MODE}
 Maude's LOOP-MODE module is the entry point for any interactive Maude application, being the only way to store state between commands. In this chapter we will discuss how we handle input and output , the structure of a state and the role every element plays in the execution of the prover.\\
 
@@ -275,19 +352,25 @@ if QIL' =/= nil .
 \end{enumerate}
 
 \subsection{Prover execution flow}
-In this section we will describe the flow of a demonstration made using our prover. A diagram presenting how the prover works is presented in Figure \ref{fig:ProverDiagram}
+In this section we will describe the flow of a demonstration made using our prover. The most important parts of the prover's execution are controlled through the first member of a prover state, \textbf{Action}, which specifies the next step in the processing of the current goal. There are two types of actions, \textbf{System Actions}, colored in the figure in purple and \textbf{User Actions}, colored in light-yellow. The diagram presenting how the prover works is presented in Figure \ref{fig:ProverDiagram}
 \\
 \begin{enumerate}
 	\item The user issues the command \texttt{loop init .} in the Maude console. This will initialize the loop state.
 	\item Now the user will have to specify the goal it wants to prove, by issuing the command \begin{center}(\texttt{prove} G)\end{center}, where G is the representation of the goal using the syntax defined for our logics. The command will populate the required fields of the prover state (\textbf{RootGoal}, \textbf{GoalStack}) with G.
 	\\
+	
+	This command will also populate the \textbf{ProvenGoals} list with axioms.
+	\\
+	
 	Please note that the command is enclosed within parentheses, this being a requirement of Maude LOOP-MODE \cite{manual}. All the prover specific commands need to be enclosed in parenthesis. The previous command, \texttt{loop init .} was not enclosed because it is a Maude specific command, not something we want to pass as input to our prover.
 	\item The next phase involves applying the logic proof rules to the goals in the \textbf{GoalStack} to generate sub-goals and prove them. This phase lasts until there are no more goals left in the \textbf{GoalStack}, meaning that the \textbf{RootGoal} has been proven.
 \end{enumerate}
 \begin{figure}[h]
+	\includegraphics[width=\linewidth]{"pictures/Prover Flow".png}
 	\caption{Prover Execution Diagram}
 	\label{fig:ProverDiagram}
-\end{figure}
+\end{figure} 
+\clearpage
 \subsubsection{User Actions}
 User actions are the main entry point for user interaction and they describe how the user intends to process the current goal.
 \begin{itemize}
@@ -305,7 +388,7 @@ User actions are the main entry point for user interaction and they describe how
 	\item {\(\mathtt{showGoal}\) action - prints the current goal to the console - it does not modify the state of the prover}
 \end{itemize}
 \subsubsection{System Actions}
-System actions were implemented to mimic the behaviour of a "chain of responsibility" design pattern from object-oriented programming. The system actions are all applied in order before asking for user input. System actions are the main component through which our prover can be enriched with other features in the future, because integrating a new system action is simple. At the moment, the system actions are:
+System actions were implemented to mimic the behaviour of a "chain of responsibility" design pattern from object-oriented programming. The system actions are all applied in order before asking for user input. After an system action completes execution, it will decide the next action to be placed in the prover state. System actions are the main component through which our prover can be enriched with other features in the future, because integrating a new system action is simple. At the moment, the system actions are:
 \begin{itemize}
 	\item {\texttt{check}} - marks the current goal to be checked against previously proven goals or axioms
 	\item {\texttt{implication}} - marks the current goal to be run through the implication prover - in case the goal is an implication, try to prove it automatically

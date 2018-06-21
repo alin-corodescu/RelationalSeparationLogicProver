@@ -19,7 +19,7 @@ mod LANGUAGE-GRAMMAR is
 	op _:=_ : Id AExp -> Command [format (i s s d)] . 
 
 	op if_then_else_ : BExp Command Command -> Command [ctor format (nic! o c! no++i --nic! no++i --)] .
-	op while_do_od : BExp Command -> Command [ctor format (nic! o s! noi++ --nic! o)] .
+	op while_do_od : BExp Command -> Command [ctor format (nic! o sc! noi++ --nic! o)] .
 
 	--- todo look for a workaround to allow us to use proper operators
 	ops _plus_ _times_ _minus_ : AExp AExp -> AExp [ctor] .

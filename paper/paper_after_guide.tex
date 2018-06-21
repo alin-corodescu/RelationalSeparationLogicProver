@@ -85,7 +85,7 @@ The rest of the paper is organized as follows:
 	\item {\textbf{Section 2} will present the problem this project aims to solve}
 	\item {\textbf{Section 3} will shortly present some other projects related to ours}
 	\item {\textbf{Section 4} will briefly touch upon the theoretical foundations of this project, together with the technologies used to implement them}
-	\item {\textbf{Section 5}, the main section of this paper, will present our approach to solving the problem, discuss shortcomings of the current solution and how it can be improved in the future. All the elements of our project will be presented in an individual sub-section}
+	\item {\textbf{Section 5}, the main section of this paper, will present our approach to solving the problem, and discuss how it can be improved in the future. All the elements of our project will be presented in an individual sub-section}
 \end{itemize}
 
 \section{Contributions}
@@ -272,7 +272,7 @@ Maude makes the representation of programming languages grammar a straight forwa
 	\item \texttt{BExp} - abbreviation for Boolean Expressions - equivalent for the Boolean Expressions type in the specification. It is a super sort of \texttt{Bool} of standard module \texttt{BOOL}. 
 	\item \texttt{Command} sort maintains the same name as in the specification.
 \end{itemize}
-An example of operator translation from specification to Maude code is presented in Listing \ref{code:languageGrammer}. Note that we have opted to skip the attributes associated with the operators, as they are irrelevant in this case.
+An example of operator translation from specification to Maude code is presented in Listing \ref{code:languageGrammer}. Note that we have opted to skip the attributes associated with the operators, as they are irrelevant for the purpose of this example.
 \\
 
 \begin{lstlisting}[label=code:languageGrammer,caption=Example of operator translation to Maude code]
@@ -423,7 +423,14 @@ Maude provides a simple, yet powerful system for controlling the output formatti
 
 The Maude features we used for this prover's user interface are :
 \begin{itemize}
-	\item The \texttt{format} attribute of operators, which allows the programmer to control the style of the output when a term which makes use of the respective operator is printed to the console. It allows specifying modifiers for each possible white space in an operator, modifiers which will remain active until reset or until overriden. More information on the \texttt{format} attribute can be found in the Maude Manual \cite{manual}.
+	\item The \texttt{format} attribute of operators, which allows the programmer to control the style of the output when a term which makes use of the respective operator is printed to the console. It allows specifying modifiers for each possible white space in an operator, modifiers which will remain active until reset or until overriden. More information on the \texttt{format} attribute can be found in the Maude Manual \cite{manual}. 
+	
+	A sample output of the prover is presented in Figure \ref{fig:CLIScreenShot}, showcasing the manipulation of white spaces (newlines, indentation and spaces), usage of colours to distinguish between different elements - Relations are coloured in green, while the analysed code has it's keyword highlighted using cyan. The separator between the two pieces of code is also coloured in red.
+	\begin{figure}[h]
+		\includegraphics[width=\linewidth]{pictures/CLI.png}
+		\caption{Formatted output of the prover}
+		\label{fig:CLIScreenShot}
+	\end{figure}
 	\item The \texttt{metaPrettyPrint} operator in the \texttt{META-LEVEL} module, which returns a term as a list of quoted identifiers to be printed, formatted respecting the \texttt{format} attributes defined for the operators used in the term. An example is presented in Listing \ref{takeFirst}, which presents the rule used to take the top element of the \textbf{GoalStack} for processing, and writes the formatted output of the goal to the \textbf{StagingOutput} field.
 	\begin{lstlisting}[label=takeFirst,caption=Rewrite rule making use of metaPrettyPrint]
 crl [takeFirstGoalFromList] : < noAction ; RG ; noGoal ; G <> GS ; GL ; nil > 

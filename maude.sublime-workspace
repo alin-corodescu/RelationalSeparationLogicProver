@@ -4,8 +4,16 @@
 		"selected_items":
 		[
 			[
-				"auto",
-				"auto-approved"
+				"t",
+				"T"
+			],
+			[
+				"r",
+				"R"
+			],
+			[
+				"mete",
+				"metaPrettyPrint"
 			],
 			[
 				"Aximo",
@@ -48,28 +56,19 @@
 	"buffers":
 	[
 		{
-			"file": "prover/relational-sep-logic.maude",
-			"settings":
-			{
-				"buffer_size": 958,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "prover/prover-interface.maude",
 			"settings":
 			{
-				"buffer_size": 11895,
+				"buffer_size": 11908,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "prover/list-example.maude",
+			"file": "prover/language/language_grammar.maude",
 			"settings":
 			{
-				"buffer_size": 3589,
+				"buffer_size": 1344,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -84,27 +83,28 @@
 			}
 		},
 		{
-			"file": "prover/language/language_grammar.maude",
+			"file": "prover/implication-prover.maude",
 			"settings":
 			{
-				"buffer_size": 1343,
+				"buffer_size": 1461,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "limbaj_simplu.maude",
+			"file": "prover/prover-grammar.maude",
 			"settings":
 			{
-				"buffer_size": 5015,
+				"buffer_size": 2132,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "prover/runner.maude",
+			"file": "prover/separation-logic.maude",
 			"settings":
 			{
-				"buffer_size": 1072,
+				"buffer_size": 811,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -117,12 +117,36 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 285.0,
-		"last_filter": "insta",
+		"height": 75.0,
+		"last_filter": "",
 		"selected_items":
 		[
 			[
-				"insta",
+				"ma",
+				"Set Syntax: Maude"
+			],
+			[
+				"m",
+				"Set Syntax: Maude"
+			],
+			[
+				"MAU",
+				"Set Syntax: Maude"
+			],
+			[
+				"maud",
+				"Set Syntax: Maude"
+			],
+			[
+				"theme",
+				"UI: Select Color Scheme"
+			],
+			[
+				"set syntax maude",
+				"Set Syntax: Maude"
+			],
+			[
+				"install",
 				"Package Control: Install Package"
 			],
 			[
@@ -134,19 +158,15 @@
 				"UI: Select Color Scheme"
 			],
 			[
-				"theme",
-				"UI: Select Theme"
-			],
-			[
-				"install",
+				"instal",
 				"Package Control: Install Package"
 			],
 			[
-				"instal",
+				"insta",
 				"Package Control: Install Package"
 			]
 		],
-		"width": 492.0
+		"width": 533.0
 	},
 	"console":
 	{
@@ -166,33 +186,37 @@
 	},
 	"expanded_folders":
 	[
-		"/usr/projects/MaudePlayground",
-		"/usr/projects/MaudePlayground/prover",
-		"/usr/projects/MaudePlayground/prover/language"
+		"/home/alin/Licenta/MaudePlayground",
+		"/home/alin/Licenta/MaudePlayground/prover",
+		"/home/alin/Licenta/MaudePlayground/prover/language"
 	],
 	"file_history":
 	[
-		"/usr/projects/MaudePlayground/prover/implication-prover.maude",
-		"/usr/projects/MaudePlayground/prover/separation-logic.maude",
-		"/usr/projects/MaudePlayground/prover/prover-interface.maude",
-		"/usr/projects/MaudePlayground/prover/prover-grammar.maude",
-		"/usr/projects/MaudePlayground/prover/list-example-tests.maude",
-		"/usr/projects/MaudePlayground/prover/inductive_predicates.maude",
-		"/usr/projects/MaudePlayground/prover/runner.maude",
-		"/usr/projects/MaudePlayground/prover/language/language_grammar.maude",
-		"/usr/projects/MaudePlayground/prover/experiments.maude",
-		"/usr/projects/MaudePlayground/prover/test.maude",
-		"/home/alin/CloudComputing/JsonFormats.json",
-		"/usr/projects/MaudePlayground/prover/relational-sep-logic.maude",
-		"/usr/projects/MaudePlayground/prover/goal-graph.maude",
-		"/usr/projects/MaudePlayground/prover/axiom-matching.maude",
-		"/usr/projects/MaudePlayground/prover/examples.maude",
-		"/usr/projects/MaudePlayground/prover/matching.maude",
+		"/home/alin/Licenta/MaudePlayground/prover/language/Todo licenta:",
+		"/home/alin/Licenta/MaudePlayground/prover/relational-sep-logic.maude",
+		"/home/alin/Licenta/MaudePlayground/prover/implication-prover.maude",
+		"/home/alin/Licenta/MaudePlayground/prover/runner.maude",
+		"/home/alin/Licenta/MaudePlayground/prover/prover-grammar.maude",
+		"/home/alin/Licenta/MaudePlayground/prover/separation-logic.maude",
+		"/home/alin/Licenta/MaudePlayground/prover/language/language_grammar.maude",
+		"/home/alin/Licenta/MaudePlayground/prover/goal-graph.maude",
+		"/home/alin/Licenta/MaudePlayground/prover/prover-interface.maude",
+		"/home/alin/Licenta/MaudePlayground/prover/examples.maude",
+		"/home/alin/Licenta/MaudePlayground/prover/matching.maude",
+		"/home/alin/Licenta/MaudePlayground/prover/axiom-matching.maude",
+		"/home/alin/.config/i3/config",
 		"/home/alin/LinuxSetup/ProvisioningScripts/install_i3.sh",
 		"/home/alin/backup_hdd_win/alin/ProvisioningScripts/checklist",
+		"/usr/projects/MaudePlayground/prover/examples.maude",
+		"/usr/projects/MaudePlayground/prover/prover-grammar.maude",
+		"/usr/projects/MaudePlayground/prover/language/language_grammar.maude",
+		"/usr/projects/MaudePlayground/prover/separation-logic.maude",
+		"/usr/projects/MaudePlayground/prover/experiments.maude",
+		"/usr/projects/MaudePlayground/prover/relational-sep-logic.maude",
+		"/usr/projects/MaudePlayground/prover/prover-interface.maude",
+		"/usr/projects/MaudePlayground/prover/goal-graph.maude",
 		"/usr/projects/MaudePlayground/limbaj_simplu.maude",
 		"/usr/projects/MaudePlayground/limbaj_separat.maude",
-		"/home/alin/.config/i3/config",
 		"/home/alin/bin/maude/maude_itp/itp-tool.maude",
 		"/home/alin/projects/Licenta/MaudePlayground/setup_jetbrains_config_and_system_paths.sh",
 		"/home/alin/projects/Licenta/MaudePlayground/limbaj_simplu.maude",
@@ -226,7 +250,7 @@
 	],
 	"find":
 	{
-		"height": 56.0
+		"height": 29.0
 	},
 	"find_in_files":
 	{
@@ -242,9 +266,21 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"rls",
-			"subGoals",
-			".\n",
+			"GG",
+			"noRule",
+			"=",
+			"eq",
+			"\n\t---",
+			"\n\t",
+			" \n",
+			"nogoal",
+			"ctor",
+			" [",
+			"format (d n nt d)",
+			"format (d ct no d)",
+			"format (c t ns o)",
+			"P1",
+			"10",
 			"3",
 			"upTerm",
 			"noGoal",
@@ -260,10 +296,18 @@
 		"highlight": true,
 		"in_selection": false,
 		"preserve_case": false,
-		"regex": true,
+		"regex": false,
 		"replace_history":
 		[
-			"eqs",
+			"GS",
+			"noAction",
+			"=>",
+			"rl",
+			"\n\t",
+			"\n\t---",
+			"format (d n t d)",
+			"format (d n nt d)",
+			"format (d ct no d)",
 			"Command",
 			"Relation",
 			"Assertion"
@@ -277,53 +321,24 @@
 	"groups":
 	[
 		{
-			"selected": 5,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "prover/relational-sep-logic.maude",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 958,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								497,
-								497
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Maude Syntax Highlighting/maude.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
 					"file": "prover/prover-interface.maude",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 11895,
+						"buffer_size": 11908,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2064,
-								2073
+								0,
+								0
 							]
 						],
 						"settings":
@@ -332,113 +347,27 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2970.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "prover/list-example.maude",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3589,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								247,
-								247
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Maude Syntax Highlighting/maude.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "prover/goal-graph.maude",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1267,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								120,
-								120
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Maude Syntax Highlighting/maude.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "prover/language/language_grammar.maude",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1343,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								785,
-								785
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Maude Syntax Highlighting/maude.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2160.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "limbaj_simplu.maude",
-					"semi_transient": true,
+					"buffer": 1,
+					"file": "prover/language/language_grammar.maude",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5015,
+						"buffer_size": 1344,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								634,
-								634
+								853,
+								853
 							]
 						],
 						"settings":
@@ -454,20 +383,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "prover/runner.maude",
+					"buffer": 2,
+					"file": "prover/goal-graph.maude",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1072,
+						"buffer_size": 1267,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								27,
-								27
+								1252,
+								1252
 							]
 						],
 						"settings":
@@ -476,10 +405,97 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 432.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "prover/implication-prover.maude",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1461,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								357,
+								357
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Maude Syntax Highlighting/maude.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "prover/prover-grammar.maude",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2132,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								163,
+								163
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Maude Syntax Highlighting/maude.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "prover/separation-logic.maude",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 811,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Maude Syntax Highlighting/maude.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
 					"type": "text"
 				}
 			]
@@ -487,7 +503,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 34.0
+		"height": 29.0
 	},
 	"input":
 	{
@@ -524,7 +540,7 @@
 	"project": "maude.sublime-project",
 	"replace":
 	{
-		"height": 98.0
+		"height": 54.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -562,7 +578,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 316.0,
+	"side_bar_width": 281.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

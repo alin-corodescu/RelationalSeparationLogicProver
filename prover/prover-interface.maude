@@ -187,7 +187,7 @@ mod PROVER-INTERFACE is
 			if downTerm(getTerm(SubGoals?), emptyGL) :: GoalList then
 			< noAction ; RG ; noGoal ; downTerm(getTerm(SubGoals?), emptyGL) <> GS ; GL ; 'applied '  'consequence '  'rule '\n > 
 			else
-			< noAction ; RG ; G ; GS ; GL ; 'wrong '  'consequence '  'rule '\n > 
+			< noAction ; RG ; G ; GS ; GL ; 'did ' 'not ' 'apply ' 'consequence '  'rule '\n > 
 			fi
 		else 
 		< noAction ; RG ; G ; GS ; GL ; 'error '  'consequence '  'rule '\n > 

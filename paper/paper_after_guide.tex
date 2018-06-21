@@ -380,10 +380,28 @@ User actions are the main entry point for user interaction and they describe how
 	\end{center}
 		With \textbf{SL} being added only when applying Separation Logic rules, to distinguish between the Relational Separation Logic rules with the same name.
 	}
-	\begin{figure}[h]
-		\caption{Examples of user actions which control the application of rules}
-		\label{fig:userActions}
-	\end{figure}
+		\begin{lstlisting}[label=userAction,caption=Rule Application Action]
+	crl [applyConsequence] : < applyConsequence R1 -- S1 ; RG ; G ; GS ; GL ; nil > =>
+		if SubGoals? :: Result4Tuple then 
+		if downTerm(getTerm(SubGoals?), emptyGL) :: GoalList then
+		< noAction ; RG ; noGoal ; downTerm(getTerm(SubGoals?), emptyGL) <> GS ; GL ; 'applied '  'consequence '  'rule '\n > 
+		else
+		< noAction ; RG ; G ; GS ; GL ; 'did ' 'not ' 'apply ' 'consequence '  'rule '\n > 
+		fi
+		else 
+		< noAction ; RG ; G ; GS ; GL ; 'error '  'consequence '  'rule '\n > 
+		fi 
+	if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false), upTerm(G), 'Consequence, 'R1:Relation <- upTerm(R1) ; 'S1:Relation <- upTerm(S1) , 0, unbounded, 0).
+		\end{lstlisting}
+		The example given in Listing \ref{userAction} illustrates all the core concepts involved in the application of proof rules to goals: 
+		\begin{itemize}
+			\item The rewrite rule is applied to a \textbf{Prover state} which has the Action field equal to \texttt{applyConsequence R1 -- S1}, where \texttt{R1} and \texttt{S1} are parameters to be passed to the proof rule
+			\item The Consequence rule is applied at a meta level, using the \texttt{metaXapply} operator [line 11] from the \texttt{META-LEVEL} module. To this operator we also pass the values of the parameters (in their meta representation) with which to bind variables appearing in the \texttt{Consequence} rule.
+			\item The result is then checked for errors to see if there were some errors when applying the \texttt{metaXapply} operator [line 8] or if the term returned is not actually of the required type [line 3].
+			\item If the result corresponds to what the prover was expecting, we modify the state by adding the newly generated goals to the \textbf{GoalStack}, by moving down the "meta"-hierarchy - parsing meta-representation of terms.
+			\item The last thing to note is an example of how the rules generate output independent of other applications. In the last field of the \textbf{Prover State}, as \textbf{StagingOutput}, there will be a list of quoted identifiers which will eventually get moved to the loop state and then outputted to the user.
+		\end{itemize}
+		All the other actions which control the application of proof rules are written in a similar manner.
 	\item {\(\mathtt{ok}\) action - admits the current goal}
 	\item {\(\mathtt{showGoal}\) action - prints the current goal to the console - it does not modify the state of the prover}
 \end{itemize}
@@ -402,6 +420,20 @@ This section will describe the functional parts of the prover which have been au
 Since our project aims to simplify the demonstrations of Separation Logic / Relational Separation Logic formulae, using an interactive prover, the user interface plays a major role in the success of the project - the easier it is to use and understand, the more chances of success it has. This idea has been presented in \cite{primer}, when discussing key elements of tools related to program verification. \\
 
 Maude provides a simple, yet powerful system for controlling the output formatting of the CLI through which we aim to make the demonstrations more readable and user-friendly. \\
+
+The Maude features we used for this prover's user interface are :
+\begin{itemize}
+	\item The \texttt{format} attribute of operators, which allows the programmer to control the style of the output when a term which makes use of the respective operator is printed to the console. It allows specifying modifiers for each possible white space in an operator, modifiers which will remain active until reset or until overriden. More information on the \texttt{format} attribute can be found in the Maude Manual \cite{manual}.
+	\item The \texttt{metaPrettyPrint} operator in the \texttt{META-LEVEL} module, which returns a term as a list of quoted identifiers to be printed, formatted respecting the \texttt{format} attributes defined for the operators used in the term. An example is presented in Listing \ref{takeFirst}, which presents the rule used to take the top element of the \textbf{GoalStack} for processing, and writes the formatted output of the goal to the \textbf{StagingOutput} field.
+	\begin{lstlisting}[label=takeFirst,caption=Rewrite rule making use of metaPrettyPrint]
+crl [takeFirstGoalFromList] : < noAction ; RG ; noGoal ; G <> GS ; GL ; nil > 
+=> 
+< check ; RG ; G ; GS ; GL ; 'current ' 'goal '  '  'is '\n metaPrettyPrint(upModule('PROVER-INTERFACE, false), upTerm(G)) '\n > 
+if G =/= noGoal .
+	\end{lstlisting}
+\end{itemize}
+All throughout the prover calls to \texttt{metaPrettyPrint} have been made in order to inform the user of what the prover is doing and how.
+\\
 
 For a more advanced user interface or to expose the prover's functionalities through a programming interface, a wrapper written in more feature-rich language through which to control the Maude environment is probably the best choice. The concept is exemplified the Maude plug-in for Eclipse, \cite{maudeEclipsePLugin} which enables writing of Maude code inside the Eclipse IDE, and the plug-in communicates with the underlying Maude environment. The project also includes a plug-in which allows any Java program to communicate with Maude.
 \subsection{Future directions}

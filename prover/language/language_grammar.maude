@@ -11,7 +11,7 @@ mod LANGUAGE-GRAMMAR is
 	--- TODO create different ways to define AllocationLists
 	--- please refer to the Fig 1. of the Relational Separation logic for reference on the syntax of this language
 
-	op _;_ : Command Command -> Command [prec 50 gather(E e) format (i d n d)].
+	op _;_ : Command Command -> Command [prec 50 gather(E e) format (o d n d)].
 	op _:=cons(_) : Id AExp -> Command [format (i s s d d d)].  
 	op _:=[_] : Id AExp -> Command [format (i s s d d d)]. 
 	op [_]:=_ : AExp AExp -> Command [format (i d d s s d)]. 
@@ -19,7 +19,7 @@ mod LANGUAGE-GRAMMAR is
 	op _:=_ : Id AExp -> Command [format (i s s d)] . 
 
 	op if_then_else_ : BExp Command Command -> Command [ctor format (nic! o c! no++i --nic! no++i --)] .
-	op while_do_od : BExp Command -> Command [ctor format (nic! o c! no++i --nic! o)] .
+	op while_do_od : BExp Command -> Command [ctor format (nic! o s! noi++ --nic! o)] .
 
 	--- todo look for a workaround to allow us to use proper operators
 	ops _plus_ _times_ _minus_ : AExp AExp -> AExp [ctor] .

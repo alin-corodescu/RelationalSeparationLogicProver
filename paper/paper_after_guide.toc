@@ -1,4 +1,4 @@
-\babel@toc {english}{}
+\select@language {english}
 \contentsline {section}{\numberline {1}Introduction}{2}
 \contentsline {section}{\numberline {2}Contributions}{3}
 \contentsline {section}{\numberline {3}Description of the problem}{3}
@@ -20,11 +20,12 @@
 \contentsline {subsection}{\numberline {6.4}State of the program}{11}
 \contentsline {subsection}{\numberline {6.5}Input and output handling}{12}
 \contentsline {subsection}{\numberline {6.6}Prover execution flow}{13}
+\contentsline {paragraph}{Goal Graph}{14}
 \contentsline {subsubsection}{\numberline {6.6.1}User Actions}{16}
 \contentsline {subsubsection}{\numberline {6.6.2}System Actions}{17}
 \contentsline {subsection}{\numberline {6.7}Automated processes}{18}
 \contentsline {subsubsection}{\numberline {6.7.1}Automatic matching of axioms and previously proven goals}{18}
-\contentsline {subsubsection}{\numberline {6.7.2}Automatic demonstration of implications}{18}
-\contentsline {subsection}{\numberline {6.8}User Interface}{18}
-\contentsline {subsection}{\numberline {6.9}Future directions}{19}
-\contentsline {section}{\numberline {7}Conclusions}{19}
+\contentsline {subsubsection}{\numberline {6.7.2}Automatic demonstration of implications}{19}
+\contentsline {paragraph}{Cyclist}{19}
+\contentsline {subsection}{\numberline {6.8}User Interface}{20}
+\contentsline {section}{\numberline {7}Conclusions}{21}

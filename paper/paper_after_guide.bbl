@@ -72,6 +72,10 @@ Manuel Clavel, Francisco Dur\'{a}n, Steven Eker, Patrick Lincoln, Narciso
   Specify, Program and Verify Systems in Rewriting Logic}.
 \newblock Springer-Verlag, Berlin, Heidelberg, 2007.
 
+\bibitem{cyclistSite}
+Cyclist prover.
+\newblock \url{http://www.cyclist-prover.org/}, (accessed 20.06.2018).
+
 \bibitem{maudeEclipsePLugin}
 Maude development tools.
 \newblock \url{http://mdt.sourceforge.net/}, (accessed 20.06.2018).

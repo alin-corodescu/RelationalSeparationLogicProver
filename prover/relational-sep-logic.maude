@@ -30,4 +30,17 @@ mod HOARE-QUADRUPLE is
 
 
 
+	op replace : Relation Id Id -> Relation .
+	var R S : Relation .
+	vars P1 P2 : Assertion .
+	vars X Y : Id .
+
+	eq replace([P1 ; P2], X, Y) = [replace(P1, X, Y) ; replace(P2, X, Y)] .
+	eq replace(R * S, X, Y) = replace(R, X, Y) * replace(S, X , Y) .
+	eq replace(R /\ S, X, Y) = replace(R, X, Y) /\ replace(S, X , Y) .
+	eq replace(R \/ S, X, Y) = replace(R, X, Y) \/ replace(S, X , Y) .
+	eq replace(Emp, X, Y) = Emp .
+	eq replace(Same, X, Y) = Same . 
+	eq replace(R, X, Y) = R [owise] .
+
 endm 

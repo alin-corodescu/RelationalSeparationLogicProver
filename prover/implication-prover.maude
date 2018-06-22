@@ -60,5 +60,8 @@ mod IMPLICATION-PROVER is
 
 	rl Same /\ ( [E |-> E1 ; E |-> E1'] * true ) => E1 eqs E1' .
 
+	op replace : Relation Id Id -> Relation .
+	op replace : Assertion Id Id -> Assertion .
+
  endm
 

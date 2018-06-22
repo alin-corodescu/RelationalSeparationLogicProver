@@ -3,25 +3,22 @@
 mod EXPERIMENT is 
 	including INT . 
 
-	sort AExp .
+	sort Test .
+	sort Lst .
 
-	---subsort Int < AExp .
+	subsort Test < Lst .
 
-	--- the plus sign cannot be used 
-	op _+_ : AExp AExp -> AExp .
+	ops a b c d : -> Test .
+	op empty : -> Lst .
 
-endm
+	op _,_ : Test Test -> Lst [assoc comm idem id: empty] .
 
-mod EXPERIMENT1 is 
-	including INT . 
+	rl c => b , d .
 
-	sort AExp .
+	rl b => a .
 
-	sort AllocationList .
+	rl d => a .
 
-	subsort AExp < AllocationList .
-	subsort Int < AExp .
-
-	op _,_ : AllocationList AExp -> AllocationList . 
+	rl a => empty .
 
 endm

@@ -1,5 +1,5 @@
 mod SYMBOLIC-EXECUTION is
-	protecting HOARE-TRIPLE . 
+	protecting HOARE-QUADRUPLE . 
 
 	var P Q : Assertion .
 	vars X Y : Id .
@@ -7,7 +7,7 @@ mod SYMBOLIC-EXECUTION is
 	var C : Command .
 	vars B B1 B2 : BExp .
 
-	
+
 	rl {P * (emp /\ X eqs Y)} C {Q} => {replace(P, X, Y)} replace(C, X, Y) {replace(Q, X, Y)} .
 
 	rl P * (emp /\ E eqs E) => P .

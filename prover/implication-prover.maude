@@ -29,6 +29,8 @@ mod IMPLICATION-PROVER is
 
 	rl [emp ; emp] => Emp .
 
+	rl Emp => [emp ; emp] .
+
 	rl R * ( S \/ T ) => (R * S) \/ (R * T) .
 
 	rl [(P1 * P2) ; Q1 * Q2] => [P1 ; Q1] * [P2 ; Q2] .

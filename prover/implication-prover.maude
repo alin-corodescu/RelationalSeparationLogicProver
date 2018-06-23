@@ -8,8 +8,22 @@ mod IMPLICATION-PROVER is
 	vars P Q : Assertion .
 	vars E E' E1 E1' : AExp .
 
+	vars X Y : Id .
+
+	rl (R => R) => true .
+
 	--- Relational BExp in case we change it later
 	var B : BExp .
+
+	rl R * (Emp /\ B) => B .
+
+	rl (B <=> B) => true . 
+
+	rl (R => true) => true .
+
+	rl ( (R * (Emp /\ X eqs Y)) => S) => ((replace(R, X, Y) => replace(S, X, Y))) .
+
+
 
 	rl R * false => false .
 

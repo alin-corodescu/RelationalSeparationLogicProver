@@ -40,7 +40,7 @@ mod HOARE-TRIPLE is
 
 	var P Q : Assertion .
 	vars X Y : Id .
-
+	var E : AExp .
 	eq replace(P * Q, X, Y) = replace(P, X, Y) * replace(Q, X , Y) .
 	eq replace(P /\ Q, X, Y) = replace(P, X, Y) /\ replace(Q, X , Y) .
 	eq replace(P \/ Q, X, Y) = replace(P, X, Y) \/ replace(Q, X , Y) .
@@ -49,9 +49,12 @@ mod HOARE-TRIPLE is
 	eq replace(P, X, Y) = P [owise] .
 	--- replace x with y
 	--- to do, replace it inside a boolean expression
-	var B : BExp .
+	vars B B1 B2 : BExp .
 	op replace : BExp Id Id -> BExp .
-	--- This here should be further reduced to replace in 
-	eq replace(X eqs Y, X, Y) = Y eqs Y .
+	--- This here should be further reduced to replace in Aexp
+	eq replace(B1 <=> B2, X, Y) = replace(B1, X, Y) <=> replace(B2, X, Y) .
+	eq replace(! B, X, Y) = ! replace(B, X, Y) .
+	eq replace(X eqs E, X, Y) = Y eqs E .
+	eq replace(E eqs X, X, Y) = E eqs Y .
 	eq replace(B, X, Y) = B [owise] .
 endm

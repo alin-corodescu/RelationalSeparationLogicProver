@@ -50,9 +50,9 @@ mod GOAL-GRAPH is
 	op tryImplicationProving : Goal -> Trace? .
 
 	eq tryImplicationProving(RR => TT) = metaSearchPath(upModule('IMPLICATION-PROVER, false), 
-							upTerm(RR),
-							upTerm(TT),
-							nil, '* , 5, 0) . 
+							upTerm(RR => TT),
+							upTerm(true),
+							nil, '* , 3, 0) . 
 	
 
 endm

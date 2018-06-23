@@ -74,7 +74,7 @@ loop init .
 
 ---(ok) --- first implication -> auto-approved being same
 (applyLoop)
-(ok) --- Loop implication -> will look in the paper to see how they prove it
+---(ok) --- Loop implication, auto-approved, still have to check 
 (applyConsequence
 	([(c0 |-> -) * ((c0 plus 1) |-> c1) * (y |-> x0) * (c eqs c0 /\ emp) 
 		; (c0 |-> -) * ((c0 plus 1) |-> c1) * (xp eqs x0 /\ emp ) * (cp eqs c0 /\ emp) ] 

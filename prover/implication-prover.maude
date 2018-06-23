@@ -15,7 +15,7 @@ mod IMPLICATION-PROVER is
 	--- Relational BExp in case we change it later
 	var B : BExp .
 
-	rl R * (Emp /\ B) => B .
+	---rl R * (Emp /\ B) => B .
 
 	rl (B <=> B) => true . 
 

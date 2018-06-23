@@ -1,0 +1,16 @@
+( Same *  List(c) *  ( Emp /\ y eqs yp ) *  ( Emp /\ xp eqs x0 ) *  ( Emp /\ c eqs cp ) * [y |-> x0 ; yp |-> x0] ) => (!(c eqs null)<=> !(cp eqs null))
+(c eqs cp) => (!(c eqs null)<=> !(cp eqs null))
+
+
+
+
+{  ( emp /\ x eqs x0 ) *  ( emp /\ c eqs c0 ) * c0 |-> _:AExp   }
+[c] := (0 minus x)
+{ ( emp /\ c eqs c0 ) * c0 |->(0 minus x0) }
+
+
+--- this is auto approved already, but via a shady axiom
+{ y |-> x0 }
+x := [y]
+{ ( emp /\ x eqs x0 ) * y |-> x0 }
+

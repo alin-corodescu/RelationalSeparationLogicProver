@@ -1,4 +1,5 @@
 load implication-prover.maude
+load symbolic-execution.maude
 mod GOAL-GRAPH is 
 	protecting META-LEVEL .
 	protecting BOOL .
@@ -41,7 +42,8 @@ mod GOAL-GRAPH is
 		---if G := G1 .
 		if metaXmatch(upModule('PROVER-INTERFACE, false), 
 							upTerm(G1),
-							upTerm(G),
+							--- Try to reduce G as much as possible before
+							getTerm(metaRewrite(upModule('SYMBOLIC-EXECUTION, false), upTerm(G), unbounded)),
 							nil, 0, unbounded, 0) :: MatchPair .
 
 	eq anyMatches(G, G1 <> GL) = anyMatches(G, GL) [owise].

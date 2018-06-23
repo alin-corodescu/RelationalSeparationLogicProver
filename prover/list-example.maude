@@ -98,18 +98,18 @@ loop init .
 (SLapplyFrameRule ((c0 |-> -) * ((c0 plus 1) |-> c1) * (emp /\ c eqs c0)))
 ---(ok) --- should be a kind of axiom with auto matching
 (SLapplyFrameRule ( (y |-> x0) * ((c0 plus 1)|-> c1) ) )
-(ok) --- will be matched by axiom, need to interpret equals
+---(ok) --- working equals interpretation
 (SLapplyFrameRule ( (y |-> x0) *  (c0 |->(0 minus x0)) ) )
-(ok) --- interpret equals
+---(ok) --- interpret equals - working
 
 
 --- Second branch begin
 
 (SLapplySequencing ((c0 |-> (0 minus x0)) * ((c0 plus 1) |-> c1) * (xp eqs x0 /\ emp) * (emp /\ cp eqs c0)))
 (SLapplyFrameRule ( (c0 plus 1)|-> c1 ))
-(ok) --- interpret equals somehow
-(SLapplyFrameRule  ( emp /\ (xp eqs x0) ) )
-(ok) --- qeuals again, good example of store modification
+--- (ok) --- interpret equals somehow works
+(SLapplyFrameRule  ((emp /\ (xp eqs x0) ) * (c0 |->(0 minus x0))) )
+---(ok) --- qeuals again, good example of store modification
 
 (ok) --- part 2 List decomposition proof
 (ok) --- first consequence second implication  

@@ -40,7 +40,8 @@ mod HOARE-TRIPLE is
 
 	var P Q : Assertion .
 	vars X Y : Id .
-	var E : AExp .
+	vars E E1 E2 : AExp .
+	var C : Command .
 	eq replace(P * Q, X, Y) = replace(P, X, Y) * replace(Q, X , Y) .
 	eq replace(P /\ Q, X, Y) = replace(P, X, Y) /\ replace(Q, X , Y) .
 	eq replace(P \/ Q, X, Y) = replace(P, X, Y) \/ replace(Q, X , Y) .
@@ -57,4 +58,26 @@ mod HOARE-TRIPLE is
 	eq replace(X eqs E, X, Y) = Y eqs E .
 	eq replace(E eqs X, X, Y) = E eqs Y .
 	eq replace(B, X, Y) = B [owise] .
+
+	op replace : Command Id Id -> Command .
+	eq replace(E1 :=cons(E2), X, Y) = replace(E1, X, Y) :=cons(replace(E2, X, Y)) .
+	eq replace(E1 := [E], X, Y) = replace(E1, X, Y) := [replace(E, X, Y)] .
+	eq replace([E1] := E2, X, Y) = [replace(E1, X, Y)] := replace(E2, X, Y) .
+	eq replace(free(E1), X, Y) = free(replace(E1, X, Y)) .
+	eq replace(E1 := E, X, Y) = replace(E1, X, Y) := replace(E, X, Y) .	
+
+	eq replace(X, X, Y) = Y .
+	eq replace(C, X, Y) = C [owise] .		 
+
+	op replace : AExp Id Id -> AExp .
+	eq replace(X plus E, X, Y) = Y plus E .
+	eq replace(X times E, X, Y) = Y times E .
+	eq replace(X minus E, X, Y) = Y minus E .
+
+	eq replace(E plus X, X, Y) = E plus Y .
+	eq replace(E times X, X, Y) = E times Y .
+	eq replace(E minus X, X, Y) = E minus Y .
+	eq replace(E, X , Y) = E [owise] .
+
+
 endm

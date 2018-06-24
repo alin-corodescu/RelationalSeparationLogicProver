@@ -12,7 +12,7 @@ mod SYMBOLIC-EXECUTION is
 		if X1 =/= X then 
 		{replace(P, X, Y)} replace(X1 := E, X, Y) {replace(Q, X, Y)}
 		else 
-		{replace(P, X, Y)} X1 := E {Q}
+		{replace(P, X, Y)} X1 := replace(E, X, Y) {Q}
 		fi .
 
 
@@ -20,10 +20,10 @@ mod SYMBOLIC-EXECUTION is
 		if X1 =/= X then 
 		{replace(P, X, Y)} replace(X1 := [E], X, Y) {replace(Q, X, Y)}
 		else 
-		{replace(P, X, Y)} X1 := [E] {Q}
+		{replace(P, X, Y)} X1 := [replace(E, X, Y)] {Q}
 		fi .
 
-	rl {P * (emp /\ X eqs Y)} E1 := [E2] {Q} => {replace(P, X, Y)} replace(E1 := [E2], X, Y) {replace(Q, X, Y)} .
+	rl {P * (emp /\ X eqs Y)} [E1] := E2 {Q} => {replace(P, X, Y)} replace([E1] := E2, X, Y) {replace(Q, X, Y)} .
 
 	rl {P * (emp /\ X eqs Y)} free(E) {Q} => {replace(P, X, Y)} replace(free(E), X, Y) {replace(Q, X, Y)} .
 
@@ -31,7 +31,7 @@ mod SYMBOLIC-EXECUTION is
 		if X1 =/= X then 
 		{replace(P, X, Y)} replace(X1 :=cons(E), X, Y) {replace(Q, X, Y)}
 		else 
-		{replace(P, X, Y)} X1 :=cons(E) {Q}
+		{replace(P, X, Y)} X1 :=cons(replace(E, X, Y)) {Q}
 		fi .
 
 	rl P * (emp /\ E eqs E) => P .

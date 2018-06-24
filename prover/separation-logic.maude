@@ -46,7 +46,8 @@ mod HOARE-TRIPLE is
 	eq replace(P /\ Q, X, Y) = replace(P, X, Y) /\ replace(Q, X , Y) .
 	eq replace(P \/ Q, X, Y) = replace(P, X, Y) \/ replace(Q, X , Y) .
 	eq replace(emp, X, Y) = emp .
-
+	eq replace(E |-> E2, X, Y) = replace(E, X, Y) |-> replace(E2, X, Y) .
+	
 	eq replace(P, X, Y) = P [owise] .
 	--- replace x with y
 	--- to do, replace it inside a boolean expression

@@ -23,6 +23,24 @@ mod IMPLICATION-PROVER is
 
 	rl ( (R * (Emp /\ X eqs Y)) => S) => ((replace(R, X, Y) => replace(S, X, Y))) .
 
+	--- Begining List(c) related transformations 
+	rl X eqs Y => Y eqs X . 
+
+	rl R /\ S => R .
+
+	rl R /\ S => S .
+
+	--- this is a one way transformation only
+	---rl (R * List(X) => S ) => (R * Same => S) .
+	rl List(X) => Same .
+
+	rl R * (Emp /\ X eqs Y) => replace(R, X , Y) . 
+
+	rl [ (X |-> E) * ((X plus 1) |-> Y) ; (X |-> E) * ((X plus 1) |-> Y) ] * List(Y) => List(X) .
+
+	rl X eqs null => List(X) .
+
+
 
 
 	rl R * false => false .

@@ -21,3 +21,27 @@ x := [y]
 ( Same *  List(c1) *  ( Emp /\ y eqs yp ) *  [emp ; yp |-> x0] * [ ( emp /\ c eqs c0 ) *  (y |-> x0) *  (
     c0 |-> _:AExp) * (c0 plus 1)|-> c1    ;  ( emp /\ xp eqs x0 ) *  ( emp /\ cp eqs c0 ) *  (c0 |->
     _:AExp) * (c0 plus 1)|-> c1   ]    )
+
+
+( ! !(c eqs null) /\  Same *  List(c) *  ( Emp /\ y eqs yp ) *  ( Emp /\ xp eqs x0 ) *  ( Emp /\ c eqs cp ) * [y |-> x0 ; yp |-> x0]) => ( Same *  ( Emp /\ y eqs yp ) * ( Emp /\ c eqs cp )  )
+
+
+search [1, 10] in IMPLICATION-PROVER : ( ! !(c eqs null) /\  Same *  List(c) *  ( Emp /\ y eqs yp ) *  ( Emp /\ xp eqs x0 ) *  ( Emp /\ c eqs cp ) * [y |-> x0 ; yp |-> x0]) => ( Same *  ( Emp /\ y eqs yp ) * ( Emp /\ c eqs cp )  ) =>* true .
+
+
+--- This is goal 2
+( Same *  List(c1) *  ( Emp /\ y eqs yp ) *  [emp ; yp |-> x0] * [ ( emp /\ c eqs c1 ) *  (y |-> x0) *  (
+    c0 |->(0 minus x0)) * (c0 plus 1)|-> c1    ;  ( emp /\ xp eqs x0 ) *  ( emp /\ cp eqs c1 ) *  (c0
+    |->(0 minus x0)) * (c0 plus 1)|-> c1   ]    )
+=>
+( Same *  List(c) *  ( Emp /\ y eqs yp ) *  ( Emp /\ xp eqs x0 ) *  ( Emp /\ c eqs cp ) * [y |-> x0 ; yp
+    |-> x0]     )
+
+
+--- G1
+( !(c eqs null) /\  Same *  List(c) *  ( Emp /\ y eqs yp ) *  ( Emp /\ xp eqs x0 ) *  ( Emp /\ c eqs cp )
+    * [y |-> x0 ; yp |-> x0]      )
+=>
+( Same *  List(c1) *  ( Emp /\ y eqs yp ) *  [emp ; yp |-> x0] * [ ( emp /\ c eqs c0 ) *  (y |-> x0) *  (
+    c0 |-> _:AExp) * (c0 plus 1)|-> c1    ;  ( emp /\ xp eqs x0 ) *  ( emp /\ cp eqs c0 ) *  (c0 |->
+    _:AExp) * (c0 plus 1)|-> c1   ]    )

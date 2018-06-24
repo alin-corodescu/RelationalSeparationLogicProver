@@ -14,3 +14,10 @@
 x := [y]
 { ( emp /\ x eqs x0 ) * y |-> x0 }
 
+
+( !(c eqs null) /\  Same *  List(c) *  ( Emp /\ y eqs yp ) *  ( Emp /\ xp eqs x0 ) *  ( Emp /\ c eqs cp )
+    * [y |-> x0 ; yp |-> x0]      )
+=>
+( Same *  List(c1) *  ( Emp /\ y eqs yp ) *  [emp ; yp |-> x0] * [ ( emp /\ c eqs c0 ) *  (y |-> x0) *  (
+    c0 |-> _:AExp) * (c0 plus 1)|-> c1    ;  ( emp /\ xp eqs x0 ) *  ( emp /\ cp eqs c0 ) *  (c0 |->
+    _:AExp) * (c0 plus 1)|-> c1   ]    )

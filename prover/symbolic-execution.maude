@@ -2,13 +2,37 @@ mod SYMBOLIC-EXECUTION is
 	protecting HOARE-QUADRUPLE . 
 
 	var P Q : Assertion .
-	vars X Y : Id .
+	vars X Y X1 : Id .
 	vars E E1 E2 : AExp .
 	var C : Command .
 	vars B B1 B2 : BExp .
 
 
-	rl {P * (emp /\ X eqs Y)} C {Q} => {replace(P, X, Y)} replace(C, X, Y) {replace(Q, X, Y)} .
+	rl {P * (emp /\ X eqs Y)} X1 := E {Q} =>  
+		if X1 =/= X then 
+		{replace(P, X, Y)} replace(X1 := E, X, Y) {replace(Q, X, Y)}
+		else 
+		{replace(P, X, Y)} X1 := E {Q}
+		fi .
+
+
+	rl {P * (emp /\ X eqs Y)} X1 := [E] {Q} => 
+		if X1 =/= X then 
+		{replace(P, X, Y)} replace(X1 := [E], X, Y) {replace(Q, X, Y)}
+		else 
+		{replace(P, X, Y)} X1 := [E] {Q}
+		fi .
+
+	rl {P * (emp /\ X eqs Y)} E1 := [E2] {Q} => {replace(P, X, Y)} replace(E1 := [E2], X, Y) {replace(Q, X, Y)} .
+
+	rl {P * (emp /\ X eqs Y)} free(E) {Q} => {replace(P, X, Y)} replace(free(E), X, Y) {replace(Q, X, Y)} .
+
+	rl {P * (emp /\ X eqs Y)} X1 :=cons(E) {Q} => 
+		if X1 =/= X then 
+		{replace(P, X, Y)} replace(X1 :=cons(E), X, Y) {replace(Q, X, Y)}
+		else 
+		{replace(P, X, Y)} X1 :=cons(E) {Q}
+		fi .
 
 	rl P * (emp /\ E eqs E) => P .
 endm

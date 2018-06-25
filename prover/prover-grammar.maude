@@ -1,7 +1,7 @@
 load goal-graph.maude
 
 mod PROVER-GRAMMAR is
-	protecting NAT .
+	protecting INT .
 	including GOAL-GRAPH . 
 
 	--- Sort representing actions on the goals.
@@ -35,6 +35,8 @@ mod PROVER-GRAMMAR is
 
 	--- Action used to mark a goal as proven
 	op ok : -> Action .
+
+	op auto_ : Int -> Action . 
 
 	op stop : -> Action .
 

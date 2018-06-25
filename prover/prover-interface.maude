@@ -94,7 +94,19 @@ mod PROVER-INTERFACE is
 			--- The goal could not be proven using the implication prover (Goal might not be an implication or we simply couldn't)
 			< noAction ; RG ; G ; GS ; GL ; 'didn't '  'auto '\n > 
 		fi
-		if Tr:[Trace?] := tryImplicationProving(G) .  
+		if Tr:[Trace?] := tryImplicationProving(G, 3) .  
+
+
+	crl [higherDepthImplicationProver] : < auto Depth:Int ; RG ; G ; GS ; GL ; nil > 
+		=> 
+		if Tr:[Trace?] :: Trace then 
+			< noAction ; RG ; noGoal ; GS ; GL ; metaPrettyPrint(upModule('PROVER-INTERFACE, false), upTerm(G)) '  'auto-proved '\n 
+									'using ': '\n metaPrettyPrint(upModule('IMPLICATION-PROVER, false), upTerm(Tr:[Trace?])) '\n > 
+		else 
+			--- The goal could not be proven using the implication prover (Goal might not be an implication or we simply couldn't)
+			< noAction ; RG ; G ; GS ; GL ; 'didn't '  'auto '\n > 
+		fi
+		if Tr:[Trace?] := tryImplicationProving(G, Depth:Int) .  
 
 	rl [showCurrentGoal] : < showGoal ; RG ; G ; GS ; GL ; nil >
 		=>

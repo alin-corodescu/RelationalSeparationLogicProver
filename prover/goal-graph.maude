@@ -49,12 +49,12 @@ mod GOAL-GRAPH is
 	eq anyMatches(G, G1 <> GL) = anyMatches(G, GL) [owise].
 
 	
-	op tryImplicationProving : Goal -> Trace? .
+	op tryImplicationProving : Goal Int -> Trace? .
 
-	eq tryImplicationProving(RR => TT) = metaSearchPath(upModule('IMPLICATION-PROVER, false), 
+	eq tryImplicationProving(RR => TT, depth:Int) = metaSearchPath(upModule('IMPLICATION-PROVER, false), 
 							upTerm(RR => TT),
 							upTerm(true),
-							nil, '* , 3, 0) . 
+							nil, '* , depth:Int, 0) . 
 	
 
 endm

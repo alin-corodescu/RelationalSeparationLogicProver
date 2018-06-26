@@ -86,7 +86,7 @@ mod IMPLICATION-PROVER is
 	rl [ P ; (Q * (emp /\ E eqs E')) ] => [ P ; Q ] * (Emp /\ E eqs E') .
 	--- Here we switch from <=> to => 
 
-	rl Emp => Same .
+	rl ((R * Emp) => S) => ((R * Same) => S) .
 
 	rl Same * Same => Same .
 

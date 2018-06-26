@@ -42,7 +42,7 @@ mod GOAL-GRAPH is
 		---if G := G1 .
 		if metaXmatch(upModule('PROVER-INTERFACE, false), 
 							upTerm(G1),
-							--- Try to reduce G as much as possible before
+							--- Try to reduce G as much as possible before matching
 							getTerm(metaRewrite(upModule('SYMBOLIC-EXECUTION, false), upTerm(G), unbounded)),
 							nil, 0, unbounded, 0) :: MatchPair .
 

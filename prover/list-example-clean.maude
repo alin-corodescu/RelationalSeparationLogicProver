@@ -1,0 +1,77 @@
+load prover-interface.maude
+loop init .
+(prove(
+	{ 
+		((
+			Same 
+			*
+			List(c) 
+			*
+			[ y |-> x0 ; yp |-> x0 ]
+		) 
+		*
+		(y eqs yp /\ Emp))
+		*
+		(c eqs cp /\ Emp)
+	}
+	pass ; 
+	while (! (c eqs null))
+	do 
+		x := [y] ; 
+		[c] := 0 minus x ;
+		c := [c plus 1]
+	od
+	--
+	xp := [yp] ;
+	while (! (cp eqs null))
+	do 
+		[cp] := 0 minus xp ;
+		cp := [cp plus 1] 
+	od
+	{
+		(Same
+		*
+		(y eqs yp /\ Emp))
+		* 
+		(c eqs cp /\ Emp)
+	}
+	)
+)
+(applySequencing ( Same * List(c) * [ y |-> x0 ; yp |-> x0 ] * (y eqs yp /\ Emp) * (c eqs cp /\ Emp) * (xp eqs x0 /\ Emp) ) )
+(applyFrameRule (Same * List(c) * (y eqs yp /\ Emp) * (c eqs cp /\ Emp)) ) --- aici e interesant ca se face matching si dupa comutativitate
+(
+	applyConsequence
+	( [ (y |-> x0) ; (yp |-> x0) ] )
+	--
+	( [ (y |-> x0) ; ((yp |-> x0) * (xp eqs x0 /\ emp)) ] )
+)
+(applyEmbeddingRule)
+(
+	applyConsequence
+	( Same * List(c) * (y eqs yp /\ Emp) * (xp eqs x0 /\ Emp) * (c eqs cp /\ Emp) * [y |-> x0 ; yp |-> x0] )
+	--
+	( (Same * List(c) * (y eqs yp /\ Emp) * (xp eqs x0 /\ Emp) * (c eqs cp /\ Emp) * [y |-> x0 ; yp |-> x0]) /\ !(!(c eqs null)) ) --- R si not B
+)
+(applyLoop)
+(applyConsequence
+	([(c0 |-> -) * ((c0 plus 1) |-> c1) * (y |-> x0) * (c eqs c0 /\ emp) 
+		; (c0 |-> -) * ((c0 plus 1) |-> c1) * (xp eqs x0 /\ emp ) * (cp eqs c0 /\ emp) ] 
+		* List(c1) * Same * (y eqs yp /\ Emp) * [emp ; yp |-> x0])
+	--
+	([(c0 |-> (0 minus x0)) * ((c0 plus 1) |-> c1) * (y |-> x0) * (c eqs c1 /\ emp) 
+		; (c0 |-> (0 minus x0)) * ((c0 plus 1) |-> c1) * (xp eqs x0 /\ emp ) * (cp eqs c1 /\ emp) ]
+		* List(c1) * Same * (y eqs yp /\ Emp) * [emp ; yp |-> x0])
+)
+(ok) 
+(applyFrameRule (List(c1) * Same * (y eqs yp /\ Emp) * [emp ; yp |-> x0]))
+(applyEmbeddingRule)
+(SLapplySequencing ((c0 |-> (0 minus x0)) * ((c0 plus 1) |-> c1) * (y |-> x0) * (emp /\ c eqs c0)))
+(SLapplySequencing ((c0 |-> -) * ((c0 plus 1) |-> c1) * (y |-> x0) * (emp /\ c eqs c0) * (emp /\ x eqs x0)))
+(SLapplyFrameRule ((c0 |-> -) * ((c0 plus 1) |-> c1) * (emp /\ c eqs c0)))
+(SLapplyFrameRule ( (y |-> x0) * ((c0 plus 1)|-> c1) ) )
+(SLapplyFrameRule ( (y |-> x0) *  (c0 |->(0 minus x0)) ) )
+(SLapplySequencing ((c0 |-> (0 minus x0)) * ((c0 plus 1) |-> c1) * (xp eqs x0 /\ emp) * (emp /\ cp eqs c0)))
+(SLapplyFrameRule ( (c0 plus 1)|-> c1 ))
+(SLapplyFrameRule  ((emp /\ (xp eqs x0) ) * (c0 |->(0 minus x0))) )
+(ok)
+(auto 9)

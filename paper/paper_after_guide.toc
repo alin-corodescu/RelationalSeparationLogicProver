@@ -1,31 +1,29 @@
-\babel@toc {english}{}
-\contentsline {section}{\numberline {1}Introduction}{2}
-\contentsline {section}{\numberline {2}Contributions}{3}
-\contentsline {section}{\numberline {3}Description of the problem}{3}
-\contentsline {section}{\numberline {4}Previous work}{3}
-\contentsline {section}{\numberline {5}Theoretical Foundations and technologies}{4}
-\contentsline {subsection}{\numberline {5.1}Separation Logic}{4}
-\contentsline {subsection}{\numberline {5.2}Relational Separation Logic}{4}
-\contentsline {subsection}{\numberline {5.3}Maude}{5}
-\contentsline {section}{\numberline {6}Relational Separation Logic Interactive Prover}{5}
-\contentsline {subsection}{\numberline {6.1}Modelling the Separation Logics}{6}
-\contentsline {subsubsection}{\numberline {6.1.1}Sort Hierarchy}{7}
-\contentsline {subsection}{\numberline {6.2}Language Grammar and executable semantics}{8}
-\contentsline {subsubsection}{\numberline {6.2.1}Storage Model}{8}
-\contentsline {subsubsection}{\numberline {6.2.2}Syntax and Semantics of the language}{9}
-\contentsline {paragraph}{Semantics of the language}{9}
-\contentsline {paragraph}{Maude Modelling of the language}{10}
-\contentsline {paragraph}{Executable semantics of the language, in Maude}{11}
-\contentsline {subsection}{\numberline {6.3}Interaction by Maude LOOP-MODE}{11}
-\contentsline {subsection}{\numberline {6.4}State of the program}{11}
-\contentsline {subsection}{\numberline {6.5}Input and output handling}{12}
-\contentsline {subsection}{\numberline {6.6}Prover execution flow}{13}
-\contentsline {paragraph}{Goal Graph}{14}
-\contentsline {subsubsection}{\numberline {6.6.1}User Actions}{16}
-\contentsline {subsubsection}{\numberline {6.6.2}System Actions}{17}
-\contentsline {subsection}{\numberline {6.7}Automated processes}{18}
-\contentsline {subsubsection}{\numberline {6.7.1}Automatic matching of axioms and previously proven goals}{18}
-\contentsline {subsubsection}{\numberline {6.7.2}Automatic demonstration of implications}{19}
-\contentsline {paragraph}{Cyclist}{19}
-\contentsline {subsection}{\numberline {6.8}User Interface}{20}
-\contentsline {section}{\numberline {7}Conclusions}{21}
+\select@language {english}
+\contentsline {section}{\numberline {1}Contributions}{4}
+\contentsline {section}{\numberline {2}Description of the problem}{4}
+\contentsline {section}{\numberline {3}Previous work}{4}
+\contentsline {section}{\numberline {4}Theoretical Foundations and technologies}{5}
+\contentsline {subsection}{\numberline {4.1}Separation Logic}{5}
+\contentsline {subsection}{\numberline {4.2}Relational Separation Logic}{5}
+\contentsline {subsection}{\numberline {4.3}Maude}{6}
+\contentsline {section}{\numberline {5}Relational Separation Logic Interactive Prover}{6}
+\contentsline {subsection}{\numberline {5.1}Modelling the Separation Logics}{7}
+\contentsline {subsubsection}{\numberline {5.1.1}Sort Hierarchy}{8}
+\contentsline {subsection}{\numberline {5.2}Language Grammar and executable semantics}{9}
+\contentsline {subsubsection}{\numberline {5.2.1}Storage Model}{9}
+\contentsline {subsubsection}{\numberline {5.2.2}Syntax and Semantics of the language}{10}
+\contentsline {paragraph}{Semantics of the language}{10}
+\contentsline {paragraph}{Maude Modelling of the language}{11}
+\contentsline {paragraph}{Executable semantics of the language, in Maude}{12}
+\contentsline {subsection}{\numberline {5.3}Interaction by Maude LOOP-MODE}{12}
+\contentsline {subsection}{\numberline {5.4}State of the program}{12}
+\contentsline {subsection}{\numberline {5.5}Input and output handling}{13}
+\contentsline {subsection}{\numberline {5.6}Prover execution flow}{14}
+\contentsline {paragraph}{Goal Graph}{15}
+\contentsline {subsubsection}{\numberline {5.6.1}User Actions}{17}
+\contentsline {subsubsection}{\numberline {5.6.2}System Actions}{18}
+\contentsline {subsection}{\numberline {5.7}Automated processes}{19}
+\contentsline {subsubsection}{\numberline {5.7.1}Automatic matching of axioms and previously proven goals}{19}
+\contentsline {subsubsection}{\numberline {5.7.2}Automatic demonstration of implications}{20}
+\contentsline {paragraph}{Cyclist}{20}
+\contentsline {subsection}{\numberline {5.8}User Interface}{21}

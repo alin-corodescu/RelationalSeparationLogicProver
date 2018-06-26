@@ -20,6 +20,11 @@
 	\substack{{#2} \\ 	\let\scriptstyle\textstyle {#3}} 
 	\left\{{#4}\right\}
 }
+
+\newcommand{\stoptocwriting}{%
+	\addtocontents{toc}{\protect\setcounter{tocdepth}{-5}}}
+\newcommand{\resumetocwriting}{%
+	\addtocontents{toc}{\protect\setcounter{tocdepth}{\arabic{tocdepth}}}}
 \usepackage{color}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
@@ -69,10 +74,13 @@ ALEXANDRU IOAN CUZA UNIVERSITY OF IAȘI
 	\vspace{30mm}
 \end{center}
 \end{titlepage}
+\begin{abstract}
+	Lucrarea de fata descrie procesul de dezvoltare a unui utilitar interactiv utilizat in analiza formala a programelor, folosindu-se de Logica Separatoare Relationala \cite{relational} si Logica Separatoare \cite{primer} \cite{SeparationLogic}, utilizand Maude \cite{maudesite} drept cadru de dezvoltare. Componenta interactiva se imbina cu o componenta automatizata, prin care parti din demonstratie vor fi realizate automat. Lucrarea este orientata pe rezolvarea problemei prin intermediul functionalitatilor oferite de Maude si va include secvente de cod ce vor ilustra conceptele cheie in modelarea si aplicarea fundamentelor teoretice.
+\end{abstract}
+\pagebreak
 \tableofcontents
 \pagebreak
-
-\section{Introduction}
+\section*{Introduction}
 The present paper describes the development of an interactive tool for reasoning how to programs are related, based on studied and previously used theoretical concepts and technologies which facilitate the implementation. \\
 
 The tool represents an implementation of Hoare Logic - which allows formal reasoning about a program - , along  with 2 of its extensions, namely the Separation Logic (named Separation Logic from now on) and Relational Separation Logic \cite{relational} (named Relational Logic from now on). The 2 extensions simplify the Hoare Logic proofs, mainly using the "*" connector, allowing for local reasoning of effects of statements in a program . The tool has been implemented in Maude, a high performance logical framework with powerful metalanguage applications which facilitate the implementations of executable environments for logics.\\
@@ -87,7 +95,6 @@ The rest of the paper is organized as follows:
 	\item {\textbf{Section 4} will briefly touch upon the theoretical foundations of this project, together with the technologies used to implement them}
 	\item {\textbf{Section 5}, the main section of this paper, will present our approach to solving the problem, and discuss how it can be improved in the future. All the elements of our project will be presented in an individual sub-section}
 \end{itemize}
-
 \section{Contributions}
 Personal contributions to the realization of the project : 
 \begin{itemize}
@@ -493,8 +500,24 @@ if G =/= noGoal .
 All throughout the prover calls to \texttt{metaPrettyPrint} have been made in order to inform the user of what the prover is doing and how.
 \\
 
-For a more advanced user interface or to expose the prover's functionalities through a programming interface, a wrapper written in more feature-rich language through which to control the Maude environment is probably the best choice. The concept is exemplified the Maude plug-in for Eclipse, \cite{maudeEclipsePLugin} which enables writing of Maude code inside the Eclipse IDE, and the plug-in communicates with the underlying Maude environment. The project also includes a plug-in which allows any Java program to communicate with Maude.
-\section{Conclusions}
+For a more advanced user interface or to expose the prover's functionalities through a programming interface, a wrapper written in more feature-rich language through which to control the Maude environment is probably the best choice. The concept is exemplified by the Maude plug-in for Eclipse, \cite{maudeEclipsePLugin} which enables writing of Maude code inside the Eclipse IDE, and the plug-in communicates with the underlying Maude environment. The project also includes a plug-in which allows any Java program to communicate with Maude.
+\section*{Conclusions}
+The development of the Relational Separation Logic prover helped us get a deeper understating of it, along with an introduction to other theoretical concepts used in program analysis and programming language semantics, such as Separation Logic and Rewriting Logic.
+\\
+
+While the two Separation Logics used throughout the paper are powerful tools for analyzing the behavior of program and are relatively easy to understand, it takes time to become familiar with them and use the m at their full potential.
+\\
+
+The logics are better suited for studying small snippets of code and not entire programs, because the demonstration can get cumbersome and end up spending a lot of time on focusing on irrelevant parts of the program. 
+\\
+
+Maude has been interesting to work because it required an entirely different mindset than the other programming languages I was familiar with . Once getting grasping the concepts around Maude which was built, it was easy to come up with simple, clever solutions to the problems I was facing. As it is described on it's website \cite{maudesite}, Maude is a powerful logical framework which allows modeling of other logics in it; it proved to be exactly that, enabling us to represent the logics in a natural manner, which made the implementation much less error-prone and allowed us to focus on the relevant part of this project, namely how to apply the logics instead of focusing on how to properly implement them.
+\\
+
+While being a powerful and interesting language to work with, being a fairly specialized and not very widespread, guidance and help are limited to the manual \cite{maudeprimer} and \cite{manual}. This obstacle resulted in significant time spent on searching for solutions to otherwise trivial problems, especially when starting using the language, because the source of the problem is usually unclear to a beginner. 
+\\
+
+Overall, this whole project has been an interesting introduction to both  theoretical concepts regarding program analysis and new, different technologies. The mix of the two resulted in the built prover, which could be improved in the future with the features discussed throughout the chapters and others to easily accommodate real-world usage. 
 
 \pagebreak
 \bibliographystyle{unsrt}

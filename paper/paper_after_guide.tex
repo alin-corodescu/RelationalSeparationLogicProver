@@ -81,11 +81,11 @@ ALEXANDRU IOAN CUZA UNIVERSITY OF IAȘI
 \tableofcontents
 \pagebreak
 \section*{Introduction}
-The present paper describes the development of an interactive tool for reasoning how to programs are related, based on studied and previously used theoretical concepts and technologies which facilitate the implementation. \\
+The present paper describes the development of an interactive tool for reasoning how two programs are related, based theoretical concepts from the field of formal program analysis and technologies which facilitate the implementation of those concepts. \\
 
-The tool represents an implementation of Hoare Logic - which allows formal reasoning about a program - , along  with 2 of its extensions, namely the Separation Logic (named Separation Logic from now on) and Relational Separation Logic \cite{relational} (named Relational Logic from now on). The 2 extensions simplify the Hoare Logic proofs, mainly using the "*" connector, allowing for local reasoning of effects of statements in a program . The tool has been implemented in Maude, a high performance logical framework with powerful metalanguage applications which facilitate the implementations of executable environments for logics.\\
+The tool represents an implementation of Hoare Logic - which allows formal reasoning about a program - along  with 2 of its extensions, namely the Separation Logic and Relational Separation Logic \cite{relational}. The 2 extensions simplify the Hoare Logic proofs, mainly using the "*" connector, allowing for local reasoning about the effects of statements in a program . The tool has been implemented in Maude, a high performance logical framework with powerful metalanguage applications which facilitate the implementations of executable environments for logics.\\
 
-The tool is built as a CLI which helps \cite{primer} \cite{SeparationLogic} \cite{JAVAITP} \cite{REWRITING} \cite{maudeprimer} \cite{manual} \cite{rewrConcurrency} \cite{cyclist} with reasoning how two programs are related using Relational Separation Logic specifications. As a consequence of the dependency of Relational Separation Logic on Separation Logic, proofs about single programs using the latter are also supported by the tool. The tool has been developed with extensibility in mind, the main desired extensions being concurrent programs support and automatic proofs. \\
+The tool is built as a CLI which helps with reasoning how two programs are related using Relational Separation Logic specifications. As a consequence of the dependency of Relational Separation Logic on Separation Logic, proofs about single programs using the latter are also supported by the tool. The tool has been developed with extensibility in mind, the main desired extensions being concurrent programs support and automatic proofs. \\
 
 The rest of the paper is organized as follows: 
 \begin{itemize}
@@ -93,15 +93,16 @@ The rest of the paper is organized as follows:
 	\item {\textbf{Section 2} will present the problem this project aims to solve}
 	\item {\textbf{Section 3} will shortly present some other projects related to ours}
 	\item {\textbf{Section 4} will briefly touch upon the theoretical foundations of this project, together with the technologies used to implement them}
-	\item {\textbf{Section 5}, the main section of this paper, will present our approach to solving the problem, and discuss how it can be improved in the future. All the elements of our project will be presented in an individual sub-section}
+	\item {\textbf{Section 5}, the main section of this paper, will present our approach to solving the problem, and discuss how it can be improved in the future.}
 \end{itemize}
+\pagebreak
 \section{Contributions}
 Personal contributions to the realization of the project : 
 \begin{itemize}
 	\item Modelled the Relational Logic and Separation Logic using Maude equational and rewriting logic specifications . 
 	\item Developed an interactive tool for reasoning about program behaviour using the aforementioned logics.
-	\item Automation of some tasks which makes the tool more convenient to use .
-	\item Examples of formal proofs done using the tool
+	\item Automation of tasks, which makes the tool more convenient to use .
+	\item Example of formal proof done using the tool \textbf{need annex}
 \end{itemize}
 \section{Description of the problem}
 The problem this project is aiming to solve is related to formal reasoning about the execution of code, mainly focusing on how two programs are related to each other (most often the relation to be proven is equivalence)\\
@@ -113,7 +114,10 @@ This project aims to lay the foundations of a tool which facilitates formal reas
 \section{Previous work}
 Previous work related to the topic has been done mostly in terms of Separation Logic based tools, with Relational Separation Logic not being treated as much. \\
 
-A notable example which also uses the same framework as this project, namely Maude, is the Java+ITP\cite{JAVAITP} tool, which enables analysis of Java programs using Separation Logic. The implementation relies heavily on Maude's ITP (iterative theorem prover).
+A notable example which also uses the same framework as this project, namely Maude, is the Java+ITP\cite{JAVAITP} tool, which enables analysis of Java programs using Separation Logic. The implementation relies heavily on Maude's ITP (inductive theorem prover).
+\\
+
+Several other tools are presented or referenced in \cite{primer} .
 
 \section{Theoretical Foundations and technologies}
 This section will briefly introduce the concepts on which the project is based, together with the technologies used to implement it, along with a few references to resources which explain them in depth.
@@ -152,7 +156,72 @@ This section will include details related to the implementation and usage of the
 The information presented in this section assumes the reader's familiarity with Maude, especially the META-LEVEL module and with the underlying theoretical concepts implemented by the prover (Separation Logic and Relational Separation Logic). References for these can be found in the previous section.
 \\
 
-This section will include snippets of Maude code, but since Maude is a very expressive and self-explanatory language, I have not included of thorough presentation of every language construct defined for the scope of this project. Ideas presented will be accompanied by some examples and key ideas of the implementation but for a more detailed presentation, please refer to the code itself.
+This section will include snippets of Maude code, but since Maude is a very expressive and self-explanatory language, I have not included of thorough presentation of every language construct defined for the scope of this project. Ideas presented will be accompanied by some examples and key parts of the implementation but for a more detailed presentation, please refer to the code itself.
+\subsection{Language Grammar and executable semantics}
+The prover supports expressing programs in a simple, imperative language, commonly used throughout papers  \cite{primer} \cite{SeparationLogic} related to the subject of program verification, including the one describing Relational Separation Logic \cite{relational}, around  which this project is based. 
+\subsubsection{Storage Model}
+A state of in our storage model is defined by a pair consisting of a \(Store\) and a \(Heap\) .
+\\
+Assuming that all the variables usable in programs from the set \(\mathtt{Vars}\) and the set of positive natural numbers is denoted by \(\mathtt{PosNats}\): \\
+
+A \(Store\) is defined as:
+\[ \mathtt{S} : \mathtt{Vars} \rightarrow \mathtt{PosNats} \]
+
+A \(Heap\) represents a mapping from the \(\mathtt{PosNats}\) to \(\mathtt{Integers}\)
+\[ \mathtt{H} : \mathtt{PosNats} \rightarrow \mathtt{Integers} \] 
+More informally, the \(Store\) holds the value of the variables while the \(Heap\) maps the active memory cells during a program execution to their contents.
+\subsubsection{Syntax and Semantics of the language}
+\begin{figure}[h]
+	\noindent\rule{\linewidth}{0.4pt}
+	\begin{tabularx}{\linewidth}{l  X}
+		Integer Expressions& \(E ::= x \mid Integer \mid E\ \mathtt{plus}\ E \mid E\ \mathtt{times}\ E \mid E\ \mathtt{minus}\ E \) \\
+		\\
+		Boolean Expressions& \(B ::= false \mid true \mid B\ \mathtt{\&\&}\ B \mid  B\ ||\ B \mid B\  \mathtt{->}\ B \mid B \mathtt{<=>} B \mid \ ! B \mid E\ \mathtt{ge}\ E \mid E\ \mathtt{le}\ E \mid E\ \mathtt{eqs}\ E \)\\
+		\\ 	
+		Commands& \(C ::= x := alloc(E) \mid x := [E] \mid [E] := E \mid free(E) \mid x := E \mid C;C \mid if\ B\ then\ C\ else\ C \mid while\ B\ do\ C\ od \) \\
+	\end{tabularx}
+	\caption{Syntax of the language}
+	\label{fig:langSyntax}
+	\noindent\rule{\linewidth}{0.4pt}
+\end{figure}
+The syntax of the language is presented in Figure \ref{fig:langSyntax} . It represents an adapted subset of the language presented in the Relational Separation Logic paper \cite{relational} . 
+\paragraph{Semantics of the language}
+{
+	The semantics of the previously defined language are standard, but a few clarifications are necessary to point out how our language constructs interact with the storage model, as well as a few differences from regular programming languages:
+	\begin{itemize}
+		\item{Verbosity of operators - most operators are replaced by their literal names ( \(+\) becomes \(\mathtt{plus}\) etc.); we have opted for this approach to avoid complication when implementing the language in Maude, because most of the operators are already defined in Maude for its built-in types, and overloading them could cause conflicts since we are basing our own defined types on Maude's primitives.}
+		\subitem{\( B\ \mathtt{ge}\ B\) translates to the usual \(>=\) operator}
+		\subitem{\( B\ \mathtt{le}\ B\) translates to the usual \(<=\) operator}
+		\subitem{\( B\ \mathtt{eqs}\ B\) translates to the usual \(==\) equality comparison operator}
+		\subitem{\( B\ \mathtt{->}\ B\) denotes implication between boolean expressions}
+		\subitem{\(B\ \mathtt{<=>}\ B\) denotes equivalence between boolean expressions}
+		\subitem{The rest of the operators are mostly similar to their C++ or Java counterparts and their semantics are self explanatory}
+		\item{Memory allocation / deallocation: }
+		\subitem{\(x := alloc(E)\) allocates a new cell in the memory, initializes it with the value of \(E\) and stores its address in the variable \(x\)}
+		\subitem{\(x := free(E)\) deallocates the cell at the address equal to the value of \(E\)}
+		\item{Working with variables and memory: }
+		\subitem{\( x := [E] \) reads the contents of the memory cell at address \(E\) and stores the value in the variable \(x\)}
+		\subitem{\( [E] := E\prime \) updates the contents of the memory cell at address \(E\) with the value of the expression \(E\prime\)}
+		\subitem{\( x := E \) updates the value of the variable \(x\) with the value of the expression \(E\) - note that this command does not modify the heap in any way, as it usually happens with regular programming languages when updating the value of a variable}
+	\end{itemize}
+	\paragraph{Maude Modelling of the language}
+	Maude makes the representation of programming languages grammar a straight forward and natural process, by defining sorts corresponding to language elements and their associated operators. The sorts defined in Maude for the grammar are the following : 
+	\begin{itemize}
+		\item \texttt{AExp} - abbreviation for Arithmetic Expression - equivalent for Integer expressions in the specification. To capture the first two possible forms of Integer expressions in Figure \ref{fig:langSyntax}, the AExp sort is a super sort of \texttt{Int} of \texttt{INT} standard module and \texttt{Id}, which is the sort defined for variables.
+		\item \texttt{BExp} - abbreviation for Boolean Expressions - equivalent for the Boolean Expressions type in the specification. It is a super sort of \texttt{Bool} of standard module \texttt{BOOL}. 
+		\item \texttt{Command} sort maintains the same name as in the specification.
+	\end{itemize}
+	An example of operator translation from specification to Maude code is presented in Listing \ref{code:languageGrammer}. Note that we have opted to skip the attributes associated with the operators, as they are irrelevant for the purpose of this example.
+	\\
+	
+	\begin{lstlisting}[label=code:languageGrammer,caption=Example of operator translation to Maude code]
+	op while_do_od : BExp Command -> Command [...].
+	op _:=_ : Id AExp -> Command [...]. 
+	\end{lstlisting}
+	
+	\paragraph{Executable semantics of the language, in Maude}
+	Maude also supports specifying executable semantics for the language using rewriting logic \cite{rewrConcurrency}. A proof of concept for a language similar to the one used by the prover is present in the code of the project, but it is out of scope for the presentation of the prover \textbf{Need reference to the final file name}. An executable environment for the programming language used in the prover is a valid candidate for future improvements.
+
  
 \subsection{Modelling the Separation Logics}
 Thanks to Maude's ability to naturally represent logics, the modelling of the Separation Logic and Relational Separation Logic is mostly reduced to translating the logical formulae into appropriate syntax for Maude, making the representational distance (the amount of information lost when representing a theoretical concept into a programming language)\cite{manual} almost non existent. \\
@@ -165,7 +234,7 @@ The prover is centered around the concept of \textbf{Goals} which can be one of 
 	\item {Hoare Triple} - corresponding to Separation Logic
 	\item {Implication between relations / assertions} 
 \end{itemize} 
-The proof rules are interpreted in a bottom-up manner, meaning that applying a rule to a goal matching the conclusion of a rule will generate new goals consisting of the hypothesis elements of the rule : Figure \ref{fig:SLTranslation} presents how a Separation Logic rule has been translated into Maude syntax and Figure \ref{fig:RSLTranslation} presents the same process for the Relational Separation Logic counterpart of the rule.
+The proof rules are interpreted in a bottom-up manner, meaning that, applying a rule to a goal, which must match the conclusion of the used rule, will generate new goals consisting of the hypothesis: Figure \ref{fig:SLTranslation} presents how a Separation Logic rule has been translated into Maude syntax and Figure \ref{fig:RSLTranslation} presents the same process for the Relational Separation Logic counterpart of the rule.
 \begin{figure}[h]
 	Consequence Rule
 	\medskip
@@ -218,79 +287,18 @@ Much in the same manner as we modeled the language grammar, the Relational Separ
 op {_}_{_} : Assertion Command Assertion -> HoareTriple .\end{lstlisting}
 	\item \texttt{Relation} is the sort associated with Relational Separation Logic relations. As it was the case with \texttt{Assertion}, it is a super sort of the \texttt{BExp} sort of our language grammar. Because both the \texttt{Relation} and \texttt{Assertion} are super sorts of the same sort, Maude will display a few warnings which are not affecting functionality, but in the future, creating a separate \texttt{BExp} sort for both the \texttt{Assertion} and \texttt{Relation} sorts would be a better option.
 	\item \texttt{HoareQuadruple} is again associated with the concept with the same name, in the Relational Separation Logic context.
+	\begin{figure}[h]
 	\begin{lstlisting}[caption=Examples of Relational Separation Logic specific constructs]
 --- Operator which creates a relation from two assertions
 op [_;_] : Assertion Assertion -> Relation .
 --- Operator which constructs a Hoare Quadruple 
 op {_}_--_{_} : Relation Command Command Relation -> HoareQuadruple .\end{lstlisting}
+	\end{figure}
 \end{itemize}
-The other operators defined for the Assertion and Relation languages have been in the same manner as the programming language operators, following their presentation in \cite{relational}. For a full reference, please refer to the code accompanying this paper.
-\subsection{Language Grammar and executable semantics}
-The prover supports expressing programs in a simple, imperative language, commonly used throughout papers \cite{SeparationLogic} \cite{primer} related to the subject of program verification, including the one describing Relational Separation Logic \cite{relational}, around  which this project is based. 
-\subsubsection{Storage Model}
-A state of in our storage model is defined by a pair consisting of a \(Store\) and a \(Heap\) .
-\\
-Assuming that all the variables usable in programs from the set \(\mathtt{Vars}\) and the set of positive natural numbers is denoted by \(\mathtt{PosNats}\): \\
+The other operators for the Assertion and Relation languages have been defined in the same manner as the programming language operators, following their presentation in \cite{relational}.
 
-A \(Store\) is defined as:
-\[ \mathtt{S} : \mathtt{Vars} \rightarrow \mathtt{PosNats} \]
-
-A \(Heap\) represents a mapping from the \(\mathtt{PosNats}\) to \(\mathtt{Integers}\)
-\[ \mathtt{H} : \mathtt{PosNats} \rightarrow \mathtt{Integers} \] 
-More informally, the \(Store\) holds the value of the variables while the \(Heap\) maps the active memory cells during a program execution to their contents.
-\subsubsection{Syntax and Semantics of the language}
-\begin{figure}[h]
-	\noindent\rule{\linewidth}{0.4pt}
-	\begin{tabularx}{\linewidth}{l  X}
-		Integer Expressions& \(E ::= x \mid Integer \mid E\ \mathtt{plus}\ E \mid E\ \mathtt{times}\ E \mid E\ \mathtt{minus}\ E \) \\
-		\\
-		Boolean Expressions& \(B ::= false \mid true \mid B\ \mathtt{\&\&}\ B \mid  B\ ||\ B \mid B\  \mathtt{->}\ B \mid B \mathtt{<=>} B \mid \ ! B \mid E\ \mathtt{ge}\ E \mid E\ \mathtt{le}\ E \mid E\ \mathtt{eqs}\ E \)\\
-		\\ 	
-		Commands& \(C ::= x := alloc(E) \mid x := [E] \mid [E] := E \mid free(E) \mid x := E \mid C;C \mid if\ B\ then\ C\ else\ C \mid while\ B\ do\ C\ od \) \\
-	\end{tabularx}
-	\caption{Syntax of the language}
-	\label{fig:langSyntax}
-	\noindent\rule{\linewidth}{0.4pt}
-\end{figure}
-The syntax of the language is presented in Figure \ref{fig:langSyntax} . It represents an adapted subset of the language presented in the Relational Separation Logic paper \cite{relational} . 
-\paragraph{Semantics of the language}
-{
-	The semantics of the previously defined language are standard but a few clarifications are necessary to point out how our language constructs interact with the storage model, as well as a few differences from regular programming languages:
-	\begin{itemize}
-		\item{Verbosity of operators - most operators are replaced by their literal names ( \(+\) becomes \(\mathtt{plus}\) etc.); we have opted for this approach to avoid complication when implementing the language in Maude, because most of the operators are already defined in Maude for its built-in types, and overloading them could cause conflicts since we are basing our own defined types on Maude's primitives.}
-		\subitem{\( B\ \mathtt{ge}\ B\) translates to the usual \(>=\) operator}
-		\subitem{\( B\ \mathtt{le}\ B\) translates to the usual \(<=\) operator}
-		\subitem{\( B\ \mathtt{eqs}\ B\) translates to the usual \(==\) equality comparison operator}
-		\subitem{\( B\ \mathtt{->}\ B\) denotes implication between boolean expressions}
-		\subitem{\(B\ \mathtt{<=>}\ B\) denotes equivalence between boolean expressions}
-		\subitem{The rest of the operators are mostly similar to their C++ or Java counterparts and their semantics are self explanatory}
-		\item{Memory allocation / deallocation: }
-		\subitem{\(x := alloc(E)\) allocates a new cell in the memory, initializes it with the value of \(E\) and stores its address in the variable \(x\)}
-		\subitem{\(x := free(E)\) deallocates the cell at the address equal to the value of \(E\)}
-		\item{Working with variables and memory: }
-		\subitem{\( x := [E] \) reads the contents of the memory cell at address \(E\) and stores the value in the variable \(x\)}
-		\subitem{\( [E] := E\prime \) updates the contents of the memory cell at address \(E\) with the value of the expression \(E\prime\)}
-		\subitem{\( x := E \) updates the value of the variable \(x\) with the value of the expression \(E\) - note that this command does not modify the heap in any way, as it usually happens with regular programming languages when updating the value of a variable}
-	\end{itemize}
-\paragraph{Maude Modelling of the language}
-Maude makes the representation of programming languages grammar a straight forward and natural process, by defining sorts corresponding to language elements and their associated operators. The sorts defined in Maude for the grammar are the following : 
-\begin{itemize}
-	\item \texttt{AExp} - abbreviation for Arithmetic Expression - equivalent for Integer expressions in the specification. To capture the first two possible forms of Integer expressions in Figure \ref{fig:langSyntax}, the AExp sort is a super sort of \texttt{Int} of \texttt{INT} standard module and \texttt{Id}, which is the sort defined for variables.
-	\item \texttt{BExp} - abbreviation for Boolean Expressions - equivalent for the Boolean Expressions type in the specification. It is a super sort of \texttt{Bool} of standard module \texttt{BOOL}. 
-	\item \texttt{Command} sort maintains the same name as in the specification.
-\end{itemize}
-An example of operator translation from specification to Maude code is presented in Listing \ref{code:languageGrammer}. Note that we have opted to skip the attributes associated with the operators, as they are irrelevant for the purpose of this example.
-\\
-
-\begin{lstlisting}[label=code:languageGrammer,caption=Example of operator translation to Maude code]
-	op while_do_od : BExp Command -> Command [...].
-	op _:=_ : Id AExp -> Command [...]. 
-\end{lstlisting}
-
-\paragraph{Executable semantics of the language, in Maude}
-Maude also supports specifying executable semantics for the language using rewriting logic \cite{rewrConcurrency}. A proof of concept for a language similar to the one used by the prover is present in the code of the project, but it is out of scope for the presentation of the prover \textbf{Need reference to the final file name}. An executable environment for the programming language used in the prover is a valid candidate for future improvements.
 \subsection{Interaction by Maude LOOP-MODE}
-Maude's LOOP-MODE module is the entry point for any interactive Maude application, being the only way to store state between commands. In this chapter we will discuss how we handle input and output , the structure of a state and the role every element plays in the execution of the prover.\\
+Maude's LOOP-MODE module is the entry point for any interactive Maude application, being the only way to store a state between commands. In this chapter we will discuss how we handle input and output , the structure of a state and the role every element plays in the execution of the prover.\\
 
 We will make a distinction between \textbf{Loop state}, which specific to Maude's LOOP-MODE module and the \textbf{Prover state} which is specific to our use-case, and holds the necessary data related to the state of the proof we are currently working on. The \textbf{Prover state} is encapsulated within \textbf{Loop state}.
 \begin{figure}[h]
@@ -304,14 +312,14 @@ We will make a distinction between \textbf{Loop state}, which specific to Maude'
 	\noindent\rule{\linewidth}{0.4pt}
 \end{figure}
 \subsection{State of the program}
-Following the examples provided together with the Maude Manual \cite{manual}, our state (Figure \ref{fig:ProverState}) is composed multiple sections modified accordingly during program execution .
+Following the examples provided together with the Maude Manual \cite{manual}, our state (Figure \ref{fig:ProverState}) is composed multiple sections modified accordingly during program execution:
 \begin{itemize}
 	\item{\textbf{Action} - represents the current action to be executed by the prover, more details about supported actions are included in the following sections.}
 	\item{\textbf{Root Goal} - represents the end-goal of this demonstration}
 	\item{\textbf{Current Goal} - the goal being treated currently - all actions will be applied to this goal}
 	\item{\textbf{Goal Stack} - Stack of goals necessary to be proven in order to prove the root goal. The current goal is the last element popped from the stack and new elements are generated and pushed by the application of proof rules to the current goal.}
 	\item{\textbf{Proven Goals} - List of goals which have been already been proven or axioms. Each goal will be first checked to see if it matches any goal in this list to prevent repeating the same proofs.}
-	\item{\textbf{Staging output} - contains the output generated by the current action, before being passed to the Loop state. This staging mechanism enables each action (user or system) to generate output independent of the other actions.}
+	\item{\textbf{Staging output} - contains the output generated by the current action, before being passed to the Loop state. This staging mechanism enables each rewriting rule to generate output independent of the others.}
 \end{itemize}
 \begin{figure}[h]
 	\noindent\rule{\linewidth}{0.4pt}
@@ -323,7 +331,7 @@ Following the examples provided together with the Maude Manual \cite{manual}, ou
 	\noindent\rule{\linewidth}{0.4pt}
 \end{figure}
 \subsection{Input and output handling}
-To understand how our prover handles input and output, it is important to note that the flows of the LOOP-MODE module is as follows: 
+To understand how our prover handles input and output, it is important to note that the flow of the LOOP-MODE module is as follows: 
 \begin{enumerate}
 	\item User input is placed in the \(\mathtt{INPUT}\) member of the loop state
 	\item Maude engine applies all the rewritings possible, resulting in a new loop state. 
@@ -363,14 +371,14 @@ In this section we will describe the flow of a demonstration made using our prov
 \\
 \begin{enumerate}
 	\item The user issues the command \texttt{loop init .} in the Maude console. This will initialize the loop state.
-	\item Now the user will have to specify the goal it wants to prove, by issuing the command \begin{center}(\texttt{prove} G)\end{center}, where G is the representation of the goal using the syntax defined for our logics. The command will populate the required fields of the prover state (\textbf{RootGoal}, \textbf{GoalStack}) with G.
+	\item Now the user will have to specify the goal it wants to prove, by issuing the command \begin{center}(\texttt{prove(G)})\end{center}, where G is the representation of the goal using the syntax defined for our logics. The command will populate the required fields of the prover state (\textbf{RootGoal}, \textbf{GoalStack}) with G.
 	\\
 	
 	This command will also populate the \textbf{ProvenGoals} list with axioms.
 	\\
 	
 	Please note that the command is enclosed within parentheses, this being a requirement of Maude LOOP-MODE \cite{manual}. All the prover specific commands need to be enclosed in parenthesis. The previous command, \texttt{loop init .} was not enclosed because it is a Maude specific command, not something we want to pass as input to our prover.
-	\item The next phase involves applying the logic proof rules to the goals in the \textbf{GoalStack} to generate sub-goals and prove them. Once a goal is popped from the \textbf{GoalStack}, it can be replaced by sub-goals generated by proof rules or, matched with an proven goal / axiom or be admitted manually. This phase lasts until there are no more goals left in the \textbf{GoalStack}, meaning that the \textbf{RootGoal} has been proven.
+	\item The next phase involves applying the logic proof rules to the goals in the \textbf{GoalStack} to generate sub-goals and prove them. Once a goal is popped from the \textbf{GoalStack}, it can be replaced by sub-goals generated by proof rules, matched with an proven goal / axiom, be proven automatically or be admitted manually. This phase lasts until there are no more goals left in the \textbf{GoalStack}, meaning that the \textbf{RootGoal} has been proven.
 \end{enumerate}
 \begin{figure}[h]
 	\includegraphics[width=\linewidth]{"pictures/Prover Flow".png}
@@ -399,11 +407,10 @@ User actions are the main entry point for user interaction and they describe how
 		else 
 		< noAction ; RG ; G ; GS ; GL ; 'error '  'consequence '  'rule '\n > 
 		fi 
-	if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false), upTerm(G), 'Consequence, 'R1:Relation <- upTerm(R1) ; 'S1:Relation <- upTerm(S1) , 0, unbounded, 0).
-		\end{lstlisting}
+	if SubGoals? := metaXapply(upModule('PROVER-INTERFACE, false), upTerm(G), 'Consequence, 'R1:Relation <- upTerm(R1) ; 'S1:Relation <- upTerm(S1) , 0, unbounded, 0).\end{lstlisting}
 		The example given in Listing \ref{userAction} illustrates all the core concepts involved in the application of proof rules to goals: 
 		\begin{itemize}
-			\item The rewrite rule is applied to a \textbf{Prover state} which has the Action field equal to \texttt{applyConsequence R1 -- S1}, where \texttt{R1} and \texttt{S1} are parameters to be passed to the proof rule
+			\item The rewrite rule is applied to a \textbf{Prover state} which has the Action field equal to \texttt{applyConsequence R1 --- S1}, where \texttt{R1} and \texttt{S1} are parameters to be passed to the proof rule
 			\item The Consequence rule is applied at a meta level, using the \texttt{metaXapply} operator [line 11] from the \texttt{META-LEVEL} module. To this operator we also pass the values of the parameters (in their meta representation) with which to bind variables appearing in the \texttt{Consequence} rule.
 			\item The result is then checked for errors to see if there were some errors when applying the \texttt{metaXapply} operator [line 8] or if the term returned is not actually of the required type [line 3].
 			\item If the result corresponds to what the prover was expecting, we modify the state by adding the newly generated goals to the \textbf{GoalStack}, by moving down the "meta"-hierarchy - parsing meta-representation of terms.
@@ -412,17 +419,17 @@ User actions are the main entry point for user interaction and they describe how
 		All the other actions which control the application of proof rules are written in a similar manner.
 	\item {\(\mathtt{ok}\) action - admits the current goal}
 	\item {\(\mathtt{showGoal}\) action - prints the current goal to the console - it does not modify the state of the prover}
-	\item {\texttt{auto x}} action - instructs the prover to attempt to automatically prove an implication, search for a solution up to a depth of \texttt{x} rewrites
+	\item {\texttt{auto x}} action - instructs the prover to attempt to automatically prove an implication, by searching for a solution up to a depth of \texttt{x} rewrites. This command will do nothing if the current goal is not an implication. More details about the automated implication proving are included in the following section
 \end{itemize}
 \subsubsection{System Actions}
-System actions were implemented to mimic the behaviour of a "chain of responsibility" design pattern from object-oriented programming. The system actions are all applied in order before asking for user input. After an system action completes execution, it will decide the next action to be placed in the prover state. System actions are the main component through which our prover can be enriched with other features in the future, because integrating a new system action is simple. At the moment, the system actions are:
+System actions were implemented to mimic the behaviour of a "chain of responsibility" design pattern from object-oriented programming. The system actions are all applied in order before asking for user input. After a system action completes execution, it will decide the next action to be placed in the prover state. System actions are the main component through which our prover can be enriched with other features in the future. At the moment, the system actions are:
 \begin{itemize}
 	\item {\texttt{check}} - marks the current goal to be checked against previously proven goals or axioms
 	\item {\texttt{implication}} - marks the current goal to be run through the implication prover - in case the goal is an implication, try to prove it automatically
 	\item {\texttt{stop}} - when there are no more sub-goals to be proven, the prover should stop and indicate the success of proving the root goal
 \end{itemize}
 \subsection{Automated processes}
-This section will describe the functional parts of the prover which have been automated to make it more user-friendly and even prove sub-goals of the main demonstration by itself. Since the automation of the prover is part of the future goals of this project, we will also include a few notes on how we might approach problems related to this goal, even though they have not been implemented yet.
+This section will describe the functional parts of the prover which have been automated to make it more user-friendly and even prove sub-goals of the main demonstration by itself.
 \subsubsection{Variable substitution}
 In both sections describing automated processes we will interpret the equality operator between variables and replace, textually, one variable with the other in \texttt{Assertions}, \texttt{Relations} and \texttt{Commands}. The definition of the operator for \texttt{Assertions} is presented in Listing \ref{replaceOp}. The operator is defined recursively, with the base case being treated using the \texttt{owise} equational attribute. A similar approach is used for all the definitions of this operator. 
 \begin{lstlisting}[label=replaceOp,caption=Replace operator definition for assertions]
@@ -446,7 +453,7 @@ It achieves this goal by using \texttt{metaXmatch} operator included in the stan
 	\]
 	will be represented as a term of sort \texttt{HoareTriple}, but with free variables:
 	\begin{lstlisting}
-	{E:AExp |-> - } [E:AExp] := F:AExp {E:AExp |-> F:AExp}\end{lstlisting}
+	{E:AExp |-> _ } [E:AExp] := F:AExp {E:AExp |-> F:AExp}\end{lstlisting}
 	
 	
 	However, Maude does not allow for variables to appear for the first time on the right hand side of a rewrite rule which needs to be used without meta-level computations (problem present when modeling the Separation Logics as well). We had to find a work around for this problem and the solution we came up with was to write the axiom in its meta-representation, and then use the \texttt{downTerm} operator to bring it down in the meta-hierarchy (Listing \ref{axiom})
@@ -457,15 +464,14 @@ rl [proveGoal] : < prove(HQ) ; RG ; G ; GS ; GL ; nil > =>
 downTerm('`{_`}_`{_`}['_|->_['E:AExp,'_:AExp],'`[_`]:=_['E:AExp,'F:AExp],'_|->_['E:AExp,'F:AExp]] , emptyGL)
 --- ... [other axioms omitted for clarity] 
 ; 'begin '\n > .\end{lstlisting}
-	\item For matching we also interpret the equality between variables using the \texttt{replace} operator introduced previously to reduce the \texttt{Goal} to a simpler form, which might match to an axiom.
+	\item Before attempting to match terms we also interpret the equality between variables using the \texttt{replace} operator introduced previously to reduce the \texttt{Goal} to a simpler form, which might match to an axiom.
 	\begin{lstlisting}[caption=Rule intepreting variable equality]
 rl {P * (emp /\ X eqs Y)} X1 := E {Q} =>  
 if X1 =/= X then 
 {replace(P, X, Y)} replace(X1 := E, X, Y) {replace(Q, X, Y)}
 else 
 {replace(P, X, Y)} X1 := replace(E, X, Y) {Q}
-fi .
-	\end{lstlisting}
+fi .\end{lstlisting}
 \end{itemize}
 \subsubsection{Automatic demonstration of implications}
 Automatic demonstration of implications is one of the most challenging aspects of this paper and this section will present our incipient approach to this problem.
@@ -486,7 +492,9 @@ rl (R:Relation => R:Relation) => true .
 op tryImplicationProving : Goal Int -> Trace? .
 eq tryImplicationProving(RR:Relation => TT:Relation, depth:Int) = metaSearchPath(upModule('IMPLICATION-PROVER, false), upTerm(RR:Relation => TT:Relation),upTerm(true), nil, '* , depth:Int, 0) . 
 \end{lstlisting}
-In it's current form, it cannot offer any guarantee, except for the certainty that if the implication has been proven automatically, the proof is correct in respect to  the rewrite rules specified in the \textbf{implication-prover.maude} file. The approach however has an exponential running time since it searches exhaustively throughout the state space for a solution. The second parameter is there to control the depth up to which the search goes. The prover will try automatically to search a solution within a depth of 3 rewrites, but the user can manually specify searching for a solution using the \texttt{auto x} command, where \texttt{x} is the depth up to which Maude should try to search the solution (our experiments show that searches up to a depth around 12 should finish use a reasonable amount of resources and finish in under 10 minutes - this observation of course depends on the implication and the number of possible rewrites starting from it). The found path is presented to the user if the implication has been proven. 
+In it's current form, it cannot offer any guarantee, except for the certainty that if the implication has been proven automatically, the proof is correct with respect to the rewrite rules specified in the \textbf{implication-prover.maude} file. The approach however has an exponential running time since it searches exhaustively throughout the state space for a solution. \\
+
+The second parameter controls the depth up to which the search goes. The prover will try automatically to search a solution within a depth of 3 rewrites, but the user can manually specify searching for a solution using the \texttt{auto x} command, where \texttt{x} is the depth up to which Maude should try to search the solution (our experiments show that searches up to a depth around 12 should finish use a reasonable amount of resources and finish in under 10 minutes - this observation of course depends on the implication and the number of possible rewrites starting from it). The found path is presented to the user if the implication has been proven. 
 \paragraph{Inductive predicates} - the prover currently supports defining inductive predicates only by modifying the underlying Maude code. We have defined a single predicate, used in the Relational Separation Logic paper \cite{relational} :
 \begin{lstlisting}[caption=Predicate syntax definition]
 op List : Id -> Relation . 
@@ -495,7 +503,7 @@ In terms of the semantics of the \texttt{List} predicate, we have added rules to
 \begin{lstlisting}[caption=Example of rule interpreting the List predicate during implication proving]
 rl [ (X:Id |-> E:AExp) * ((X:Id plus 1) |-> Y:Id) ; (X:Id |-> E:AExp) * ((X:Id plus 1) |-> Y:Id) ] * List(Y:Id) => List(X) .
 \end{lstlisting}
-\paragraph{Cyclist}\cite{cyclist} \cite{cyclistSite} is an automatic entailment prover for Separation logic which we planned to integrate with our prover for separation logic implications and eventually extend to Relational Separation Logic, since it provides a generic framework. Since Maude does not easily support external commands, the idea would be to modify Maude's C++ code and add a hook for the \texttt{[special]} operator attribute which would invoke that hook, which will call the external command for Cyclist. We have however focused on other aspects of our prover, and left this feature for the future.
+\paragraph{Cyclist}\cite{cyclist} \cite{cyclistSite} is an automatic entailment prover for Separation Logic which we planned to integrate with our prover for Separation Logic implications and eventually extend to Relational Separation Logic, since it provides a generic framework. Since Maude does not easily support external commands, the idea would be to modify Maude's C++ code and add a hook for the \texttt{[special]} operator attribute which would invoke that hook, which will call the external command for Cyclist. We have however focused on other aspects of our prover, and left this feature for the future.
 \subsection{User Interface}
 Since our project aims to simplify the demonstrations of Separation Logic / Relational Separation Logic formulae, using an interactive prover, the user interface plays a major role in the success of the project - the easier it is to use and understand, the more chances of success it has. This idea has been presented in \cite{primer}, when discussing key elements of tools related to program verification. \\
 
@@ -529,19 +537,20 @@ For a more advanced user interface or to expose the prover's functionalities thr
 The development of the Relational Separation Logic prover helped us get a deeper understating of it, along with an introduction to other theoretical concepts used in program analysis and programming language semantics, such as Separation Logic and Rewriting Logic.
 \\
 
-While the two Separation Logics used throughout the paper are powerful tools for analyzing the behavior of program and are relatively easy to understand, it takes time to become familiar with them and use the m at their full potential.
+While the two Separation Logics used throughout the paper are powerful tools for analyzing the behavior of program and are relatively easy to understand, it takes time to become familiar and use them at their full potential.
 \\
 
-The logics are better suited for studying small snippets of code and not entire programs, because the demonstration can get cumbersome and end up spending a lot of time on focusing on irrelevant parts of the program. 
+The logics are better suited for studying small snippets of code and not entire programs, because the demonstrations can get cumbersome and end up spending a lot of time on focusing on irrelevant parts of the program instead of its key sections. 
 \\
 
-Maude has been interesting to work because it required an entirely different mindset than the other programming languages I was familiar with . Once getting grasping the concepts around Maude which was built, it was easy to come up with simple, clever solutions to the problems I was facing. As it is described on it's website \cite{maudesite}, Maude is a powerful logical framework which allows modeling of other logics in it; it proved to be exactly that, enabling us to represent the logics in a natural manner, which made the implementation much less error-prone and allowed us to focus on the relevant part of this project, namely how to apply the logics instead of focusing on how to properly implement them.
+Maude has been interesting to work because it required an entirely different mindset than the mainstream programming languages. Once grasping the concepts around Maude which was built, it was easy to come up with simple, clever solutions to the problems I was facing. \\
+As it is described on it's website \cite{maudesite}, Maude is a powerful logical framework which allows modeling of other logics in it; it proved to be exactly that, enabling us to represent the logics in a natural manner, which made the implementation much less error-prone and allowed us to focus on the relevant part of this project, namely how to apply the logics instead of focusing on how to properly implement them.
 \\
 
-While being a powerful and interesting language to work with, being a fairly specialized and not very widespread, guidance and help are limited to the manual \cite{maudeprimer} and \cite{manual}. This obstacle resulted in significant time spent on searching for solutions to otherwise trivial problems, especially when starting using the language, because the source of the problem is usually unclear to a beginner. 
+While being a powerful and interesting language to work with, being fairly specialized and not very widespread, guidance and help are limited to the primer \cite{maudeprimer} and the manual \cite{manual}. This obstacle resulted in significant time spent on searching for solutions to otherwise trivial problems, especially when starting using the language, because the source of the problem is usually unclear to a beginner. 
 \\
 
-Overall, this whole project has been an interesting introduction to both  theoretical concepts regarding program analysis and new, different technologies. The mix of the two resulted in the built prover, which could be improved in the future with the features discussed throughout the chapters and others to easily accommodate real-world usage. 
+Overall, this whole project has been an interesting introduction to both  theoretical concepts regarding program analysis and new, different technologies. The mix of the two resulted in the built prover, which could be improved in the future with the features discussed throughout the chapters to easily accommodate real-world usage. 
 
 \bibliographystyle{unsrt}
 \bibliography{bibliography}

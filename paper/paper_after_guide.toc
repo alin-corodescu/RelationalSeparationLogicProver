@@ -7,14 +7,14 @@
 \contentsline {subsection}{\numberline {4.2}Relational Separation Logic}{5}
 \contentsline {subsection}{\numberline {4.3}Maude}{6}
 \contentsline {section}{\numberline {5}Relational Separation Logic Interactive Prover}{6}
-\contentsline {subsection}{\numberline {5.1}Modelling the Separation Logics}{7}
-\contentsline {subsubsection}{\numberline {5.1.1}Sort Hierarchy}{8}
-\contentsline {subsection}{\numberline {5.2}Language Grammar and executable semantics}{9}
-\contentsline {subsubsection}{\numberline {5.2.1}Storage Model}{9}
-\contentsline {subsubsection}{\numberline {5.2.2}Syntax and Semantics of the language}{10}
-\contentsline {paragraph}{Semantics of the language}{10}
-\contentsline {paragraph}{Maude Modelling of the language}{11}
-\contentsline {paragraph}{Executable semantics of the language, in Maude}{12}
+\contentsline {subsection}{\numberline {5.1}Language Grammar and executable semantics}{7}
+\contentsline {subsubsection}{\numberline {5.1.1}Storage Model}{7}
+\contentsline {subsubsection}{\numberline {5.1.2}Syntax and Semantics of the language}{7}
+\contentsline {paragraph}{Semantics of the language}{8}
+\contentsline {paragraph}{Maude Modelling of the language}{8}
+\contentsline {paragraph}{Executable semantics of the language, in Maude}{9}
+\contentsline {subsection}{\numberline {5.2}Modelling the Separation Logics}{9}
+\contentsline {subsubsection}{\numberline {5.2.1}Sort Hierarchy}{11}
 \contentsline {subsection}{\numberline {5.3}Interaction by Maude LOOP-MODE}{12}
 \contentsline {subsection}{\numberline {5.4}State of the program}{12}
 \contentsline {subsection}{\numberline {5.5}Input and output handling}{13}

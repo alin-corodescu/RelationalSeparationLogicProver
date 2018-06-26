@@ -51,8 +51,8 @@ mod GOAL-GRAPH is
 	
 	op tryImplicationProving : Goal Int -> Trace? .
 
-	eq tryImplicationProving(RR => TT, depth:Int) = metaSearchPath(upModule('IMPLICATION-PROVER, false), 
-							upTerm(RR => TT),
+	eq tryImplicationProving(RR:Relation => TT:Relation, depth:Int) = metaSearchPath(upModule('IMPLICATION-PROVER, false), 
+							upTerm(RR:Relation => TT:Relation),
 							upTerm(true),
 							nil, '* , depth:Int, 0) . 
 	

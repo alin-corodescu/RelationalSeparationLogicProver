@@ -412,6 +412,7 @@ User actions are the main entry point for user interaction and they describe how
 		All the other actions which control the application of proof rules are written in a similar manner.
 	\item {\(\mathtt{ok}\) action - admits the current goal}
 	\item {\(\mathtt{showGoal}\) action - prints the current goal to the console - it does not modify the state of the prover}
+	\item {\texttt{auto x}} action - instructs the prover to attempt to automatically prove an implication, search for a solution up to a depth of \texttt{x} rewrites
 \end{itemize}
 \subsubsection{System Actions}
 System actions were implemented to mimic the behaviour of a "chain of responsibility" design pattern from object-oriented programming. The system actions are all applied in order before asking for user input. After an system action completes execution, it will decide the next action to be placed in the prover state. System actions are the main component through which our prover can be enriched with other features in the future, because integrating a new system action is simple. At the moment, the system actions are:
@@ -422,6 +423,17 @@ System actions were implemented to mimic the behaviour of a "chain of responsibi
 \end{itemize}
 \subsection{Automated processes}
 This section will describe the functional parts of the prover which have been automated to make it more user-friendly and even prove sub-goals of the main demonstration by itself. Since the automation of the prover is part of the future goals of this project, we will also include a few notes on how we might approach problems related to this goal, even though they have not been implemented yet.
+\subsubsection{Variable substitution}
+In both sections describing automated processes we will interpret the equality operator between variables and replace, textually, one variable with the other in \texttt{Assertions}, \texttt{Relations} and \texttt{Commands}. The definition of the operator for \texttt{Assertions} is presented in Listing \ref{replaceOp}. The operator is defined recursively, with the base case being treated using the \texttt{owise} equational attribute. A similar approach is used for all the definitions of this operator. 
+\begin{lstlisting}[label=replaceOp,caption=Replace operator definition for assertions]
+op replace : Assertion Id Id -> Assertion .
+eq replace(P * Q, X, Y) = replace(P, X, Y) * replace(Q, X , Y) .
+eq replace(P /\ Q, X, Y) = replace(P, X, Y) /\ replace(Q, X, Y) .
+eq replace(P \/ Q, X, Y) = replace(P, X, Y) \/ replace(Q, X, Y) .
+eq replace(emp, X, Y) = emp .
+eq replace(E |-> E2, X, Y) = replace(E, X, Y) |-> replace(E2, X, Y) .
+eq replace(P, X, Y) = P [owise] .
+\end{lstlisting}
 \subsubsection{Automatic matching of axioms and previously proven goals}
 The prover is capable of automatically recognizing goals matching an axiom or a previously proven goals, for a better user experience.
 It achieves this goal by using \texttt{metaXmatch} operator included in the standard \texttt{META-LEVEL} module, which determines if two terms match. 
@@ -445,6 +457,15 @@ rl [proveGoal] : < prove(HQ) ; RG ; G ; GS ; GL ; nil > =>
 downTerm('`{_`}_`{_`}['_|->_['E:AExp,'_:AExp],'`[_`]:=_['E:AExp,'F:AExp],'_|->_['E:AExp,'F:AExp]] , emptyGL)
 --- ... [other axioms omitted for clarity] 
 ; 'begin '\n > .\end{lstlisting}
+	\item For matching we also interpret the equality between variables using the \texttt{replace} operator introduced previously to reduce the \texttt{Goal} to a simpler form, which might match to an axiom.
+	\begin{lstlisting}[caption=Rule intepreting variable equality]
+rl {P * (emp /\ X eqs Y)} X1 := E {Q} =>  
+if X1 =/= X then 
+{replace(P, X, Y)} replace(X1 := E, X, Y) {replace(Q, X, Y)}
+else 
+{replace(P, X, Y)} X1 := replace(E, X, Y) {Q}
+fi .
+	\end{lstlisting}
 \end{itemize}
 \subsubsection{Automatic demonstration of implications}
 Automatic demonstration of implications is one of the most challenging aspects of this paper and this section will present our incipient approach to this problem.
@@ -453,24 +474,27 @@ We have modeled implication proof rules as rewrite rules in Maude (example in Li
 \[
 	R \Rightarrow S
 \]
-by searching for a series of rewrites from \(R\) to \(S\). 
-\begin{lstlisting}[label=implicationProofRule,caption=Example of implication proof rule]
-rl R * ( S \/ T ) => (R * S) \/ (R * T) .
+by searching for a series of rewrites from \texttt{R => S} to \texttt{true}. 
+\begin{lstlisting}[label=implicationProofRule,caption=Example of implication rewrite rules]
+rl R:Relation * ( S:Relation \/ T:Relation ) => (R:Relation * S:Relation) \/ (R:Relation * T:Relation) .
+--- Example for the usage of the replace operator
+rl R * (Emp /\ X eqs Y) => replace(R, X , Y) .
+rl (R:Relation => R:Relation) => true .
 \end{lstlisting}
 
 \begin{lstlisting}[label=eqImplicationProving,caption=Equation using the metaSearchPath operator]
-eq tryImplicationProving(RR => TT) = metaSearchPath(upModule('IMPLICATION-PROVER, false), upTerm(RR), upTerm(TT), nil, '* , 5, 0) . 
+op tryImplicationProving : Goal Int -> Trace? .
+eq tryImplicationProving(RR:Relation => TT:Relation, depth:Int) = metaSearchPath(upModule('IMPLICATION-PROVER, false), upTerm(RR:Relation => TT:Relation),upTerm(true), nil, '* , depth:Int, 0) . 
 \end{lstlisting}
-In it's current form, it cannot offer any guarantee, except for the certainty that if the implication has been proven automatically, the proof is correct given the rewrite rules specified in the \textbf{implication-prover.maude} file. The found path is presented to the user if the implication has been proven.
-
-After studying the implications involved in an example, we have found that, in order to properly prove implications, there is a need to implement a sort of symbolic execution at the level of \texttt{Assertions} or \texttt{Relations}. The easiest way to explain this idea is by exemplifying: 
-\begin{lstlisting}
-{  ( emp /\ c eqs c0 ) * (c0 plus 1)|-> c1  }
-c := [c plus 1]
-{ ( emp /\ c eqs c1 ) * (c0 plus 1)|-> c1 }
+In it's current form, it cannot offer any guarantee, except for the certainty that if the implication has been proven automatically, the proof is correct in respect to  the rewrite rules specified in the \textbf{implication-prover.maude} file. The approach however has an exponential running time since it searches exhaustively throughout the state space for a solution. The second parameter is there to control the depth up to which the search goes. The prover will try automatically to search a solution within a depth of 3 rewrites, but the user can manually specify searching for a solution using the \texttt{auto x} command, where \texttt{x} is the depth up to which Maude should try to search the solution (our experiments show that searches up to a depth around 12 should finish use a reasonable amount of resources and finish in under 10 minutes - this observation of course depends on the implication and the number of possible rewrites starting from it). The found path is presented to the user if the implication has been proven. 
+\paragraph{Inductive predicates} - the prover currently supports defining inductive predicates only by modifying the underlying Maude code. We have defined a single predicate, used in the Relational Separation Logic paper \cite{relational} :
+\begin{lstlisting}[caption=Predicate syntax definition]
+op List : Id -> Relation . 
 \end{lstlisting}
-The above goal can only be proven by symbolically executing equality between \texttt{c} and \texttt{c0} . In the future, this symbolical execution could enable a wider range of implications to be proven automatically. In it's current state, an easy way of extending the capabilities of the implication prover is to add more (specific) rewrite rules for it to search through.
-
+In terms of the semantics of the \texttt{List} predicate, we have added rules to the \textbf{implication-prover.maude} file, to be considered when rewriting implications.
+\begin{lstlisting}[caption=Example of rule interpreting the List predicate during implication proving]
+rl [ (X:Id |-> E:AExp) * ((X:Id plus 1) |-> Y:Id) ; (X:Id |-> E:AExp) * ((X:Id plus 1) |-> Y:Id) ] * List(Y:Id) => List(X) .
+\end{lstlisting}
 \paragraph{Cyclist}\cite{cyclist} \cite{cyclistSite} is an automatic entailment prover for Separation logic which we planned to integrate with our prover for separation logic implications and eventually extend to Relational Separation Logic, since it provides a generic framework. Since Maude does not easily support external commands, the idea would be to modify Maude's C++ code and add a hook for the \texttt{[special]} operator attribute which would invoke that hook, which will call the external command for Cyclist. We have however focused on other aspects of our prover, and left this feature for the future.
 \subsection{User Interface}
 Since our project aims to simplify the demonstrations of Separation Logic / Relational Separation Logic formulae, using an interactive prover, the user interface plays a major role in the success of the project - the easier it is to use and understand, the more chances of success it has. This idea has been presented in \cite{primer}, when discussing key elements of tools related to program verification. \\
@@ -519,7 +543,6 @@ While being a powerful and interesting language to work with, being a fairly spe
 
 Overall, this whole project has been an interesting introduction to both  theoretical concepts regarding program analysis and new, different technologies. The mix of the two resulted in the built prover, which could be improved in the future with the features discussed throughout the chapters and others to easily accommodate real-world usage. 
 
-\pagebreak
 \bibliographystyle{unsrt}
 \bibliography{bibliography}
 

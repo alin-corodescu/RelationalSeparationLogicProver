@@ -87,14 +87,14 @@ ALEXANDRU IOAN CUZA UNIVERSITY OF IAȘI
 \tableofcontents
 \pagebreak
 \begin{abstract}
-	Lucrarea de față descrie procesul de dezvoltare a unui utilitar interactiv utilizat în analiza formală a programelor, folosindu-se de Logica Separatoare Relațională \cite{relational} și Logica Separatoare \cite{primer} \cite{SeparationLogic}, utilizând Maude \cite{maudesite} drept cadru de dezvoltare. Componenta interactiva se îmbină cu o componentă automatizată, prin care părți din demonstrație vor fi realizate automat. Lucrarea este orientata pe rezolvarea problemei prin intermediul funcționalităților oferite de Maude și va include secvențe de cod ce vor ilustra conceptele cheie legate de modelarea si aplicarea fundamentelor teoretice utilizate pe parcursul proiectului.
+	Lucrarea de față descrie procesul de dezvoltare al unui utilitar interactiv utilizat în analiza formală a programelor, folosindu-se de Logica Separatoare Relațională \cite{relational} și Logica Separatoare \cite{primer} \cite{SeparationLogic}, utilizând Maude \cite{maudesite} drept cadru de dezvoltare. Componenta interactivă se îmbină cu o componentă automatizată, prin care părți din demonstrație vor fi realizate automat. Lucrarea este orientata pe rezolvarea problemei prin intermediul funcționalităților oferite de Maude și va include secvențe de cod ce vor ilustra conceptele cheie legate de modelarea si aplicarea fundamentelor teoretice utilizate pe parcursul proiectului.
 \end{abstract}
 \section*{Introduction}
 The present paper describes the development of an interactive tool for reasoning how two programs are related, based theoretical concepts from the field of formal program analysis and technologies which facilitate the implementation of those concepts. \\
 
 The tool represents an implementation of Hoare Logic - which allows formal reasoning about a program - along  with 2 of its extensions, namely the Separation Logic and Relational Separation Logic \cite{relational}. The 2 extensions simplify the Hoare Logic proofs, mainly using the "*" connector, allowing for local reasoning about the effects of statements in a program . The tool has been implemented in Maude, a high performance logical framework with powerful metalanguage applications which facilitate the implementations of executable environments for logics.\\
 
-The tool is built as a CLI which helps with reasoning how two programs are related using Relational Separation Logic specifications. As a consequence of the dependency of Relational Separation Logic on Separation Logic, proofs about single programs using the latter are also supported by the tool. The tool has been developed with extensibility in mind, the main desired extensions being concurrent programs support and automatic proofs. \\
+The tool is built as a CLI which helps with reasoning about how two programs are related using Relational Separation Logic specifications. As a consequence of the dependency of Relational Separation Logic on Separation Logic, proofs about single programs using the latter are also supported by the tool. The tool has been developed with extensibility in mind, the main desired extensions being concurrent programs support and automatic proofs. \\
 
 The rest of the paper is organized as follows: 
 \begin{itemize}
@@ -115,9 +115,9 @@ Personal contributions to the realization of the project :
 \section{Description of the problem}
 The problem this project is aiming to solve is related to formal reasoning about the execution of code, mainly focusing on how two programs are related to each other (most often the relation to be proven is equivalence)\\
 
-Comparing programs or code fragments and studying their equivalence is part of every software engineer's activities when they are testing an alternative implementation for an existing solution, fixing bugs, launching new product versions, etc . Naturally, for every process completed manually there are efforts being made in order to make it more efficient, less error-prone and, in the end, automate the process all together. Once such a task is automated in software engineering, it can be included in the flow of any research or development phase of a product. An example benefiting from a formal proof of program equivalence is compiler optimization, where the optimized code needs to be equivalent to the input one . \\
+Comparing programs or code fragments and studying their equivalence is part of every software engineer's activities when they are testing an alternative implementation for an existing solution, fixing bugs, launching new product versions, etc . Naturally, for every process completed manually there are efforts being made in order to make it more efficient, less error-prone and, in the end, automate the process all together. Once such a task is automated in software engineering, it can be included in the flow of any research or development phase of a product. An example benefiting from a formal proof of program equivalence is compiler optimization, where the optimized code needs to be equivalent to the input one \cite{relational} . \\
 
-This project aims to lay the foundations of a tool which facilitates formal reasoning on the way two programs are related with a focus on extensibility and automation of tasks.
+This project aims to lay the foundations of a tool which facilitates formal reasoning about the way two programs are related with a focus on extensibility and automation of tasks.
 
 \section{Previous work}
 Previous work related to the topic has been done mostly in terms of Separation Logic based tools, with Relational Separation Logic not being treated as much. \\
@@ -158,14 +158,14 @@ Maude \cite{maudesite} is a framework based on rewriting logic \cite{rewritingLo
  	\item All about Maude book \cite{allAboutMaude} which includes everything contained in the manual and presents some of the more relevant tools implemented in Maude .
  \end{itemize}
 \section{Relational Separation Logic Interactive Prover} 
-This section will include details related to the implementation and usage of the Relational Separation Logic prover and highlight a few of Maude's features which made it the a language fit for the purpose of this project.
+This section will include details related to the implementation and usage of the Relational Separation Logic prover and highlight a few of Maude's features which made it a language fit for the purpose of this project.
 \\
 
 The information presented in this section assumes the reader's familiarity with Maude, especially the META-LEVEL module and with the underlying theoretical concepts implemented by the prover (Separation Logic and Relational Separation Logic). References for these can be found in the previous section.
 \\
 
 This section will include snippets of Maude code, but since Maude is a very expressive and self-explanatory language, I have not included of thorough presentation of every language construct defined for the scope of this project. Ideas presented will be accompanied by some examples and key parts of the implementation but for a more detailed presentation, please refer to the code itself.
-\subsection{Language Grammar and executable semantics}
+\subsection{Language}
 The prover supports expressing programs in a simple, imperative language, commonly used throughout papers  \cite{primer} \cite{SeparationLogic} related to the subject of program verification, including the one describing Relational Separation Logic \cite{relational}, around  which this project is based. 
 \subsubsection{Storage Model}
 A state of in our storage model is defined by a pair consisting of a \(Store\) and a \(Heap\) .
@@ -250,7 +250,7 @@ The proof rules are interpreted in a bottom-up manner, meaning that, applying a 
 	\begin{prooftree}
 	\Hypo{P \Rightarrow P\prime}
 	\Hypo{\{P\prime\} C \{Q\prime\}}
-	\Hypo{Q \Rightarrow Q\prime}
+	\Hypo{Q\prime \Rightarrow Q}
 	\Infer 3 {\{P\}\  C  \{Q\}}
 	\end{prooftree}	
 	\]
@@ -268,7 +268,7 @@ The proof rules are interpreted in a bottom-up manner, meaning that, applying a 
 	\begin{prooftree}
 	\Hypo{R \Rightarrow R_1}
 	\Hypo{\hq{R_1}{C}{C\prime}{S_1}}
-	\Hypo{S \Rightarrow S_1}
+	\Hypo{S_1 \Rightarrow S}
 	\Infer 3 {\hq{R}{C}{C\prime}{S}}
 	\end{prooftree}	
 	\]
@@ -287,7 +287,7 @@ The \texttt{---} operator is used to separate the two snippets of code mentioned
 
 All the rules are marked with the attribute \texttt{[nonexec]} because we want them to be applied in a controlled manner, at the meta-level. Some of the rules, the examples included, are not even valid executable Maude rules, because they make use of variables before binding them (for example \texttt{P1} is used in a rule before it is bound). At the meta-level however we can manually bind values to those variables, as we will exemplify when discussing how we apply these rules to goals.
 \subsubsection{Sort Hierarchy}
-Much in the same manner as we modeled the language grammar, the Relational Separation Logic \cite{relational} and Separation Logic \cite{SeparationLogic} \cite{primer} have been modeled by defining sorts and declaring operators using these sorts. The main point of reference for our modeling has been \cite{relational}, for both logics. Some examples of translations from specification to code are included below.
+Much in the same manner as we modelled the language grammar, the Relational Separation Logic \cite{relational} and Separation Logic \cite{SeparationLogic} \cite{primer} have been modeled by defining sorts and declaring operators using these sorts. The main point of reference for our modelling has been \cite{relational}, for both logics. Some examples of translations from specification to code are included below.
 \begin{itemize}
 	\item \texttt{Assertion} is the sort used to handle Separation Logic assertions. It is a super sort of the \texttt{BExp} sort defined as part of our language.
 	\item \texttt{HoareTriple} is the sort associated with the concept with the same name, in a Separation Logic context.
@@ -454,7 +454,7 @@ The prover is capable of automatically recognizing goals matching an axiom or a 
 It achieves this goal by using \texttt{metaXmatch} operator included in the standard \texttt{META-LEVEL} module, which determines if two terms match. 
 \begin{itemize}
 	\item In terms of previously proven goals, the process is straight-forward, as it will compare terms in a literal manner (since they do not contain any variable)
-	\item Axioms are modeled as terms with variables in them, allowing them to be matched with any term for which all variables in the axiom can be bound.
+	\item Axioms are modelled as terms with variables in them, allowing them to be matched with any term for which all variables in the axiom can be bound.
 	For example, the axiom 
 	\[
 		\{E \mapsto -\} [E] := F \{E \mapsto F\}
@@ -464,7 +464,7 @@ It achieves this goal by using \texttt{metaXmatch} operator included in the stan
 	{E:AExp |-> _ } [E:AExp] := F:AExp {E:AExp |-> F:AExp}\end{lstlisting}
 	
 	
-	However, Maude does not allow for variables to appear for the first time on the right hand side of a rewrite rule which needs to be used without meta-level computations (problem present when modeling the Separation Logics as well). We had to find a work around for this problem and the solution we came up with was to write the axiom in its meta-representation, and then use the \texttt{downTerm} operator to bring it down in the meta-hierarchy (Listing \ref{axiom})
+	However, Maude does not allow for variables to appear for the first time on the right hand side of a rewrite rule which needs to be used without meta-level computations (problem present when modelling the Separation Logics as well). We had to find a work around for this problem and the solution we came up with was to write the axiom in its meta-representation, and then use the \texttt{downTerm} operator to bring it down in the meta-hierarchy (Listing \ref{axiom})
 	
 	\begin{lstlisting}[label=axiom,caption=Initialization of Prover state]
 rl [proveGoal] : < prove(HQ) ; RG ; G ; GS ; GL ; nil > =>
@@ -493,7 +493,7 @@ fi .\end{lstlisting}
 \subsubsection{Automatic demonstration of implications}
 Automatic demonstration of implications is one of the most challenging aspects of this paper and this section will present our incipient approach to this problem.
 
-We have modeled implication proof rules as rewrite rules in Maude (example in Listing \ref{implicationProofRule}), in order to make use of its \texttt{metaSearchPath} operator, which will search for a series of rewrites which transform a term into another.
+We have modelled implication proof rules as rewrite rules in Maude (example in Listing \ref{implicationProofRule}), in order to make use of its \texttt{metaSearchPath} operator, which will search for a series of rewrites which transform a term into another.
 \\
 We used this functionality to try and solve implications 
 \[
@@ -507,7 +507,7 @@ rl R:Relation * ( S:Relation \/ T:Relation ) => (R:Relation * S:Relation) \/ (R:
 rl R * (Emp /\ X eqs Y) => replace(R, X , Y) .
 rl (R:Relation => R:Relation) => true .
 \end{lstlisting}
-Most proof rules are of the form \(R \Leftrightarrow S\) and thus can be naturally expressed in our prover using rewrite rules. However, when the proof rules involve just a one way implication, such as \(Emp \Rightarrow Same\), if we were to model it simply as the first rule in the Listing \ref{implicationProofRule}, an implication \texttt{Same => Emp} would be considered true, because Maude would rewrite the \texttt{Emp} to \texttt{Same} and \texttt{Same => Same} evaluates to \texttt{true}. To prevent this from happening, we have constrained one-way implications by providing the entire context in which they can be rewritten :
+Most proof rules are of the form \(R \Leftrightarrow S\) and thus can be naturally expressed in our prover using rewrite rules. However, when the proof rules involve just a one way implication, such as \(Emp \Rightarrow Same\), if we were to model it simply as the first rule in the Listing \ref{implicationProofRule}, an implication, \texttt{Same => Emp} for example, could be wrongly considered true, because Maude would rewrite the \texttt{Emp} to \texttt{Same} and \texttt{Same => Same} evaluates to \texttt{true}. To prevent this from happening, we have constrained one-way implications by providing the entire context in which they can be rewritten :
 \begin{lstlisting}
 rl ((R * Emp) => S) => ((R * Same) => S) .
 \end{lstlisting}
@@ -518,13 +518,15 @@ We have opted for the approach to search from the term \texttt{R => S} to \textt
 op tryImplicationProving : Goal Int -> Trace? .
 eq tryImplicationProving(RR:Relation => TT:Relation, depth:Int) = metaSearchPath(upModule('IMPLICATION-PROVER, false), upTerm(RR:Relation => TT:Relation),upTerm(true), nil, '* , depth:Int, 0) . 
 \end{lstlisting}
-In it's current form, it cannot offer any guarantee, except for the certainty that if the implication has been proven automatically, the proof is correct with respect to the rewrite rules specified in the \textbf{implication-prover.maude} file. The approach however has an exponential running time since it searches exhaustively throughout the state space for a solution. \\
+In its current form, the prover does not offer any guarantees, except for the certainty that if the implication has been proven automatically, the proof is correct with respect to the rewrite rules specified in the \textbf{implication-prover.maude} file. The approach however has an exponential running time since it searches exhaustively throughout the state space for a solution. \\
 
 The second parameter controls the depth up to which the search goes. The prover will try automatically to search a solution within a depth of 3 rewrites, but the user can manually specify searching for a solution using the \texttt{auto x} command, where \texttt{x} is the depth up to which Maude should try to search the solution (our experiments show that searches up to a depth around 12 should finish use a reasonable amount of resources and finish in under 10 minutes - this observation of course depends on the implication and the number of possible rewrites starting from it). The found path is presented to the user if the implication has been proven. 
 \\
 
-In the future, one might consider using Maude internal strategies \cite{manual} to control the rewriting and searching in the implication proving process, to make it follow heuristics and thus be more effective.
+Almost all the implications in Appendix \ref{proofExample} can be automatically proven, the exceptions being the ones for which the running time of the prover is too high, since they require a depth higher than 15 - those are manually admitted using the \texttt{ok} command.
+\\
 
+In the future, one might consider using Maude internal strategies \cite{manual} to control the rewriting and searching in the implication proving process, to make it follow heuristics and thus be more effective.
 \paragraph{Inductive predicates} - the prover currently supports defining inductive predicates only by modifying the underlying Maude code. We have defined a single predicate, used in the Relational Separation Logic paper \cite{relational} :
 \begin{lstlisting}[caption=Predicate syntax definition]
 op List : Id -> Relation . 
@@ -562,7 +564,7 @@ if G =/= noGoal .
 All throughout the prover calls to \texttt{metaPrettyPrint} have been made in order to inform the user of what the prover is doing and how.
 \\
 
-For a more advanced user interface or to expose the prover's functionalities through a programming interface, a wrapper written in more feature-rich language through which to control the Maude environment is probably the best choice. The concept is exemplified by the Maude plug-in for Eclipse, \cite{maudeEclipsePLugin} which enables writing of Maude code inside the Eclipse IDE, and the plug-in communicates with the underlying Maude environment. The project also includes a plug-in which allows any Java program to communicate with Maude.
+For a more advanced user interface or to expose the prover's functionalities through a programming interface, a wrapper written in more feature-rich language through which to control the Maude environment is probably the best choice. The concept is exemplified by the Maude plug-in for Eclipse, \cite{maudeEclipsePLugin} which enables writing of Maude code inside the Eclipse IDE, and the plug-in communicates with the underlying Maude environment. The project also includes a generic plug-in which allows any Java program to communicate with Maude.
 \section*{Conclusions}
 The development of the Relational Separation Logic prover helped us get a deeper understating of it, along with an introduction to other theoretical concepts used in program analysis and programming language semantics, such as Separation Logic and Rewriting Logic.
 \\
@@ -574,13 +576,13 @@ The logics are better suited for studying small snippets of code and not entire 
 \\
 
 Maude has been interesting to work because it required an entirely different mindset than the mainstream programming languages. Once grasping the concepts around Maude which was built, it was easy to come up with simple, clever solutions to the encountered problems. \\
-As it is described on it's website \cite{maudesite}, Maude is a powerful logical framework which allows modeling of other logics in it; it proved to be exactly that, enabling us to represent the logics in a natural manner, which made the implementation much less error-prone and allowed us to focus on the relevant part of this project, namely how to apply the logics instead of focusing on how to properly implement them.
+As it is described on it's website \cite{maudesite}, Maude is a powerful logical framework which allows modelling of other logics in it; it proved to be exactly that, enabling us to represent the logics in a natural manner, which made the implementation much less error-prone and allowed us to focus on the relevant part of this project, namely how to apply the logics instead of focusing on how to properly implement them.
 \\
 
 While being a powerful and interesting language to work with, being fairly specialized and not very widespread, guidance and help are limited to the primer \cite{maudeprimer} and the manual \cite{manual}. This obstacle resulted in significant time spent on searching for solutions to otherwise trivial problems, especially when starting using the language, because the source of the problem is usually unclear to a beginner. 
 \\
 
-Overall, this whole project has been an interesting introduction to both  theoretical concepts regarding program analysis and new, different technologies. The mix of the two resulted in the built prover, which could be improved in the future with the features discussed throughout the chapters to easily accommodate real-world usage. 
+Overall, this whole project has been an interesting introduction to both  theoretical concepts regarding program analysis and new, different technologies. The mix of the two resulted in the built prover, which could be improved in the future, both from an implementation standpoint (features discussed throughout the chapters) and by refining the theoretical concepts on which it is based (concurrency extensions for logics) to easily accommodate real-world usage. 
 
 \bibliographystyle{unsrt}
 \bibliography{bibliography}
@@ -642,7 +644,7 @@ applyConsequence
 applyConsequence
 ( Same * List(c) * (y eqs yp /\ Emp) * (xp eqs x0 /\ Emp) * (c eqs cp /\ Emp) * [y |-> x0 ; yp |-> x0] )
 --
-( (Same * List(c) * (y eqs yp /\ Emp) * (xp eqs x0 /\ Emp) * (c eqs cp /\ Emp) * [y |-> x0 ; yp |-> x0]) /\ !(!(c eqs null)) ) --- R si not B
+( (Same * List(c) * (y eqs yp /\ Emp) * (xp eqs x0 /\ Emp) * (c eqs cp /\ Emp) * [y |-> x0 ; yp |-> x0]) /\ !(!(c eqs null)) )
 )
 (applyLoop)
 (applyConsequence

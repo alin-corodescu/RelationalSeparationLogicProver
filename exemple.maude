@@ -1,3 +1,0 @@
-rewrite exec ( (x <- 1) ; while ( x le 2 ) do  (x <- (x plus 1)) od )  .
-
-exec (x <- 1 ; if x eqs 1 && 2 eqs 2 then x <- 1 else x <- 3) .

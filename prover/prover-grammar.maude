@@ -9,27 +9,10 @@ mod PROVER-GRAMMAR is
 
 	op noAction : -> Action .
 
-
-
 	--- Hoare triples and quadruples can be seen as goals
 	subsorts HoareQuadruple HoareTriple < Goal . 
 
-	--- BEGIN sort and operation declaration for passing the terms which appear on the right hand side of the
-	--- rule for the first time (example : S Relation for the sequencing rule)
-	---sort AdditionalRuleParameters . 
-	---subsort Relation < AdditionalRuleParameters .
-
-	---op __ : AdditionalRuleParameters AdditionalRuleParameters -> AdditionalRuleParameters.
-	--- END
-
-	--- Enables appending the additional parameters to the goals stored in the database
-	---op __ : Goal AdditionalRuleParameters -> Goal .
-
-	--- Implication between two Relation is a goal
-	--- op _=>_ : Relation Relation -> Goal . 
-	--- use cmb here, a relation is a Goal if it can be written as a Relation => Relation
 	subsort Relation < Goal . 
-
 
 	op prove : HoareQuadruple -> Action .
 

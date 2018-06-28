@@ -114,4 +114,4 @@ loop init .
 (ok) --- part 2 List decomposition proof
 ---(ok) --- first consequence second implication  
 
----(auto 9) --- depth 9 is necessary to prove this last one
+(auto 9) --- depth 9 is necessary to prove this last one

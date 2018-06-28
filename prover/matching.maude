@@ -1,6 +1,0 @@
-
-red metaXmatch(upModule('PROVER-INTERFACE, false), 
-							---upTerm({ E:AExp |-> 1 } [E:AExp] := F:AExp { E:AExp |-> F:AExp }),
-							upTerm(downTerm('`{_`}_`{_`}['_|->_['E:AExp,'s_['0.Zero]],'`[_`]:=_['E:AExp,'F:AExp],'_|->_['E:AExp,'F:AExp]] , emptyGL)),
-							upTerm({ x plus 1 |-> 1 } [ x plus 1 ] := 10 { x plus 1 |-> 10 }),
-							nil, 0, unbounded, 0) .

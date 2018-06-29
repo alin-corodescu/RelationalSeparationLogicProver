@@ -20,7 +20,8 @@ mod HOARE-QUADRUPLE is
 	op _*_ : Relation Relation -> Relation [comm assoc format (d s t d)] .
 	op _=>_ : Relation Relation -> Relation [prec 40 format (d nr no d)] .
 	ops _/\_ _\/_ : Relation Relation -> Relation [comm format (d s t d)] .
-	op not : Relation -> Relation .
+	op !_ : Relation -> Relation .
+	op _<=>_ : Relation Relation -> Relation [comm format (d d d d)] .
 	ops exists_._ any_._ : Id Relation -> Relation .
 
 	op r : -> Relation .
@@ -42,5 +43,16 @@ mod HOARE-QUADRUPLE is
 	eq replace(Emp, X, Y) = Emp .
 	eq replace(Same, X, Y) = Same . 
 	eq replace(R, X, Y) = R [owise] .
+
+	eq ! ! R = R .
+	eq ! (R /\ S) = ! R \/ ! S .
+	eq ! (R \/ S) = ! R /\ ! S .
+	eq R <=> S = (R => S) /\ (S => R) .
+	eq R => S = (! R) \/ S .
+	eq R \/ ! R = true .
+	eq R /\ ! R = false .
+
+	eq ! true = false .
+	eq ! false = true .
 
 endm 

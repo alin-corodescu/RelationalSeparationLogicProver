@@ -20,7 +20,9 @@ mod HOARE-TRIPLE is
 
 	ops _\/_ _/\_ : Assertion Assertion -> Assertion [comm format (s s s s)] .
 
-	op not : Assertion -> Assertion .
+	op _<=>_ : Assertion Assertion -> Assertion [comm format (d d d d)] .
+
+	op !_ : Assertion -> Assertion .
 
 	op emp : -> Assertion .
 
@@ -78,6 +80,20 @@ mod HOARE-TRIPLE is
 	eq replace(E times X, X, Y) = E times Y .
 	eq replace(E minus X, X, Y) = E minus Y .
 	eq replace(E, X , Y) = E [owise] .
+
+
+	vars R S : Assertion .
+
+	eq ! ! R = R .
+	eq ! (R /\ S) = ! R \/ ! S .
+	eq ! (R \/ S) = ! R /\ ! S .
+	eq R <=> S = (R => S) /\ (S => R) .
+	eq R => S = (! R) \/ S .
+	eq R \/ ! R = true .
+	eq R /\ ! R = false .
+
+	eq ! true = false .
+	eq ! false = true .
 
 
 endm

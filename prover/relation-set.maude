@@ -1,0 +1,9 @@
+load relational-sep-logic.maude
+
+view Relation from TRIV to HOARE-QUADRUPLE is
+	sort Elt to Relation .
+endv
+mod RELATION-SET is
+	including HOARE-QUADRUPLE .
+	protecting SET{Relation} .
+endm

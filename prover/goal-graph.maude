@@ -1,9 +1,12 @@
-load implication-prover.maude
+
 load symbolic-execution.maude
+load relation-set.maude
+load implication-test.maude
 mod GOAL-GRAPH is 
 	protecting META-LEVEL .
 	protecting BOOL .
 	protecting HOARE-QUADRUPLE . 
+	including RELATION-SET .
 	--- Sorts representing the goals we work with
 	sorts Goal GoalGraph GoalList .
 
@@ -48,13 +51,13 @@ mod GOAL-GRAPH is
 
 	eq anyMatches(G, G1 <> GL) = anyMatches(G, GL) [owise].
 
-	
+	var RS : Set{Relation} .
 	op tryImplicationProving : Goal Int -> Trace? .
 
-	eq tryImplicationProving(RR:Relation => TT:Relation, depth:Int) = metaSearchPath(upModule('IMPLICATION-PROVER, false), 
-							upTerm(RR:Relation => TT:Relation),
-							upTerm(true),
-							nil, '* , depth:Int, 0) . 
-	
+
+	eq tryImplicationProving(R:Relation, depth:Int) = metaSearchPath(upModule('IMPLICATION, false), 
+							upTerm(!(R:Relation)),
+							upTerm((false)),
+							nil, '* , depth:Int, 0) . 	
 
 endm

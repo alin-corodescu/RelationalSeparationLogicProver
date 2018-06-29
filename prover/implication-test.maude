@@ -1,0 +1,107 @@
+load relation-set.maude
+mod IMPLICATION is
+	including META-LEVEL .
+	including HOARE-QUADRUPLE .
+	including RELATION-SET .
+	--- BEGIN proof rules
+	vars R S T : Relation .
+	vars P1 P2 Q1 Q2 : Assertion .
+	vars P Q : Assertion .
+	vars E E' E1 E1' : AExp .
+	vars R1 S1 : Relation .
+	---sort RelationSet .
+---
+	---subsort Relation < RelationSet .
+---
+	---var RS : RelationSet .
+---
+	---op emptySet : -> RelationSet .
+	---op addRelation : Relation RelationSet -> RelationSet .
+	---op contains : RelationSet Relation -> Bool .
+	---op _<>_ : Relation RelationSet -> RelationSet [comm assoc id: emptySet].
+---
+	---ceq addRelation(R, RS) = R <> RS if contains(RS, R) := false  .
+---
+	---eq addRelation(R, RS) = RS [owise] .
+---
+	---ceq contains(T <> RS, R) = true 
+		---if T := R .
+	---eq contains(T <> RS, R ) = contains(RS, R) [owise] .
+	---eq contains(emptySet, R) = false .
+
+	vars RS RS1 RS2 : Set{Relation} .
+	vars X Y : Id .
+	ops A B C D E : -> Relation .
+
+	op replace : Set{Relation} Id Id -> Set{Relation} .
+
+	ceq replace((R, RS), X, Y) = (replace(R, X, Y), replace(RS, X, Y)) 
+		if RS =/= empty .
+	---eq replace((R), X, Y) = (replace(R, X, Y)) .
+	eq replace(empty, X, Y) = empty . 
+
+	rl (X eqs Y, RS) => (X eqs Y, replace(RS, X, Y)) .
+	eq X eqs X  = true . 
+
+	rl (false, RS) => (false) .
+	rl (R /\ S, RS) => (R, S, RS) .
+
+	rl (RS, List(X)) => (RS, Same) . 
+
+	rl [rl1] : (RS, [ (X |-> E) * ((X plus 1) |-> Y) ; (X |-> E) * ((X plus 1) |-> Y) ] * List(Y)) => (RS, List(X)) .
+
+	rl (RS, X eqs null) => (RS, List(X)) .
+
+	rl (R * B:BExp, RS) => (R, B:BExp, RS) .
+
+	rl (RS, [emp ; emp]) => (RS, [emp ; emp] , Emp) .
+
+	rl (RS, Emp) => (RS, [emp ; emp], Emp) .
+
+	rl (RS, R * ( S \/ T )) => (RS, R * ( S \/ T ) , (R * S) \/ (R * T)) .
+
+	rl (RS, [(P1 * P2) ; Q1 * Q2]) => (RS, [(P1 * P2) ; Q1 * Q2], [P1 ; Q1] * [P2 ; Q2]) .
+---
+	rl (RS, R * (exists x . S)) => (RS, R * (exists x . S), (exists x . R) * S) .
+---
+	rl (RS, [(P1 /\ P2) ; Q ]) => (RS, [P1 ; Q] /\ [ P2 ; Q ] ) .
+---
+	rl [P ; (Q1 /\ Q2)] => [P ; Q1] /\ [P ; Q2] .
+---
+	rl [(P1 \/ P2) ; Q ] => [P1 ; Q] \/ [P2 ; Q] .
+---
+	rl [P ; (Q1 \/ Q2)] => [P ; Q1] \/ [P ; Q2].
+---
+	rl [P ; false] => false .
+---
+	rl [false ; Q] => false .
+---
+	--- This rule seems to cause problems with infinite loops??
+	---rl R * ((E eqs E') /\ Emp) => R /\ (E eqs E') .
+---
+	rl (R * Q) /\ B => R * (Q /\ B) .
+---
+	rl [ (P /\ B) ; Q ] => [ P ; (Q /\ B) ] .
+---
+	rl [ P ; (Q /\ B) ]  => [P ; Q ] /\ B .
+---
+
+	rl (RS, [P ; Q] * (Emp * E eqs E')) => (RS, [P ; Q] * (Emp * E eqs E'),  [(P * (emp * E eqs E')) ; Q]) .
+
+	--- De sus o trec jos
+	rl (RS, [ (P * (emp /\ E eqs E')) ; Q ]) => (RS, [ (P * (emp /\ E eqs E')) ; Q ], [ P ; (Q * (emp /\ E eqs E')) ] ).
+
+	--- De jos o trec in afara
+	rl (RS, [ P ; (Q * (emp /\ E eqs E')) ]) => (RS, [ P ; (Q * (emp /\ E eqs E')) ],  [ P ; Q ] * (Emp /\ E eqs E')) .
+	--- Here we switch from <=> to => .
+
+	rl (RS, Same * Same) => (RS, Same) .
+
+	rl (RS, [ E |-> E1 ; E |-> E1 ]) => (RS, [ E |-> E1 ; E |-> E1 ], Same) .
+
+	rl Same /\ ( [E |-> E1 ; E |-> E1'] * true ) => E1 eqs E1' .
+
+	op replace : Relation Id Id -> Relation .
+	op replace : Assertion Id Id -> Assertion .
+ endm
+

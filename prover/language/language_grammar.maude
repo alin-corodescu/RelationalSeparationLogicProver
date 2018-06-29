@@ -28,12 +28,15 @@ mod LANGUAGE-GRAMMAR is
 	ops _ge_ _le_ _eqs_ : AExp AExp -> Comparison .
 
 	--- Are they truly different from their assertions counterparts?
-	ops _&&_ _||_ _->_ _<=>_ : BExp BExp -> BExp .
+	ops _/\_ _\/_ _<=>_ : BExp BExp -> BExp [comm format (d d d d) ] .
 	op !_ : BExp -> BExp .
+
+	eq B:BExp \/ B:BExp = B:BExp .
 
 	op pass : -> Command .
 
 	--- the null pointer
 	op null : -> AExp .
 	ops x y z t xp yp x0 y0 c c0 cp c1 : -> Id .
+
 endm

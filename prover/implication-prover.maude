@@ -1,5 +1,6 @@
 load relational-sep-logic.maude
 mod IMPLICATION-PROVER is
+	including META-LEVEL .
 	including HOARE-QUADRUPLE .
 
 	--- BEGIN proof rules
@@ -36,7 +37,7 @@ mod IMPLICATION-PROVER is
 
 	rl R * (Emp /\ X eqs Y) => replace(R, X , Y) . 
 
-	rl [ (X |-> E) * ((X plus 1) |-> Y) ; (X |-> E) * ((X plus 1) |-> Y) ] * List(Y) => List(X) .
+	rl [rl1] : [ (X |-> E) * ((X plus 1) |-> Y) ; (X |-> E) * ((X plus 1) |-> Y) ] * List(Y) => List(X) .
 
 	rl X eqs null => List(X) .
 

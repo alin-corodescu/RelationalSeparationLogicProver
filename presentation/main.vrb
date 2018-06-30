@@ -1,0 +1,11 @@
+\frametitle{Maude}
+\begin{itemize}
+	\item Based on Rewriting logic
+	\item {Natural Representation of logics}
+	\item Powerful meta language applications
+\end{itemize}
+\begin{example}
+	\begin{lstlisting}
+rl [Consequence] : { R } C1 -- C2  { S } => ((R => R1) <> ({R1} C1 -- C2 {S1})) <> (S1 => S) [nonexec] .
+\end{lstlisting}
+\end{example}

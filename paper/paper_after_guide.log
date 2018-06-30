@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.6.2)  27 JUN 2018 09:36
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.6.2)  30 JUN 2018 14:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1143,7 +1143,13 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [1] (./paper_after_guide.t
-oc)
+oc
+Overfull \hbox (9.61623pt too wide) in paragraph at lines 26--26
+ [][] []\T1/cmr/m/n/12 Automatic Recog-ni-tion of Ax-ioms and Pre-vi-ously Prov
+en 
+ []
+
+)
 \tf@toc=\write4
 \openout4 = `paper_after_guide.toc'.
 
@@ -1153,29 +1159,29 @@ Underfull \hbox (badness 10000) in paragraph at lines 93--94
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 95--96
+Underfull \hbox (badness 10000) in paragraph at lines 96--97
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 97--98
+Underfull \hbox (badness 10000) in paragraph at lines 98--99
 
  []
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 101.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 102.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 101.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 102.
  [2]
-Underfull \hbox (badness 10000) in paragraph at lines 116--117
+Underfull \hbox (badness 10000) in paragraph at lines 118--120
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 118--119
+Underfull \hbox (badness 10000) in paragraph at lines 121--122
 
  []
 
@@ -1185,33 +1191,28 @@ Underfull \hbox (badness 10000) in paragraph at lines 123--124
  []
 
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 125--127
+Underfull \hbox (badness 10000) in paragraph at lines 133--134
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 134--137
+Underfull \hbox (badness 10000) in paragraph at lines 135--137
+
+ []
+
+[4]
+Underfull \hbox (badness 10000) in paragraph at lines 144--147
 
  []
 
 
 Package amsmath Warning: Foreign command \atop;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 145.
-
-[4]
-Underfull \hbox (badness 10000) in paragraph at lines 145--148
-
- []
+(amsmath)                 on input line 155.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 151--153
+Underfull \hbox (badness 10000) in paragraph at lines 155--158
 
- []
-
-
-Overfull \hbox (10.70813pt too wide) in paragraph at lines 160--160
-[]\T1/cmr/bx/n/17.28 Relational Sep-a-ra-tion Logic In-ter-ac-tive Prover 
  []
 
 
@@ -1219,106 +1220,96 @@ Underfull \hbox (badness 10000) in paragraph at lines 161--163
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 164--166
-
- []
-
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 171--174
+Overfull \hbox (10.70813pt too wide) in paragraph at lines 170--170
+[]\T1/cmr/bx/n/17.28 Relational Sep-a-ra-tion Logic In-ter-ac-tive Prover 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 171--173
 
  []
 
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+Underfull \hbox (badness 10000) in paragraph at lines 174--176
 
-[6] [7]
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 218.
+ []
 
- (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 181.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-Overfull \hbox (1.17245pt too wide) in paragraph at lines 219--220
-[]\T1/cmtt/m/n/12 BExp \T1/cmr/m/n/12 - ab-bre-vi-a-tion for Boolean Ex-pres-si
-ons - equiv-a-lent for the Boolean
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 222--224
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 235--236
+) [6] [7]
+Underfull \hbox (badness 10000) in paragraph at lines 233--235
 
  []
 
 [8]
+Underfull \hbox (badness 10000) in paragraph at lines 246--247
+
+ []
+
+LaTeX Font Info:    Try loading font information for T1+cmss on input line 256.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1cmss.fd
+File: t1cmss.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
 
 Package ebproof Warning: \Hypo is deprecated, use \hypo instead on input line 2
-51.
+61.
 
 
 Package ebproof Warning: \Infer is deprecated, use \infer instead on input line
- 254.
+ 264.
 
+[9]
+Underfull \hbox (badness 10000) in paragraph at lines 286--288
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 289--291
+
+ []
+
+[10]
+Underfull \hbox (badness 10000) in paragraph at lines 314--315
+
+ []
+
+<"pictures/States".png, id=63, 663.47874pt x 234.8775pt>
+File: "pictures/States".png Graphic file (type png)
+<use "pictures/States".png>
+Package pdftex.def Info: "pictures/States".png  used on input line 318.
+(pdftex.def)             Requested size: 390.0pt x 138.06401pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 282--284
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 285--287
-
- []
-
-[9] [10]
-Underfull \hbox (badness 10000) in paragraph at lines 309--310
-
- []
-
-
-Overfull \hbox (1.04327pt too wide) in paragraph at lines 311--322
-[]\T1/cmr/m/n/12 We will make a dis-tinc-tion be-tween \T1/cmr/bx/n/12 Loop sta
-te\T1/cmr/m/n/12 , which spe-cific to Maude's
- []
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[11]
-Overfull \hbox (19.41345pt too wide) in paragraph at lines 333--337
-\OML/cmm/m/it/12 < []; []; []; []; []; [] >$ 
- []
-
-[12]
-Underfull \hbox (badness 10000) in paragraph at lines 378--380
+[11] [12 <./pictures/States.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 367--369
 
  []
 
 [13]
-Underfull \hbox (badness 10000) in paragraph at lines 382--384
+Underfull \hbox (badness 10000) in paragraph at lines 371--373
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 385--387
+Underfull \hbox (badness 10000) in paragraph at lines 374--376
 
  []
 
-<"pictures/Prover Flow".png, id=71, 571.13374pt x 592.2125pt>
+<"pictures/Prover Flow".png, id=76, 571.13374pt x 592.2125pt>
 File: "pictures/Prover Flow".png Graphic file (type png)
 <use "pictures/Prover Flow".png>
-Package pdftex.def Info: "pictures/Prover Flow".png  used on input line 392.
+Package pdftex.def Info: "pictures/Prover Flow".png  used on input line 381.
 (pdftex.def)             Requested size: 390.0pt x 404.39801pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [14] [15 <./pictures/Prover Flow.png>]
-Overfull \hbox (17.50513pt too wide) in paragraph at lines 422--423
+Overfull \hbox (17.50513pt too wide) in paragraph at lines 410--411
 []\T1/cmr/m/n/12 The Con-se-quence rule is ap-plied at a meta level, us-ing the
  \T1/cmtt/m/n/12 metaXapply
  []
@@ -1327,76 +1318,89 @@ Overfull \hbox (17.50513pt too wide) in paragraph at lines 422--423
 
 ] [17]
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 445.
- [18] [19]
-Underfull \hbox (badness 10000) in paragraph at lines 501--504
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 433.
+
+Underfull \hbox (badness 10000) in paragraph at lines 444--446
+
+ []
+
+[18] [19]
+Underfull \hbox (badness 10000) in paragraph at lines 492--495
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 521--522
+Underfull \hbox (badness 10000) in paragraph at lines 512--513
 
  []
 
 [20]
-Underfull \hbox (badness 10000) in paragraph at lines 523--525
+Underfull \hbox (badness 10000) in paragraph at lines 514--516
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 526--528
+Underfull \hbox (badness 10000) in paragraph at lines 517--519
 
  []
 
 [21]
-Underfull \hbox (badness 10000) in paragraph at lines 540--541
+Underfull \hbox (badness 10000) in paragraph at lines 531--532
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 542--543
+Underfull \hbox (badness 10000) in paragraph at lines 533--534
 
  []
 
-<pictures/CLI.png, id=100, 843.15pt x 305.14pt>
+<pictures/CLI.png, id=103, 843.15pt x 305.14pt>
 File: pictures/CLI.png Graphic file (type png)
 <use pictures/CLI.png>
-Package pdftex.def Info: pictures/CLI.png  used on input line 550.
+Package pdftex.def Info: pictures/CLI.png  used on input line 541.
 (pdftex.def)             Requested size: 390.0pt x 141.14365pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[22]
-Underfull \hbox (badness 10000) in paragraph at lines 564--566
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 555--557
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 569--571
+[22]
+Underfull \hbox (badness 10000) in paragraph at lines 560--562
 
  []
 
 [23 <./pictures/CLI.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 572--574
+Underfull \hbox (badness 10000) in paragraph at lines 563--565
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 575--577
+Underfull \hbox (badness 10000) in paragraph at lines 566--568
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 578--581
+Underfull \hbox (badness 10000) in paragraph at lines 569--572
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 582--584
+Underfull \hbox (badness 10000) in paragraph at lines 573--575
 
  []
 
-(./paper_after_guide.bbl [24] [25]
+
+Underfull \hbox (badness 10000) in paragraph at lines 576--578
+
+ []
+
+[24] (./paper_after_guide.bbl [25]
 Underfull \hbox (badness 10000) in paragraph at lines 76--78
 []\T1/cmr/m/n/12 Cyclist prover.  $\T1/cmtt/m/n/12 http : / / www . cyclist-[]p
 rover . org/$\T1/cmr/m/n/12 , (ac-cessed
@@ -1405,16 +1409,16 @@ rover . org/$\T1/cmr/m/n/12 , (ac-cessed
 ) [26] [27] [28] (./paper_after_guide.aux) )
 (\end occurred inside a group at level 1)
 
-### simple group (level 1) entered at line 197 ({)
+### simple group (level 1) entered at line 208 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 23655 strings out of 492982
- 455563 string characters out of 6134897
- 649374 words of memory out of 5000000
- 26864 multiletter control sequences out of 15000+600000
- 553840 words of font info for 84 fonts, out of 8000000 for 9000
+ 23698 strings out of 492982
+ 456474 string characters out of 6134897
+ 626462 words of memory out of 5000000
+ 26898 multiletter control sequences out of 15000+600000
+ 557373 words of font info for 90 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,13n,54p,10388b,1675s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,15n,54p,10388b,1675s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}</us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texli
@@ -1430,12 +1434,13 @@ onts/type1/public/cm-super/sfbx2488.pfb></usr/share/texmf/fonts/type1/public/cm
 -super/sfrm0600.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb>
 </usr/share/texmf/fonts/type1/public/cm-super/sfrm1095.pfb></usr/share/texmf/fo
 nts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-
-super/sfti1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1440.pfb><
-/usr/share/texmf/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on paper_after_guide.pdf (30 pages, 658239 bytes).
+super/sfss1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1200.pfb><
+/usr/share/texmf/fonts/type1/public/cm-super/sfti1440.pfb></usr/share/texmf/fon
+ts/type1/public/cm-super/sftt1200.pfb>
+Output written on paper_after_guide.pdf (30 pages, 670554 bytes).
 PDF statistics:
- 189 PDF objects out of 1000 (max. 8388607)
- 132 compressed objects within 2 object streams
+ 195 PDF objects out of 1000 (max. 8388607)
+ 135 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 23 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 28 words of extra memory for PDF output out of 10000 (max. 10000000)
 

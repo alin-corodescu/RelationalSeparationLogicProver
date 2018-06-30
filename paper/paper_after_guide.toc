@@ -1,31 +1,30 @@
 \babel@toc {english}{}
 \contentsline {section}{\numberline {1}Contributions}{3}
-\contentsline {section}{\numberline {2}Description of the problem}{3}
+\contentsline {section}{\numberline {2}Description of the Problem}{3}
 \contentsline {section}{\numberline {3}Previous work}{4}
 \contentsline {section}{\numberline {4}Theoretical Foundations and technologies}{4}
-\contentsline {subsection}{\numberline {4.1}Separation Logic}{4}
-\contentsline {subsection}{\numberline {4.2}Relational Separation Logic}{4}
+\contentsline {subsection}{\numberline {4.1}Separation Logic}{5}
+\contentsline {subsection}{\numberline {4.2}Relational Separation Logic}{5}
 \contentsline {subsection}{\numberline {4.3}Maude}{5}
-\contentsline {section}{\numberline {5}Relational Separation Logic Interactive Prover}{5}
+\contentsline {section}{\numberline {5}Relational Separation Logic Interactive Prover}{6}
 \contentsline {subsection}{\numberline {5.1}Language}{6}
 \contentsline {subsubsection}{\numberline {5.1.1}Storage Model}{6}
-\contentsline {subsubsection}{\numberline {5.1.2}Syntax and Semantics of the language}{6}
-\contentsline {paragraph}{Semantics of the language}{7}
-\contentsline {paragraph}{Maude Modelling of the language}{8}
-\contentsline {paragraph}{Executable semantics of the language, in Maude}{8}
+\contentsline {subsubsection}{\numberline {5.1.2}Syntax and Semantics of the language}{7}
+\contentsline {paragraph}{}{7}
+\contentsline {paragraph}{Maude Modelling of the Language}{8}
+\contentsline {paragraph}{Executable semantics of the language, in Maude}{9}
 \contentsline {subsection}{\numberline {5.2}Modelling the Separation Logics}{9}
 \contentsline {subsubsection}{\numberline {5.2.1}Sort Hierarchy}{10}
 \contentsline {subsection}{\numberline {5.3}Interaction by Maude LOOP-MODE}{11}
 \contentsline {subsection}{\numberline {5.4}State of the Prover}{11}
-\contentsline {subsection}{\numberline {5.5}Input and output handling}{12}
-\contentsline {subsection}{\numberline {5.6}Prover execution flow}{13}
-\contentsline {paragraph}{Goal Graph}{14}
+\contentsline {subsection}{\numberline {5.5}Input and Output Handling}{12}
+\contentsline {subsection}{\numberline {5.6}Prover Execution Flow}{13}
 \contentsline {subsubsection}{\numberline {5.6.1}User Actions}{16}
 \contentsline {subsubsection}{\numberline {5.6.2}System Actions}{17}
-\contentsline {subsection}{\numberline {5.7}Automated processes}{18}
+\contentsline {subsection}{\numberline {5.7}Automated Parts of the Relational Separation Logic Prover}{18}
 \contentsline {subsubsection}{\numberline {5.7.1}Variable substitution}{18}
-\contentsline {subsubsection}{\numberline {5.7.2}Automatic matching of axioms and previously proven goals}{18}
-\contentsline {subsubsection}{\numberline {5.7.3}Automatic demonstration of implications}{20}
+\contentsline {subsubsection}{\numberline {5.7.2}Automatic Recognition of Axioms and Previously Proven Goals}{18}
+\contentsline {subsubsection}{\numberline {5.7.3}Automatic Proof of Implications}{20}
 \contentsline {paragraph}{Inductive predicates}{21}
 \contentsline {paragraph}{Cyclist}{22}
 \contentsline {subsection}{\numberline {5.8}User Interface}{22}

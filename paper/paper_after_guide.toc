@@ -1,9 +1,9 @@
 \babel@toc {english}{}
 \contentsline {section}{\numberline {1}Contributions}{3}
 \contentsline {section}{\numberline {2}Description of the Problem}{3}
-\contentsline {section}{\numberline {3}Previous work}{4}
+\contentsline {section}{\numberline {3}Previous Work}{4}
 \contentsline {section}{\numberline {4}Theoretical Foundations and technologies}{4}
-\contentsline {subsection}{\numberline {4.1}Separation Logic}{5}
+\contentsline {subsection}{\numberline {4.1}Separation Logic}{4}
 \contentsline {subsection}{\numberline {4.2}Relational Separation Logic}{5}
 \contentsline {subsection}{\numberline {4.3}Maude}{5}
 \contentsline {section}{\numberline {5}Relational Separation Logic Interactive Prover}{6}
@@ -29,4 +29,4 @@
 \contentsline {paragraph}{Cyclist}{22}
 \contentsline {subsection}{\numberline {5.8}User Interface}{22}
 \contentsline {section}{Appendices}{26}
-\contentsline {section}{\numberline {A}Example of proof using the prover}{26}
+\contentsline {section}{\numberline {A}Example of Proof Using the Prover}{26}

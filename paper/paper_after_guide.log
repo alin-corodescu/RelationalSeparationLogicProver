@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.6.2)  30 JUN 2018 14:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.6.2)  30 JUN 2018 20:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1240,124 +1240,113 @@ LaTeX Font Info:    Try loading font information for T1+cmtt on input line 181.
 (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 ) [6] [7]
-Underfull \hbox (badness 10000) in paragraph at lines 233--235
+Underfull \hbox (badness 10000) in paragraph at lines 232--234
 
  []
 
 [8]
-Underfull \hbox (badness 10000) in paragraph at lines 246--247
+Underfull \hbox (badness 10000) in paragraph at lines 245--246
 
  []
 
-LaTeX Font Info:    Try loading font information for T1+cmss on input line 256.
+LaTeX Font Info:    Try loading font information for T1+cmss on input line 255.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmss.fd
 File: t1cmss.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 
 Package ebproof Warning: \Hypo is deprecated, use \hypo instead on input line 2
-61.
+60.
 
 
 Package ebproof Warning: \Infer is deprecated, use \infer instead on input line
- 264.
+ 263.
 
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 286--288
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 289--291
+Underfull \hbox (badness 10000) in paragraph at lines 285--289
 
  []
 
 [10]
-Underfull \hbox (badness 10000) in paragraph at lines 314--315
+Underfull \hbox (badness 10000) in paragraph at lines 312--313
 
  []
 
 <"pictures/States".png, id=63, 663.47874pt x 234.8775pt>
 File: "pictures/States".png Graphic file (type png)
 <use "pictures/States".png>
-Package pdftex.def Info: "pictures/States".png  used on input line 318.
+Package pdftex.def Info: "pictures/States".png  used on input line 316.
 (pdftex.def)             Requested size: 390.0pt x 138.06401pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [11] [12 <./pictures/States.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 367--369
+Underfull \hbox (badness 10000) in paragraph at lines 365--367
 
  []
 
 [13]
-Underfull \hbox (badness 10000) in paragraph at lines 371--373
+Underfull \hbox (badness 10000) in paragraph at lines 369--371
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 374--376
+Underfull \hbox (badness 10000) in paragraph at lines 372--374
 
  []
 
 <"pictures/Prover Flow".png, id=76, 571.13374pt x 592.2125pt>
 File: "pictures/Prover Flow".png Graphic file (type png)
 <use "pictures/Prover Flow".png>
-Package pdftex.def Info: "pictures/Prover Flow".png  used on input line 381.
+Package pdftex.def Info: "pictures/Prover Flow".png  used on input line 379.
 (pdftex.def)             Requested size: 390.0pt x 404.39801pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[14] [15 <./pictures/Prover Flow.png>]
-Overfull \hbox (17.50513pt too wide) in paragraph at lines 410--411
-[]\T1/cmr/m/n/12 The Con-se-quence rule is ap-plied at a meta level, us-ing the
- \T1/cmtt/m/n/12 metaXapply
- []
-
-[16
+[14] [15 <./pictures/Prover Flow.png>] [16
 
 ] [17]
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 433.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 431.
 
-Underfull \hbox (badness 10000) in paragraph at lines 444--446
+Underfull \hbox (badness 10000) in paragraph at lines 442--444
 
  []
 
 [18] [19]
-Underfull \hbox (badness 10000) in paragraph at lines 492--495
+Underfull \hbox (badness 10000) in paragraph at lines 490--493
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 512--513
+Underfull \hbox (badness 10000) in paragraph at lines 510--511
 
  []
 
 [20]
-Underfull \hbox (badness 10000) in paragraph at lines 514--516
+Underfull \hbox (badness 10000) in paragraph at lines 512--514
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 517--519
+Underfull \hbox (badness 10000) in paragraph at lines 515--517
 
  []
 
 [21]
-Underfull \hbox (badness 10000) in paragraph at lines 531--532
+Underfull \hbox (badness 10000) in paragraph at lines 529--530
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 533--534
+Underfull \hbox (badness 10000) in paragraph at lines 531--532
 
  []
 
 <pictures/CLI.png, id=103, 843.15pt x 305.14pt>
 File: pictures/CLI.png Graphic file (type png)
 <use pictures/CLI.png>
-Package pdftex.def Info: pictures/CLI.png  used on input line 541.
+Package pdftex.def Info: pictures/CLI.png  used on input line 539.
 (pdftex.def)             Requested size: 390.0pt x 141.14365pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -1366,78 +1355,69 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 555--557
+Underfull \hbox (badness 10000) in paragraph at lines 553--555
 
  []
 
 [22]
-Underfull \hbox (badness 10000) in paragraph at lines 560--562
+Underfull \hbox (badness 10000) in paragraph at lines 558--560
 
  []
 
 [23 <./pictures/CLI.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 563--565
+Underfull \hbox (badness 10000) in paragraph at lines 561--563
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 566--568
+Underfull \hbox (badness 10000) in paragraph at lines 564--567
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 569--572
+Underfull \hbox (badness 10000) in paragraph at lines 568--570
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 573--575
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 576--578
+Underfull \hbox (badness 10000) in paragraph at lines 571--573
 
  []
 
 [24] (./paper_after_guide.bbl [25]
-Underfull \hbox (badness 10000) in paragraph at lines 76--78
+Underfull \hbox (badness 10000) in paragraph at lines 66--68
 []\T1/cmr/m/n/12 Cyclist prover.  $\T1/cmtt/m/n/12 http : / / www . cyclist-[]p
 rover . org/$\T1/cmr/m/n/12 , (ac-cessed
  []
 
-) [26] [27] [28] (./paper_after_guide.aux) )
-(\end occurred inside a group at level 1)
-
-### simple group (level 1) entered at line 208 ({)
-### bottom level 
+) [26] [27] [28] (./paper_after_guide.aux) ) 
 Here is how much of TeX's memory you used:
- 23698 strings out of 492982
- 456474 string characters out of 6134897
- 626462 words of memory out of 5000000
- 26898 multiletter control sequences out of 15000+600000
+ 23697 strings out of 492982
+ 456463 string characters out of 6134897
+ 629457 words of memory out of 5000000
+ 26897 multiletter control sequences out of 15000+600000
  557373 words of font info for 90 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,15n,54p,10388b,1675s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}</us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf
--dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf/fonts/type1/public/
-cm-super/sfbi0700.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbi1440.pf
-b></usr/share/texmf/fonts/type1/public/cm-super/sfbx0600.pfb></usr/share/texmf/
-fonts/type1/public/cm-super/sfbx1095.pfb></usr/share/texmf/fonts/type1/public/c
-m-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1440.pfb
-></usr/share/texmf/fonts/type1/public/cm-super/sfbx1728.pfb></usr/share/texmf/f
-onts/type1/public/cm-super/sfbx2488.pfb></usr/share/texmf/fonts/type1/public/cm
--super/sfrm0600.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb>
-</usr/share/texmf/fonts/type1/public/cm-super/sfrm1095.pfb></usr/share/texmf/fo
-nts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-
-super/sfss1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1200.pfb><
-/usr/share/texmf/fonts/type1/public/cm-super/sfti1440.pfb></usr/share/texmf/fon
-ts/type1/public/cm-super/sftt1200.pfb>
-Output written on paper_after_guide.pdf (30 pages, 670554 bytes).
+ 55i,15n,54p,10388b,1635s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/c
+m-super/cm-super-t1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.p
+fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/sha
+re/texmf/fonts/type1/public/cm-super/sfbi0700.pfb></usr/share/texmf/fonts/type1
+/public/cm-super/sfbi1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfb
+x0600.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1095.pfb></usr/shar
+e/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/
+public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx
+1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx2488.pfb></usr/share
+/texmf/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/texmf/fonts/type1/p
+ublic/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1
+095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/
+texmf/fonts/type1/public/cm-super/sfss1200.pfb></usr/share/texmf/fonts/type1/pu
+blic/cm-super/sfti1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti14
+40.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1200.pfb>
+Output written on paper_after_guide.pdf (30 pages, 667887 bytes).
 PDF statistics:
  195 PDF objects out of 1000 (max. 8388607)
  135 compressed objects within 2 object streams

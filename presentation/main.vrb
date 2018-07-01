@@ -1,7 +1,7 @@
 \frametitle{Maude}
 \begin{itemize}
 	\item Based on Rewriting logic
-	\item {Natural Representation of logics}
+	\item {Natural Representation of logics through sorts and operators}
 	\item Powerful meta language applications
 \end{itemize}
 \begin{example}

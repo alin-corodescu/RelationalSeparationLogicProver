@@ -62,7 +62,6 @@
 \begin{document}
 \begin{titlepage}
 \begin{center}
-\afterpage{\blankpage}
 \textbf{
 ALEXANDRU IOAN CUZA UNIVERSITY OF IAȘI
 }
@@ -119,7 +118,7 @@ Comparing programs or code fragments and studying their equivalence is part of t
 
 An example benefiting from a formal proof of program equivalence is compiler optimization, where the optimized code needs to be equivalent to the input one \cite{relational}.\\
 
-The problem this project aims to solve is reducing the gap between theoretical and practical aspects of formal proofs for program equivalence, by creating an executable environment for Relational Separation Logic in which the user can prove the equivalence of programs. Through the creation of such a tool, the theoretical concepts become more accessible, easier to apply and understand. Making formal verification methods more accessible leads to an overall increase in the quality of software, by replacing the existing methods of verifying equivalence, that are often prone to errors, with more robust ones.\\
+The problem this project aims to solve is program equivalence, by reducing the gap between theoretical and practical aspects of formal proofs for it. The project creates an executable environment for Relational Separation Logic in which the user can prove the equivalence of programs. Through the creation of this tool, the theoretical concepts become more accessible, easier to apply and understand. Making formal verification methods more accessible leads to an overall increase in the quality of software, by replacing the existing methods of verifying equivalence, that are often prone to errors, with more robust ones.\\
 
 The difficult aspects of creating this tool include:
 \begin{itemize}
@@ -247,7 +246,7 @@ Each proof rule in the Separation Logic and Relational Separation Logic has been
 \begin{itemize}
 	\item {Hoare Quadruple} - corresponding to Relational Separation Logic;
 	\item {Hoare Triple} - corresponding to Separation Logic;
-	\item {Implication between relations and assertions}.
+	\item {Implication between relations and between assertions}.
 \end{itemize} 
 The proof rules are interpreted in a bottom-up manner, meaning that, applying a rule to a goal, which must match the conclusion of the used rule, will generate new goals consisting of the hypothesis: Listing \ref{slConseq} presents how a Separation Logic rule has been translated into Maude syntax and Listing \ref{rslConseq} presents the same process for the Relational Separation Logic counterpart of the rule.
 \begin{flushleft}

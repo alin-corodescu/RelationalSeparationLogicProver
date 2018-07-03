@@ -15,7 +15,7 @@
 \documentclass{beamer}
 \usepackage{ebproof}
 \usepackage{listings}
-
+\usepackage[utf8]{inputenc}
 \usepackage{color}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
@@ -41,6 +41,8 @@
 	tabsize=2
 }
 \lstset{style=mystyle}
+
+\usepackage{tabularx}
 % There are many different themes available for Beamer. A comprehensive
 % list with examples is given here:
 % http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
@@ -74,25 +76,52 @@
 %\usetheme{Szeged}
 %\usetheme{Warsaw}
 
+\newcommand{\rl}[2]{
+	\let\scriptstyle\textstyle 
+	\substack{{#1} \\ \\ 	\let\scriptstyle\textstyle {#2}} 
+}
 \newcommand{\hq}[4]{
 	\left\{{#1}\right\}
-	\let\scriptstyle\textstyle 
-	\substack{{#2} \\ \\ 	\let\scriptstyle\textstyle {#3}} 
+	\rl{#2}{#3}
 	\left\{{#4}\right\}
 }
+
+
+\usepackage{combelow}
+
+\usepackage{mathtools}
+
+\newcommand{\defeq}{\stackrel{\mathclap{\normalfont{def}}}{=}}
 
 
 \title{Program Equivalence: An Interactive Relational Separation Logic Prover Implemented in Maude}
 
 
-\author{Andrei Alin Corodescu \\ \vspace{1.5cm} Scientific Coordinator: \\ Conf. Dr. Ciobaca Stefan}
+\author[Andrei-Alin Corodescu]{Andrei-Alin Corodescu \\ \vspace{1.5cm} Scientific Coordinator: \\ Conf. Dr. Ciobâcă Ștefan}
 % - Give the names in the same order as the appear in the paper.
 % - Use the \inst{?} command only if the authors have different
 %   affiliation.
-\institute[Alexandru Ioan Cuza University of Iasi] % (optional, but mostly needed)
+\institute[Alexandru Ioan Cuza University of Iași] % (optional, but mostly needed)
 
-
+\date{July 4, 2018}
 \subject{Theoretical Computer Science}
+
+
+
+\defbeamertemplate*{footline}{mytheme}
+{
+	\leavevmode%
+	\hbox{%
+		\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+			\usebeamerfont{author in head/foot}\insertshortauthor~~(\insertshortinstitute)
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+			\usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+			\insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+	\end{beamercolorbox}}%
+	\vskip0pt%
+}
+\usebeamertemplate{mytheme}
 % This is only inserted into the PDF information catalog. Can be left
 % out. 
 
@@ -130,7 +159,10 @@
 
 \begin{frame}{The Problem}
 \begin{block}{Problem Description}
-    Reducing the gap between theoretical and practical aspects of formal program equivalence verification to increase software quality by making robust methods of verification accessible and easy to use.
+	\begin{itemize}
+	\item Program Equivalence. 
+	\item Absence of an implementation for Relational Separation Logic, theoretical framework supporting formal proofs for program equivalence.
+	\end{itemize}
     \pause
 \end{block}
 	\begin{block}{Difficulties}
@@ -142,6 +174,32 @@
 	\end{block}
 \end{frame}
 
+\begin{frame}[fragile]{Example}
+\begin{center}
+\begin{tabular*}{0.9\textwidth}{@{\extracolsep{\fill} } c  c }
+	Program 1: \vspace{0.5cm} & Program 2: \vspace{0.5cm} \\
+	\begin{lstlisting}
+while (c != nil) do
+	x := [y];
+	[c] := -x;
+	c := [c + 1]
+od
+	\end{lstlisting} &
+	\begin{lstlisting}
+x' := [y'];
+while (c' != nil) do
+	[c'] := -x';
+	c' := [c' + 1]
+od
+	\end{lstlisting}
+
+\end{tabular*}
+	\begin{block}{Note}
+	If the address \texttt{y} is part of the list starting at \texttt{c}, the two programs are \alert{not} equivalent.
+\end{block}
+\end{center}
+\end{frame}
+
 \section{Technologies and theoretical concepts}
 
 \subsection{Relational Separation Logic}
@@ -149,7 +207,7 @@
 \begin{itemize}
 	\item Helps reason about how two programs are related
 	\item {Hoare Quadruples : \(\hq{R}{C}{C\prime}{S}\)}
-	\item {Proof rules : 	\(
+	\item {Example proof rule (Consequence) : \begin{center}	\(
 		\begin{prooftree}
 		\Hypo{R \Rightarrow R_1}
 		\Hypo{\hq{R_1}{C}{C\prime}{S_1}}
@@ -157,12 +215,31 @@
 		\Infer 3 {\hq{R}{C}{C\prime}{S}}
 		\end{prooftree}	
 		\)
+		\end{center}
 	}
-	\item Separation Logic axioms : \(
+	\item Axioms : \(
 	\{E \mapsto -\} [E] := F \{E \mapsto F\}.
 	\)
 \end{itemize}
 \end{frame}
+\begin{frame}[fragile]{Relational Separation Logic - Example}
+Consider the two programs exemplified earlier to be denoted by \(C_1\) and \(C_2\).
+\begin{example}
+	
+	\begin{itemize}
+		\item
+		\textsf{List x \(\defeq\) (x = nil \(\land\) Emp) \(\lor \) 
+			\(\exists na.\) 
+			\(\left(\rl{x \mapsto a,n}{x \mapsto a,n}\right) *\) List\(\ n\) 
+		}
+		\item \(\left\{\left(Same * List\ c * \left(\rl{y \mapsto x_0}{y\prime \mapsto x_0}\right)\right) \land y = y\prime \land c = c\prime \right\}\)
+		\\
+		\[\rl{C_1}{C_2}\]
+		\(\left\{Same \land y = y\prime \land c = c\prime\right\}\)
+	\end{itemize}
+\end{example}
+\end{frame}
+
 
 \subsection{Maude}
 \begin{frame}[fragile]{Maude}
@@ -177,35 +254,7 @@ rl [Consequence] : { R } C1 -- C2  { S } => ((R => R1) <> ({R1} C1 -- C2 {S1})) 
 \end{lstlisting}
 \end{example}
 \end{frame}
-
-\section{Prover Implementation}
-\subsection{Goals}
-\begin{frame}{Goals}
-\begin{itemize}
-	\item The central concept of the prover is \alert{Goal}, which represents something to be proven.
-	\item A \alert{Goal} is consumed if it is an matched with an \textit{axiom}, is \textit{manually admitted} by the user, is \textit{automatically proven} (in case of implications) or it is \textit{replaced} by the goals generated by applying a proof rule. 
-	\item Goals are stored in a \alert{GoalStack} structure
-\end{itemize}
-\end{frame}
-
-\subsection{Axiom Recognition}
-\begin{frame}{Axiom Recognition}
-\begin{itemize}
-	\item Simple goals that match \alert{axioms} are automatically admitted by the prover.
-	\item Equality between variables is \alert{interpreted} before matching axioms
-	\item Axioms are represented as terms with variables
-\end{itemize}
-\end{frame}
-
-\subsection{Automatic Proof of Implications}
-\begin{frame}{Automatic Proof of Implications}
-\begin{itemize}
-	\item Uses the \alert{search} functionality of Maude
-	\item Searches for a series of \alert{rewrites} from \texttt{R => S} to \texttt{true}  
-	\item Rewrite rules denoting relation equivalences and implications
-\end{itemize}
-\end{frame}
-
+\section{Demonstration}
 \begin{frame}{Demo}
 \end{frame}
 % Placing a * after \section means it will not show in the

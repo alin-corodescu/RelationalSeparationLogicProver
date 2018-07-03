@@ -1,9 +1,6 @@
 \BOOKMARK [2][]{Outline0.1}{The Problem}{}% 1
 \BOOKMARK [2][]{Outline0.2}{Technologies and theoretical concepts}{}% 2
-\BOOKMARK [3][]{Outline0.2.1.5}{Relational Separation Logic}{Outline0.2}% 3
-\BOOKMARK [3][]{Outline0.2.2.7}{Maude}{Outline0.2}% 4
-\BOOKMARK [2][]{Outline0.3}{Prover Implementation}{}% 5
-\BOOKMARK [3][]{Outline0.3.1.9}{Goals}{Outline0.3}% 6
-\BOOKMARK [3][]{Outline0.3.2.11}{Axiom Recognition}{Outline0.3}% 7
-\BOOKMARK [3][]{Outline0.3.3.13}{Automatic Proof of Implications}{Outline0.3}% 8
-\BOOKMARK [2][]{Outline0.4}{Conclusions}{}% 9
+\BOOKMARK [3][]{Outline0.2.1.6}{Relational Separation Logic}{Outline0.2}% 3
+\BOOKMARK [3][]{Outline0.2.2.9}{Maude}{Outline0.2}% 4
+\BOOKMARK [2][]{Outline0.3}{Demonstration}{}% 5
+\BOOKMARK [2][]{Outline0.4}{Conclusions}{}% 6

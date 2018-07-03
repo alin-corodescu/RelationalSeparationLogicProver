@@ -56,10 +56,20 @@
 	"buffers":
 	[
 		{
-			"file": "prover/list-example.maude",
+			"file": "prover/list-example-clean.maude",
 			"settings":
 			{
-				"buffer_size": 3671,
+				"buffer_size": 2334,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "prover/implication-prover.maude",
+			"settings":
+			{
+				"buffer_size": 2120,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		}
@@ -140,10 +150,8 @@
 	},
 	"expanded_folders":
 	[
-		"/home/alin/Licenta/MaudePlayground",
-		"/home/alin/Licenta/MaudePlayground/prover",
-		"/home/alin/Licenta/MaudePlayground/prover/language",
-		"/home/alin/Licenta/MaudePlayground/prover/sketchpads"
+		"/home/alin/RelationalSeparationLogicProver",
+		"/home/alin/RelationalSeparationLogicProver/prover"
 	],
 	"file_history":
 	[
@@ -209,7 +217,7 @@
 	],
 	"find":
 	{
-		"height": 29.0
+		"height": 44.0
 	},
 	"find_in_files":
 	{
@@ -287,19 +295,19 @@
 			[
 				{
 					"buffer": 0,
-					"file": "prover/list-example.maude",
-					"semi_transient": true,
+					"file": "prover/list-example-clean.maude",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3671,
+						"buffer_size": 2334,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								378,
+								378
 							]
 						],
 						"settings":
@@ -308,10 +316,39 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1620.0,
+						"translation.y": 1155.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "prover/implication-prover.maude",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2120,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1957,
+								1957
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Maude Syntax Highlighting/maude.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2626.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -319,7 +356,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 29.0
+		"height": 44.0
 	},
 	"input":
 	{
@@ -356,7 +393,7 @@
 	"project": "maude.sublime-project",
 	"replace":
 	{
-		"height": 54.0
+		"height": 84.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -394,7 +431,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 281.0,
+	"side_bar_width": 224.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

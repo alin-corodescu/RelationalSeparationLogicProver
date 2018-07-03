@@ -73,18 +73,14 @@ mod IMPLICATION-PROVER is
 	rl (R * Q) /\ B => R * (Q /\ B) .
 ---
 	rl [ (P /\ B) ; Q ] => [ P ; (Q /\ B) ] .
----
+
 	rl [ P ; (Q /\ B) ]  => [P ; Q ] /\ B .
----
 
 	rl [P ; Q] * (Emp * E eqs E') => [(P * (emp * E eqs E')) ; Q] .
 
-	--- De sus o trec jos
 	rl [ (P * (emp /\ E eqs E')) ; Q ] => [ P ; (Q * (emp /\ E eqs E')) ] .
 
-	--- De jos o trec in afara
-	rl [ P ; (Q * (emp /\ E eqs E')) ] => [ P ; Q ] * (Emp /\ E eqs E') .
-	--- Here we switch from <=> to => 
+	rl [ P ; (Q * (emp /\ E eqs E')) ] => [ P ; Q ] * (Emp /\ E eqs E') . 
 
 	rl ((R * Emp) => S) => ((R * Same) => S) .
 
